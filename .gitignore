@@ -155,6 +155,7 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
+*.vcxproj.user
 
 # Visual Studio profiler
 *.psess
