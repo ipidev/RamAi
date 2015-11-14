@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include <type_traits>
 #include <vector>
 
 
@@ -27,6 +28,12 @@ namespace RamAi
 	template <typename T>
 	class TreeNode
 	{
+		static_assert(!std::is_abstract<T>::value,
+			"T cannot be an abstract class.");
+
+		static_assert(std::is_default_constructible<T>::value,
+			"T must be default constructible.");
+
 	public:
 		TreeNode()
 		{
@@ -168,6 +175,19 @@ namespace RamAi
 		const bool ContainsChild(const T &value) const
 		{
 			return (FindChild(value) != nullptr);
+		}
+
+		const bool ContainsChild(const TreeNode<T> &node) const
+		{
+			for (auto it = m_children.begin(); it != m_children.end(); ++it)
+			{
+				if (&(*it) == &node)
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 	private:

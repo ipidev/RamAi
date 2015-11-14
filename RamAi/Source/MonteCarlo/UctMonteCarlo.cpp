@@ -17,20 +17,28 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
-#include <iostream>
+#include "UctMonteCarlo.h"
 
-#include "MonteCarloTest.h"
+#include <cstdint>
+#include <limits>
 
-int main(int argc, char **argv)
+
+RamAi::UctScore::UctScore()
+	: m_totalScore(0.0f)
+	, m_visits(0)
 {
-	RamAi::MonteCarloTest mcts(RamAi::State(0), 0.5f);
+}
 
-	for (int i = 0; i < 100; ++i)
+void RamAi::UctScore::AddScore(const float score)
+{
+	if (m_visits < std::numeric_limits<size_t>::max())
 	{
-		mcts.PerformSearch();
+		m_totalScore += score;
+		++m_visits;
 	}
+}
 
-	std::cin.ignore();
-
-	return 0;
+const float RamAi::UctScore::GetScore() const
+{
+	return (m_visits > 0) ? m_totalScore / m_visits : std::numeric_limits<float>::infinity();
 }

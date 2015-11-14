@@ -24,10 +24,25 @@
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
+    <ClInclude Include="Source\MonteCarlo\MonteCarloBase.h">
+      <Filter>Header Files\MonteCarlo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MonteCarlo\UctMonteCarlo.h">
+      <Filter>Header Files\MonteCarlo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MonteCarlo\BestScoreCollection.h">
+      <Filter>Header Files\MonteCarlo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MonteCarloTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MonteCarlo\UctMonteCarlo.cpp">
+      <Filter>Source Files\MonteCarlo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
