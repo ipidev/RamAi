@@ -27,6 +27,10 @@
 
 #pragma once
 
+//[SLBEGIN]: Adding RamAi interface.
+#include <memory>
+//[SLEND]
+
 #include "NstCollectionVector.hpp"
 #include "NstObjectDelegate.hpp"
 #include "NstString.hpp"
@@ -41,6 +45,13 @@ namespace Nes
 {
 	using namespace Api;
 }
+
+//[SLBEGIN]: Adding RamAi interface.
+namespace RamAi
+{
+	class Interface;
+}
+//[SLEND]
 
 namespace Nestopia
 {
@@ -333,6 +344,9 @@ namespace Nestopia
 			EventHandler events;
 			Netplay netplay;
 			Settings settings;
+			//[SLBEGIN]: Adding RamAi interface.
+			std::unique_ptr<RamAi::Interface> ramAiInterface;
+			//[SLEND]
 
 		public:
 

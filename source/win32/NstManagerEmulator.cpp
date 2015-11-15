@@ -42,6 +42,10 @@
 #include "../core/api/NstApiRewinder.hpp"
 #include "../core/api/NstApiUser.hpp"
 
+//[SLBEGIN]: Adding RamAi interface.
+#include "../../RamAi/Source/Interface.h"
+//[SLEND]
+
 namespace Nestopia
 {
 	namespace Managers
@@ -444,6 +448,11 @@ namespace Nestopia
 			Nes::Movie::eventCallback.Set( &Callbacks::OnMovie, this );
 			Nes::Nsf::eventCallback.Set( &Callbacks::OnNsf, this );
 			Nes::Rewinder::stateCallback.Set( &Callbacks::OnRewind, this );
+
+			//[SLBEGIN]: Adding RamAi interface.
+			//TODO: Optionally instantiate RamAi interface?
+			ramAiInterface = std::make_unique<RamAi::Interface>();
+			//[SLEND]
 		}
 
 		Emulator::~Emulator()
@@ -555,6 +564,11 @@ namespace Nestopia
 			{
 				if (netplay)
 					netplay.executor( *input );
+
+				//[SLBEGIN]: Adding RamAi interface.
+				if (ramAiInterface)
+					ramAiInterface->DoThing();
+				//[SLEND]
 
 				Nes::Emulator::Execute( video, sound, input );
 			}

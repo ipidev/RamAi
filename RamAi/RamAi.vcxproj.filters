@@ -54,6 +54,9 @@
     <ClInclude Include="Source\ConsoleSpecs\ConsoleSpecs.h">
       <Filter>Header Files\ConsoleSpecs</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -64,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="Source\State\Ram.cpp">
       <Filter>Source Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Interface.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
