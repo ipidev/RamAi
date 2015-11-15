@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include "SystemSpecs.h"
+#include "ConsoleSpecs.h"
 
 
 namespace RamAi
