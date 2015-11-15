@@ -24,10 +24,12 @@
     <ClInclude Include="Source\MonteCarlo\MonteCarloBase.h" />
     <ClInclude Include="Source\MonteCarlo\TreeNode.h" />
     <ClInclude Include="Source\MonteCarlo\UctMonteCarlo.h" />
+    <ClInclude Include="Source\State\Ram.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarlo.cpp" />
+    <ClCompile Include="Source\State\Ram.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F1063B79-5C38-4B22-8A61-CD7CE50AA909}</ProjectGuid>

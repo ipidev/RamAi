@@ -19,6 +19,12 @@
     <Filter Include="Source Files\MonteCarlo">
       <UniqueIdentifier>{6bda90c0-5a1c-4adc-88f9-dd5b12697fb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\State">
+      <UniqueIdentifier>{c4978e07-3d6f-44c0-acb0-3f0a64228311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State">
+      <UniqueIdentifier>{a61497e0-2d30-4acd-ba29-09d810e12d91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
@@ -36,6 +42,9 @@
     <ClInclude Include="Source\MonteCarloTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\State\Ram.h">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -43,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="Source\MonteCarlo\UctMonteCarlo.cpp">
       <Filter>Source Files\MonteCarlo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\State\Ram.cpp">
+      <Filter>Source Files\State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
