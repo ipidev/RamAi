@@ -17,7 +17,7 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
-#include "Interface.h"
+#include "Api.h"
 
 #include <iostream>
 
@@ -25,32 +25,32 @@
 #include "ConsoleSpecs\NesSpecs.h"
 
 
-RamAi::Interface::Interface()
+RamAi::Api::Api()
 {
 	//Change this to suit whatever games console you're using.
 	ConsoleSpecs::SetInstance(std::make_unique<NesSpecs>());
 }
 
-RamAi::Interface::Interface(Interface &&other)
+RamAi::Api::Api(Api &&other)
 {
 	Move(std::move(other));
 }
 
-RamAi::Interface::~Interface()
+RamAi::Api::~Api()
 {
 }
 
-RamAi::Interface &RamAi::Interface::operator= (Interface &&other)
+RamAi::Api &RamAi::Api::operator= (Api &&other)
 {
 	Move(std::move(other));
 	return *this;
 }
 
-void RamAi::Interface::DoThing()
+void RamAi::Api::DoThing()
 {
 	std::cout << "Yahoo!!" << std::endl;
 }
 
-void RamAi::Interface::Move(Interface &&other)
+void RamAi::Api::Move(Api &&other)
 {
 }

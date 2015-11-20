@@ -24,22 +24,22 @@ namespace RamAi
 {
 	//The main interface with RamAi.
 	//TODO: Will I need to create derived types to interface with specific consoles?
-	class Interface
+	class Api
 	{
 	public:
-		Interface();
-		Interface(const Interface &other) = delete;
-		Interface(Interface &&other);
-		~Interface();
+		Api();
+		Api(const Api &other) = delete;
+		Api(Api &&other);
+		~Api();
 
 	public:
-		Interface &operator= (const Interface &other) = delete;
-		Interface &operator= (Interface &&other);
+		Api &operator= (const Api &other) = delete;
+		Api &operator= (Api &&other);
 
 	public:
 		void DoThing();
 
 	private:
-		void Move(Interface &&other);
+		void Move(Api &&other);
 	};
 };

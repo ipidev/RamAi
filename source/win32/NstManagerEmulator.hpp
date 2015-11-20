@@ -27,7 +27,7 @@
 
 #pragma once
 
-//[SLBEGIN]: Adding RamAi interface.
+//[SLBEGIN]: Adding RamAi APIs.
 #include <memory>
 //[SLEND]
 
@@ -46,10 +46,10 @@ namespace Nes
 	using namespace Api;
 }
 
-//[SLBEGIN]: Adding RamAi interface.
+//[SLBEGIN]: Adding RamAi API.
 namespace RamAi
 {
-	class Interface;
+	class Api;
 }
 //[SLEND]
 
@@ -344,8 +344,8 @@ namespace Nestopia
 			EventHandler events;
 			Netplay netplay;
 			Settings settings;
-			//[SLBEGIN]: Adding RamAi interface.
-			std::unique_ptr<RamAi::Interface> ramAiInterface;
+			//[SLBEGIN]: Adding RamAi API.
+			std::unique_ptr<RamAi::Api> ramAiApi;
 			//[SLEND]
 
 		public:
