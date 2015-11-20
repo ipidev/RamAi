@@ -22,6 +22,7 @@
     <ClInclude Include="Source\ConsoleSpecs\NesSpecs.h" />
     <ClInclude Include="Source\ConsoleSpecs\ConsoleSpecs.h" />
     <ClInclude Include="Source\Api.h" />
+    <ClInclude Include="Source\Data\Bitfield.h" />
     <ClInclude Include="Source\MonteCarloTest.h" />
     <ClInclude Include="Source\MonteCarlo\BestScoreCollection.h" />
     <ClInclude Include="Source\MonteCarlo\MonteCarloBase.h" />

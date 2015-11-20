@@ -28,6 +28,9 @@
     <Filter Include="Header Files\ConsoleSpecs">
       <UniqueIdentifier>{5dabd3b6-310e-46ce-add3-4049829ce59b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Data">
+      <UniqueIdentifier>{e3927dad-edb4-4b24-bcbd-5a00084391dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
@@ -56,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="Source\Api.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Data\Bitfield.h">
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
