@@ -25,8 +25,7 @@
 
 namespace RamAi
 {
-	//A bitfield that represents the buttons that are being pressed during a
-	//single frame. This is the primary output of the AI.
+	//A bitfield with a given underlying type.
 	template <typename T>
 	class Bitfield
 	{
