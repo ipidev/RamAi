@@ -913,31 +913,36 @@ namespace Nestopia
 
 			input.CheckPoll();
 
-			const Key* const NST_RESTRICT keys = input.dialog->GetSettings().GetKeys(index,0);
-
-			uint buttons = 0;
-
-			keys[ Settings::PAD_KEY_A      ].GetState( buttons, Pad::A      );
-			keys[ Settings::PAD_KEY_B      ].GetState( buttons, Pad::B      );
-			keys[ Settings::PAD_KEY_SELECT ].GetState( buttons, Pad::SELECT );
-			keys[ Settings::PAD_KEY_START  ].GetState( buttons, Pad::START  );
-			keys[ Settings::PAD_KEY_UP     ].GetState( buttons, Pad::UP     );
-			keys[ Settings::PAD_KEY_DOWN   ].GetState( buttons, Pad::DOWN   );
-			keys[ Settings::PAD_KEY_LEFT   ].GetState( buttons, Pad::LEFT   );
-			keys[ Settings::PAD_KEY_RIGHT  ].GetState( buttons, Pad::RIGHT  );
-
-			if (input.autoFire)
+			//[SLBEGIN]: Disabled what seems to be default controls?
+			if (!input.emulator.GetRamAiApi())
 			{
-				keys[ Settings::PAD_KEY_AUTOFIRE_A ].GetState( buttons, Pad::A );
-				keys[ Settings::PAD_KEY_AUTOFIRE_B ].GetState( buttons, Pad::B );
+				const Key* const NST_RESTRICT keys = input.dialog->GetSettings().GetKeys(index,0);
+
+				uint buttons = 0;
+
+				keys[ Settings::PAD_KEY_A      ].GetState( buttons, Pad::A      );
+				keys[ Settings::PAD_KEY_B      ].GetState( buttons, Pad::B      );
+				keys[ Settings::PAD_KEY_SELECT ].GetState( buttons, Pad::SELECT );
+				keys[ Settings::PAD_KEY_START  ].GetState( buttons, Pad::START  );
+				keys[ Settings::PAD_KEY_UP     ].GetState( buttons, Pad::UP     );
+				keys[ Settings::PAD_KEY_DOWN   ].GetState( buttons, Pad::DOWN   );
+				keys[ Settings::PAD_KEY_LEFT   ].GetState( buttons, Pad::LEFT   );
+				keys[ Settings::PAD_KEY_RIGHT  ].GetState( buttons, Pad::RIGHT  );
+
+				if (input.autoFire)
+				{
+					keys[ Settings::PAD_KEY_AUTOFIRE_A ].GetState( buttons, Pad::A );
+					keys[ Settings::PAD_KEY_AUTOFIRE_B ].GetState( buttons, Pad::B );
+				}
+
+				pad.buttons = buttons;
+
+				buttons = 0;
+				keys[ Settings::PAD_KEY_MIC ].GetState( buttons, Pad::MIC );
+
+				pad.mic = buttons;
 			}
-
-			pad.buttons = buttons;
-
-			buttons = 0;
-			keys[ Settings::PAD_KEY_MIC ].GetState( buttons, Pad::MIC );
-
-			pad.mic = buttons;
+			//[SLEND]
 
 			return true;
 		}

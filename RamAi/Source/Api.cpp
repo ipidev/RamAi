@@ -19,7 +19,8 @@
 
 #include "Api.h"
 
-#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 #include "ConsoleSpecs\ConsoleSpecs.h"
 #include "ConsoleSpecs\NesSpecs.h"
@@ -29,6 +30,8 @@ RamAi::Api::Api()
 {
 	//Change this to suit whatever games console you're using.
 	ConsoleSpecs::SetInstance(std::make_unique<NesSpecs>());
+
+	srand(static_cast<unsigned int>(time(NULL)));
 }
 
 RamAi::Api::Api(Api &&other)
@@ -46,9 +49,11 @@ RamAi::Api &RamAi::Api::operator= (Api &&other)
 	return *this;
 }
 
-void RamAi::Api::DoThing()
+RamAi::ButtonSet RamAi::Api::CalculateInput()
 {
-	std::cout << "Yahoo!!" << std::endl;
+	//For now just generate random button presses.
+	//TODO: How do I know that the input is 8 bits?
+	return ButtonSet(rand() % 256);
 }
 
 void RamAi::Api::Move(Api &&other)

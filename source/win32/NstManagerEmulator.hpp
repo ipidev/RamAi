@@ -27,7 +27,7 @@
 
 #pragma once
 
-//[SLBEGIN]: Adding RamAi APIs.
+//[SLBEGIN]: Adding RamAi API.
 #include <memory>
 //[SLEND]
 
@@ -46,15 +46,12 @@ namespace Nes
 	using namespace Api;
 }
 
-//[SLBEGIN]: Adding RamAi API.
-namespace RamAi
-{
-	class Api;
-}
-//[SLEND]
-
 namespace Nestopia
 {
+	//[SLBEGIN]: Adding RamAi API.
+	class RamAiApi;
+	//[SLEND]
+
 	namespace Managers
 	{
 		class Emulator : public Nes::Emulator
@@ -345,7 +342,7 @@ namespace Nestopia
 			Netplay netplay;
 			Settings settings;
 			//[SLBEGIN]: Adding RamAi API.
-			std::unique_ptr<RamAi::Api> ramAiApi;
+			std::unique_ptr<RamAiApi> ramAiApi;
 			//[SLEND]
 
 		public:
@@ -452,6 +449,13 @@ namespace Nestopia
 			{
 				StartNetplay( Netplay::Executor(data,executor), Netplay::Commander(data,commander), player, players );
 			}
+
+			//[SLBEGIN]: Adding accessor for RamAi API.
+			const std::unique_ptr<RamAiApi> &GetRamAiApi() const
+			{
+				return ramAiApi;
+			}
+			//[SLEND]
 		};
 	}
 }

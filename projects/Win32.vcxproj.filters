@@ -49,6 +49,9 @@
     <Filter Include="DirectX">
       <UniqueIdentifier>{744ef410-1de3-45f7-b9d1-558c073459e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RamAi">
+      <UniqueIdentifier>{27cc035f-c796-49c4-ae90-f8cd81dfa1b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\win32\NstApplicationConfiguration.cpp">
@@ -421,6 +424,9 @@
       <Filter>DirectX</Filter>
     </ClCompile>
     <ClCompile Include="..\source\win32\NstMain.cpp" />
+    <ClCompile Include="..\source\win32\RamAi\NstRamAiApi.cpp">
+      <Filter>RamAi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\win32\NstApplicationConfiguration.hpp">
@@ -787,6 +793,9 @@
       <Filter>DirectX</Filter>
     </ClInclude>
     <ClInclude Include="..\source\win32\NstMain.hpp" />
+    <ClInclude Include="..\source\win32\RamAi\NstRamAiApi.h">
+      <Filter>RamAi</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\source\win32\NstCollectionRouter.inl">

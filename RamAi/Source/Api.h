@@ -19,6 +19,8 @@
 
 #pragma once
 
+#include "Action\ButtonSet.h"
+
 
 namespace RamAi
 {
@@ -37,7 +39,7 @@ namespace RamAi
 		Api &operator= (Api &&other);
 
 	public:
-		void DoThing();
+		ButtonSet CalculateInput();
 
 	private:
 		void Move(Api &&other);

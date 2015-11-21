@@ -262,6 +262,7 @@
     <ClCompile Include="..\source\win32\NstWindowRect.cpp" />
     <ClCompile Include="..\source\win32\NstWindowStatusBar.cpp" />
     <ClCompile Include="..\source\win32\NstWindowUser.cpp" />
+    <ClCompile Include="..\source\win32\RamAi\NstRamAiApi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\win32\NstApplicationConfiguration.hpp" />
@@ -385,6 +386,7 @@
     <ClInclude Include="..\source\win32\NstWindowRect.hpp" />
     <ClInclude Include="..\source\win32\NstWindowStatusBar.hpp" />
     <ClInclude Include="..\source\win32\NstWindowUser.hpp" />
+    <ClInclude Include="..\source\win32\RamAi\NstRamAiApi.h" />
     <ClInclude Include="..\source\win32\resource\resource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -43,7 +43,7 @@
 #include "../core/api/NstApiUser.hpp"
 
 //[SLBEGIN]: Adding RamAi API.
-#include "../../RamAi/Source/Api.h"
+#include "RamAi/NstRamAiApi.h"
 //[SLEND]
 
 namespace Nestopia
@@ -451,7 +451,7 @@ namespace Nestopia
 
 			//[SLBEGIN]: Adding RamAi API.
 			//TODO: Optionally instantiate RamAi interface?
-			ramAiApi = std::make_unique<RamAi::Api>();
+			ramAiApi = std::make_unique<RamAiApi>();
 			//[SLEND]
 		}
 
@@ -567,7 +567,7 @@ namespace Nestopia
 
 				//[SLBEGIN]: Adding RamAi API.
 				if (ramAiApi)
-					ramAiApi->DoThing();
+					ramAiApi->CalculateInput(input);
 				//[SLEND]
 
 				Nes::Emulator::Execute( video, sound, input );
