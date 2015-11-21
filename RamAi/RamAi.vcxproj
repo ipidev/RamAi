@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Action\ButtonSet.h" />
     <ClInclude Include="Source\ConsoleSpecs\NesSpecs.h" />
     <ClInclude Include="Source\ConsoleSpecs\ConsoleSpecs.h" />
     <ClInclude Include="Source\Api.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="Source\State\Ram.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Action\ButtonSet.cpp" />
     <ClCompile Include="Source\Api.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarlo.cpp" />

@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Data">
       <UniqueIdentifier>{e3927dad-edb4-4b24-bcbd-5a00084391dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Action">
+      <UniqueIdentifier>{7fbf65de-c8cd-435b-8249-102d4a249c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Action">
+      <UniqueIdentifier>{a9adf55e-7313-4557-88eb-a461240f718f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
@@ -63,6 +69,9 @@
     <ClInclude Include="Source\Data\Bitfield.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Action\ButtonSet.h">
+      <Filter>Header Files\Action</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -76,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="Source\Api.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Action\ButtonSet.cpp">
+      <Filter>Source Files\Action</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
