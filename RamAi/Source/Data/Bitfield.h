@@ -42,18 +42,54 @@ namespace RamAi
 			"The underlying type must be non-const.");
 
 	public:
-		Bitfield()					: Bitfield(0) {}
-		Bitfield(const T value)		: m_value(value) {}
-		Bitfield(const Bitfield &other) = default;
-		Bitfield(Bitfield &&other) = default;
-		~Bitfield() = default;
+		Bitfield()						: Bitfield(0) {}
+		Bitfield(const T value)			: m_value(value) {}
+		Bitfield(const Bitfield &other)	: m_value(other.m_value) {}
+		Bitfield(Bitfield &&other)		: m_value(other.m_value) {}
+		~Bitfield()						{}
 
 	public:
-		Bitfield &operator= (const Bitfield &other) = default;
-		Bitfield &operator= (Bitfield &&other) = default;
+		Bitfield &operator= (const Bitfield &other)			{ m_value = other.m_value; return *this; }
+		Bitfield &operator= (Bitfield &&other)				{ m_value = other.m_value; return *this; }
+
+		Bitfield &operator|= (const Bitfield &other)		{ m_value |= other.m_value; return *this; }
+		Bitfield &operator&= (const Bitfield &other)		{ m_value &= other.m_value; return *this; }
+		Bitfield &operator^= (const Bitfield &other)		{ m_value ^= other.m_value; return *this; }
+
+		Bitfield &operator|= (const T value)				{ m_value |= value; return *this; }
+		Bitfield &operator&= (const T value)				{ m_value &= value; return *this; }
+		Bitfield &operator^= (const T value)				{ m_value ^= value; return *this; }
+
+		Bitfield operator| (const Bitfield &other) const	{ return Bitfield(m_value | other.m_value); }
+		Bitfield operator& (const Bitfield &other) const	{ return Bitfield(m_value & other.m_value); }
+		Bitfield operator^ (const Bitfield &other) const	{ return Bitfield(m_value ^ other.m_value); }
+
+		Bitfield operator| (const T value) const			{ return Bitfield(m_value | value); }
+		Bitfield operator& (const T value) const			{ return Bitfield(m_value & value); }
+		Bitfield operator^ (const T value) const			{ return Bitfield(m_value ^ value); }
+
+		bool operator== (const Bitfield &other)	const		{ return m_value == other.m_value; }
+		bool operator!= (const Bitfield &other)	const		{ return m_value != other.m_value; }
 
 	public:
-		const size_t NumberOfBits = sizeof(T) * 8;
+		static const size_t NumberOfBits = sizeof(T) * 8;
+
+	public:
+		//Returns the number of bits set.
+		const size_t GetHammingWeight() const
+		{
+			size_t bitsSet = 0;
+
+			for (size_t i = 0; i < NumberOfBits; ++i)
+			{
+				if ((m_value & (1 << bitsSet)) != 0)
+				{
+					++bitsSet;
+				}
+			}
+
+			return bitsSet;
+		}
 
 	public:
 		const bool IsBitSet(const size_t position) const	{ return (m_value & static_cast<T>(1 << position)) != 0; }
