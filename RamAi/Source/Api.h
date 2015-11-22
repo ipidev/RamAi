@@ -22,7 +22,7 @@
 #include <memory>
 
 #include "Action\ButtonSet.h"
-#include "ConsoleSpecs\ConsoleSpecs.h"
+#include "Console.h"
 
 
 namespace RamAi
@@ -32,7 +32,7 @@ namespace RamAi
 	class Api
 	{
 	public:
-		Api(const ConsoleSpecs::Data &consoleSpecsData);
+		Api(const Console::Specs &consoleSpecs);
 		Api(const Api &other) = delete;
 		Api(Api &&other);
 		~Api();

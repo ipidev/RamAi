@@ -23,9 +23,9 @@
 #include <ctime>
 
 
-RamAi::Api::Api(const ConsoleSpecs::Data &consoleSpecsData)
+RamAi::Api::Api(const Console::Specs &consoleSpecs)
 {
-	ConsoleSpecs::SetData(consoleSpecsData);
+	Console::SetSpecs(consoleSpecs);
 
 	srand(static_cast<unsigned int>(time(NULL)));
 }

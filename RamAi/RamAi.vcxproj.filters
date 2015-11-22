@@ -25,9 +25,6 @@
     <Filter Include="Source Files\State">
       <UniqueIdentifier>{a61497e0-2d30-4acd-ba29-09d810e12d91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ConsoleSpecs">
-      <UniqueIdentifier>{5dabd3b6-310e-46ce-add3-4049829ce59b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Data">
       <UniqueIdentifier>{e3927dad-edb4-4b24-bcbd-5a00084391dd}</UniqueIdentifier>
     </Filter>
@@ -57,9 +54,6 @@
     <ClInclude Include="Source\State\Ram.h">
       <Filter>Header Files\State</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ConsoleSpecs\ConsoleSpecs.h">
-      <Filter>Header Files\ConsoleSpecs</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Api.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -68,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="Source\Action\ButtonSet.h">
       <Filter>Header Files\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Console.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,8 +83,8 @@
     <ClCompile Include="Source\Action\ButtonSet.cpp">
       <Filter>Source Files\Action</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ConsoleSpecs\ConsoleSpecs.cpp">
-      <Filter>Header Files\ConsoleSpecs</Filter>
+    <ClCompile Include="Source\Console.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

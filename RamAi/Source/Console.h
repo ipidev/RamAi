@@ -24,28 +24,29 @@
 
 namespace RamAi
 {
-	//Singleton class that the specifications of the game console currently in use.
-	class ConsoleSpecs
+	//Static class that holds information of the game console currently in use.
+	class Console
 	{
 	public:
 		//A plain-old-data struct that holds all of the specifications.
-		struct Data
+		struct Specs
 		{
-			Data() = default;
-			Data(const size_t ramSize);
+			Specs() = default;
+			Specs(const size_t ramSize);
 
 			size_t ramSize;
 		};
 
 	public:
-		ConsoleSpecs() = delete;
-		~ConsoleSpecs() = delete;
+		//Static class - construction is forbidden.
+		Console() = delete;
+		~Console() = delete;
 
 	public:
-		static const Data &GetData()			{ return s_data; }
-		static void SetData(const Data &data)	{ s_data = data; }
+		static const Specs &GetSpecs()				{ return s_specs; }
+		static void SetSpecs(const Specs &specs)	{ s_specs = specs; }
 
 	private:
-		static Data s_data;
+		static Specs s_specs;
 	};
 };

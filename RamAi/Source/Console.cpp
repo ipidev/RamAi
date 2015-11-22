@@ -17,12 +17,12 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
-#include "ConsoleSpecs.h"
+#include "Console.h"
 
 
-RamAi::ConsoleSpecs::Data::Data(const size_t inRamSize)
+RamAi::Console::Specs::Specs(const size_t inRamSize)
 	: ramSize(inRamSize)
 {
 }
 
-RamAi::ConsoleSpecs::Data RamAi::ConsoleSpecs::s_data = RamAi::ConsoleSpecs::Data();
+RamAi::Console::Specs RamAi::Console::s_specs = RamAi::Console::Specs();
