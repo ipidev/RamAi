@@ -28,6 +28,10 @@
 #include "NstDialogInput.hpp"
 #include "NstManagerInput.hpp"
 
+//[SLBEGIN]: Allowing humans to override start/select.
+#include "RamAi\NstRamAiApi.h"
+//[SLEND]
+
 namespace Nestopia
 {
 	namespace Managers
@@ -914,7 +918,22 @@ namespace Nestopia
 			input.CheckPoll();
 
 			//[SLBEGIN]: Disabled what seems to be default controls?
-			if (!input.emulator.GetRamAiApi())
+			if (RamAiApi *ramAiApi = input.emulator.GetRamAiApi().get())
+			{
+				//Allow humans to press start/select.
+				if (ramAiApi->AllowHumanOverride())
+				{
+					const Key* const NST_RESTRICT keys = input.dialog->GetSettings().GetKeys(index,0);
+
+					uint buttons = 0;
+
+					keys[ Settings::PAD_KEY_SELECT ].GetState( buttons, Pad::SELECT );
+					keys[ Settings::PAD_KEY_START  ].GetState( buttons, Pad::START  );
+
+					pad.buttons |= buttons;
+				}
+			}
+			else
 			{
 				const Key* const NST_RESTRICT keys = input.dialog->GetSettings().GetKeys(index,0);
 

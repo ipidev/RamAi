@@ -49,7 +49,14 @@ namespace Nestopia
 		~RamAiApi();
 
 	public:
+		const bool AllowHumanOverride() const		{ return m_allowHumanOverride; }
+		void SetAllowHumanOverride(const bool b)	{ m_allowHumanOverride = b; }
+
+	public:
 		void CalculateInput(Nes::Core::Input::Controllers *const input);
+
+	private:
+		bool m_allowHumanOverride;
 	};
 };
 

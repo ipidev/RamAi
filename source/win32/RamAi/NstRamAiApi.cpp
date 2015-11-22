@@ -29,6 +29,7 @@
 
 Nestopia::RamAiApi::RamAiApi()
 	: RamAi::Api()
+	, m_allowHumanOverride(true)
 {
 }
 
@@ -44,11 +45,8 @@ void Nestopia::RamAiApi::CalculateInput(Nes::Core::Input::Controllers *const inp
 		RamAi::ButtonSet randomButtons = RamAi::Api::CalculateInput();
 		RamAi::Bitfield<RamAi::ButtonSet::BitfieldType> buttonBitfield = randomButtons.GetBitfield();
 
-		//Only press start sometimes!
-		if ((rand() % 100) != 0)
-		{
-			buttonBitfield.UnsetAll(Nes::Core::Input::Controllers::Pad::START | Nes::Core::Input::Controllers::Pad::SELECT);
-		}
+		//Never press start or select for now!
+		buttonBitfield.UnsetAll(Nes::Core::Input::Controllers::Pad::START | Nes::Core::Input::Controllers::Pad::SELECT);
 
 		input->pad[0].buttons = buttonBitfield.GetValue();
 	}
