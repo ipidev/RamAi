@@ -32,9 +32,10 @@ namespace RamAi
 		struct Specs
 		{
 			Specs() = default;
-			Specs(const size_t ramSize);
+			Specs(const size_t ramSize, const size_t numberOfGamePadButtons);
 
 			size_t ramSize;
+			size_t numberOfGamePadButtons;
 		};
 
 	public:

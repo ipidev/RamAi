@@ -20,8 +20,9 @@
 #include "Console.h"
 
 
-RamAi::Console::Specs::Specs(const size_t inRamSize)
+RamAi::Console::Specs::Specs(const size_t inRamSize, const size_t inNumberOfGamePadButtons)
 	: ramSize(inRamSize)
+	, numberOfGamePadButtons(inNumberOfGamePadButtons)
 {
 }
 

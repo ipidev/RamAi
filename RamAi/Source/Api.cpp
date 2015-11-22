@@ -48,7 +48,7 @@ RamAi::Api &RamAi::Api::operator= (Api &&other)
 RamAi::ButtonSet RamAi::Api::CalculateInput()
 {
 	//For now just generate random button presses.
-	//TODO: How do I know that the input is 8 bits?
+	const size_t buttonSetSize = 1 << Console::GetSpecs().numberOfGamePadButtons;
 	return ButtonSet(rand() % 256);
 }
 

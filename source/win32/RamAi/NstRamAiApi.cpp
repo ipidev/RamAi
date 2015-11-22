@@ -28,7 +28,7 @@
 
 
 Nestopia::RamAiApi::RamAiApi()
-	: RamAi::Api(RamAi::Console::Specs(2048))
+	: RamAi::Api(RamAi::Console::Specs(2048, 8))
 	, m_allowHumanOverride(true)
 {
 }
