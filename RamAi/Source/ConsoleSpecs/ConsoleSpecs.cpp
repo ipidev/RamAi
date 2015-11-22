@@ -17,21 +17,12 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
-#pragma once
-
 #include "ConsoleSpecs.h"
 
 
-namespace RamAi
+RamAi::ConsoleSpecs::Data::Data(const size_t inRamSize)
+	: ramSize(inRamSize)
 {
-	//The system specs of the Nintendo Entertainment System (NES).
-	class NesSpecs : public ConsoleSpecs
-	{
-	public:
-		NesSpecs() = default;
-		~NesSpecs() = default;
+}
 
-	protected:
-		virtual const size_t InstanceGetRamSize() const	override { return 2048; }
-	};
-};
+RamAi::ConsoleSpecs::Data RamAi::ConsoleSpecs::s_data = RamAi::ConsoleSpecs::Data();

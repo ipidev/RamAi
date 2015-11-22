@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Action\ButtonSet.h" />
-    <ClInclude Include="Source\ConsoleSpecs\NesSpecs.h" />
     <ClInclude Include="Source\ConsoleSpecs\ConsoleSpecs.h" />
     <ClInclude Include="Source\Api.h" />
     <ClInclude Include="Source\Data\Bitfield.h" />
@@ -34,6 +33,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Action\ButtonSet.cpp" />
     <ClCompile Include="Source\Api.cpp" />
+    <ClCompile Include="Source\ConsoleSpecs\ConsoleSpecs.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarlo.cpp" />
     <ClCompile Include="Source\State\Ram.cpp" />

@@ -22,14 +22,10 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "ConsoleSpecs\ConsoleSpecs.h"
-#include "ConsoleSpecs\NesSpecs.h"
 
-
-RamAi::Api::Api()
+RamAi::Api::Api(const ConsoleSpecs::Data &consoleSpecsData)
 {
-	//Change this to suit whatever games console you're using.
-	ConsoleSpecs::SetInstance(std::make_unique<NesSpecs>());
+	ConsoleSpecs::SetData(consoleSpecsData);
 
 	srand(static_cast<unsigned int>(time(NULL)));
 }

@@ -57,9 +57,6 @@
     <ClInclude Include="Source\State\Ram.h">
       <Filter>Header Files\State</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ConsoleSpecs\NesSpecs.h">
-      <Filter>Header Files\ConsoleSpecs</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ConsoleSpecs\ConsoleSpecs.h">
       <Filter>Header Files\ConsoleSpecs</Filter>
     </ClInclude>
@@ -88,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="Source\Action\ButtonSet.cpp">
       <Filter>Source Files\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ConsoleSpecs\ConsoleSpecs.cpp">
+      <Filter>Header Files\ConsoleSpecs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

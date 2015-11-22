@@ -21,38 +21,31 @@
 
 #include <memory>
 
-//Laziness...
-#define RAMAI_CONSOLE_SPECS_SPACE() 
-
-#define RAMAI_CONSOLE_SPECS_ACCESSOR(TYPE, NAME, DEFAULT_VALUE) \
-	public: static RAMAI_CONSOLE_SPECS_SPACE() ##TYPE Get##NAME() { return s_instance ? s_instance->InstanceGet##NAME() : ##DEFAULT_VALUE ; } \
-	protected: virtual RAMAI_CONSOLE_SPECS_SPACE() ##TYPE InstanceGet##NAME() const = 0;
-
 
 namespace RamAi
 {
-	//Singleton class for the specifications of the game console currently in use.
-	//Settings for a specific console should derive from this and then be passed into SetInstance().
+	//Singleton class that the specifications of the game console currently in use.
 	class ConsoleSpecs
 	{
 	public:
-		ConsoleSpecs() = default;
-		~ConsoleSpecs() = default;
+		//A plain-old-data struct that holds all of the specifications.
+		struct Data
+		{
+			Data() = default;
+			Data(const size_t ramSize);
+
+			size_t ramSize;
+		};
 
 	public:
-		static const std::unique_ptr<ConsoleSpecs> &GetInstance()			{ return s_instance; }
-		static void SetInstance(std::unique_ptr<ConsoleSpecs> &&console)	{ s_instance = std::move(console); }
+		ConsoleSpecs() = delete;
+		~ConsoleSpecs() = delete;
 
-	protected:
-		RAMAI_CONSOLE_SPECS_ACCESSOR(const size_t, RamSize, 0);
+	public:
+		static const Data &GetData()			{ return s_data; }
+		static void SetData(const Data &data)	{ s_data = data; }
 
 	private:
-		static std::unique_ptr<ConsoleSpecs> s_instance;
+		static Data s_data;
 	};
-
-
-	std::unique_ptr<ConsoleSpecs> ConsoleSpecs::s_instance = nullptr;
 };
-
-#undef RAMAI_CONSOLE_SPECS_ACCESSOR
-#undef RAMAI_CONSOLE_SPECS_SPACE
