@@ -39,7 +39,6 @@ namespace RamAi
 		Ram &operator= (const Ram &other);
 		Ram &operator= (Ram &&other);
 
-		//TODO: Implement operator[] and range checks.
 		const uint8_t &operator[] (const size_t index) const;
 		uint8_t &operator[] (const size_t index);
 		

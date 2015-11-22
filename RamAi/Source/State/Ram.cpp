@@ -20,6 +20,7 @@
 #include "Ram.h"
 
 #include <algorithm>
+#include <cassert>
 
 
 RamAi::Ram::Ram()
@@ -66,6 +67,18 @@ RamAi::Ram &RamAi::Ram::operator= (Ram &&other)
 	m_data = std::move(other.m_data);
 	m_size = std::move(other.m_size);
 	return *this;
+}
+
+const uint8_t &RamAi::Ram::operator[] (const size_t index) const
+{
+	return const_cast<Ram*>(this)->operator[](index);
+}
+
+uint8_t &RamAi::Ram::operator[] (const size_t index)
+{
+	assert(m_data);
+	assert(index < m_size);
+	return *(m_data.get() + index);
 }
 
 void RamAi::Ram::Copy(const uint8_t *data, const size_t size)
