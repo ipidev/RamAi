@@ -19,13 +19,59 @@
 
 #pragma once
 
-#include <type_traits>
-#include <vector>
+#include <unordered_map>
+
+#include "Action/ButtonSet.h"
+#include "Score/Score.h"
 
 
 namespace RamAi
 {
-	template <typename T>
+	class TreeNode
+	{
+	public:
+		TreeNode();
+		TreeNode(const TreeNode &other);
+		TreeNode(TreeNode &&other);
+		~TreeNode();
+
+	private:
+		TreeNode(TreeNode *parent);
+
+	public:
+		TreeNode &operator= (const TreeNode &other);
+		TreeNode &operator= (TreeNode &&other);
+
+	public:
+		const TreeNode *GetChild(const ButtonSet &buttonSet) const	{ return const_cast<TreeNode*>(this)->GetChild(buttonSet); }
+		TreeNode *GetChild(const ButtonSet &buttonSet);
+		bool ContainsAction(const ButtonSet &buttonSet) const		{ return GetChild(buttonSet) != nullptr; }
+
+		size_t GetNumberOfChildren() const							{ return m_children.size(); }
+		bool IsLeaf() const											{ return GetNumberOfChildren() == 0; }
+
+		const TreeNode *GetParent() const							{ return m_parent; }
+		TreeNode *GetParent()										{ return m_parent; }
+		bool IsRoot() const											{ return m_parent == nullptr; }
+
+		const Score &GetScore() const								{ return m_score; }
+		Score &GetScore()											{ return m_score; }
+
+	public:
+		TreeNode *AddChild(const ButtonSet &buttonSet);
+		TreeNode *AddChild(ButtonSet &&buttonSet);
+
+	private:
+		void Copy(const TreeNode &other);
+		void Move(TreeNode &&other);
+
+	private:
+		std::unordered_map<ButtonSet, TreeNode> m_children;
+		TreeNode *m_parent;
+		Score m_score;
+	};
+
+	/*template <typename T>
 	class TreeNode
 	{
 		static_assert(!std::is_abstract<T>::value,
@@ -206,5 +252,5 @@ namespace RamAi
 	private:
 		T m_value;
 		std::vector<TreeNode<T>> m_children;
-	};
+	};*/
 };

@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Data">
       <UniqueIdentifier>{c9022bac-c57d-499b-8219-220377d2c697}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Score">
+      <UniqueIdentifier>{140cbd97-6f29-4f51-83d7-afce397e60a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
@@ -72,6 +75,9 @@
     <ClInclude Include="Source\Data\BinaryCodedDecimal.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Score\Score.h">
+      <Filter>Header Files\Score</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -94,6 +100,12 @@
     </ClCompile>
     <ClCompile Include="Source\Data\BinaryCodedDecimal.cpp">
       <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MonteCarlo\TreeNode.cpp">
+      <Filter>Source Files\MonteCarlo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Score\Score.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

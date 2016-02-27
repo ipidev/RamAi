@@ -62,3 +62,17 @@ namespace RamAi
 		Bitfield<BitfieldType> m_bitfield;
 	};
 };
+
+namespace std
+{
+	//Hash function for ButtonSet. Allows it to be used as a key in a map/set.
+	template <>
+	struct hash<RamAi::ButtonSet>
+	{
+		size_t operator()(const RamAi::ButtonSet &value) const noexcept
+		{
+			//TODO: Write actual hashing function.
+			return value.GetBitfield().GetValue();
+		}
+	};
+};

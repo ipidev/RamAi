@@ -29,6 +29,7 @@
     <ClInclude Include="Source\MonteCarlo\MonteCarloBase.h" />
     <ClInclude Include="Source\MonteCarlo\TreeNode.h" />
     <ClInclude Include="Source\MonteCarlo\UctMonteCarlo.h" />
+    <ClInclude Include="Source\Score\Score.h" />
     <ClInclude Include="Source\State\Ram.h" />
   </ItemGroup>
   <ItemGroup>
@@ -37,7 +38,9 @@
     <ClCompile Include="Source\Console.cpp" />
     <ClCompile Include="Source\Data\BinaryCodedDecimal.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\MonteCarlo\TreeNode.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarlo.cpp" />
+    <ClCompile Include="Source\Score\Score.cpp" />
     <ClCompile Include="Source\State\Ram.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
