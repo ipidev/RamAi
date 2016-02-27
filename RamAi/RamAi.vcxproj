@@ -22,6 +22,7 @@
     <ClInclude Include="Source\Action\ButtonSet.h" />
     <ClInclude Include="Source\Console.h" />
     <ClInclude Include="Source\Api.h" />
+    <ClInclude Include="Source\Data\BinaryCodedDecimal.h" />
     <ClInclude Include="Source\Data\Bitfield.h" />
     <ClInclude Include="Source\MonteCarloTest.h" />
     <ClInclude Include="Source\MonteCarlo\BestScoreCollection.h" />
@@ -34,6 +35,7 @@
     <ClCompile Include="Source\Action\ButtonSet.cpp" />
     <ClCompile Include="Source\Api.cpp" />
     <ClCompile Include="Source\Console.cpp" />
+    <ClCompile Include="Source\Data\BinaryCodedDecimal.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarlo.cpp" />
     <ClCompile Include="Source\State\Ram.cpp" />
