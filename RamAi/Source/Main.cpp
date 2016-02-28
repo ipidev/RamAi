@@ -23,14 +23,5 @@
 
 int main(int argc, char **argv)
 {
-	RamAi::MonteCarloTest mcts(RamAi::State(0), 0.5f);
-
-	for (int i = 0; i < 100; ++i)
-	{
-		mcts.PerformSearch();
-	}
-
-	std::cin.ignore();
-
 	return 0;
 }

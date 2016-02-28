@@ -50,6 +50,9 @@ namespace RamAi
 		size_t GetNumberOfChildren() const							{ return m_children.size(); }
 		bool IsLeaf() const											{ return GetNumberOfChildren() == 0; }
 
+		std::unordered_map<ButtonSet, TreeNode>::const_iterator GetIteratorBegin() const	{ return m_children.cbegin(); }
+		std::unordered_map<ButtonSet, TreeNode>::const_iterator GetIteratorEnd() const		{ return m_children.cend(); }
+
 		const TreeNode *GetParent() const							{ return m_parent; }
 		TreeNode *GetParent()										{ return m_parent; }
 		bool IsRoot() const											{ return m_parent == nullptr; }

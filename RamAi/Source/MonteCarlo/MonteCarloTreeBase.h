@@ -1,6 +1,6 @@
 /*
 	RamAi - A general game-playing AI that uses RAM states as input to a value function
-	Copyright (C) 2015 Sean Latham
+	Copyright (C) 2016 Sean Latham
 
 	This program is free software; you can redistribute it and / or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,28 +19,74 @@
 
 #pragma once
 
-#include <cassert>
-#include <type_traits>
-#include <vector>
-
 #include "TreeNode.h"
 
 
 namespace RamAi
 {
-	//Interface for the score of a particular tree node.
-	class MonteCarloScore
+	class MonteCarloTreeException : std::exception
 	{
 	public:
-		MonteCarloScore() {}
+		MonteCarloTreeException();
+		MonteCarloTreeException(const char *message);
+		~MonteCarloTreeException();
+	};
+
+	//The base class for a Monte Carlo Tree Search (MCTS) implementation.
+	class MonteCarloTreeBase
+	{
+	public:
+		typedef uint64_t ScoreType;
 
 	public:
-		virtual void AddScore(const float score) = 0;
-		virtual const float GetScore() const = 0;
+		MonteCarloTreeBase();
+		MonteCarloTreeBase(const MonteCarloTreeBase &other);
+		MonteCarloTreeBase(MonteCarloTreeBase &&other);
+		virtual ~MonteCarloTreeBase();
+
+	public:
+		MonteCarloTreeBase &operator= (const MonteCarloTreeBase &other);
+		MonteCarloTreeBase &operator= (MonteCarloTreeBase &&other);
+
+	public:
+		void PerformSearch();
+
+	protected:
+		TreeNode &Select();
+
+		//Returns true if the given node should be expanded.
+		//By default, returns true if the given node has no children.
+		virtual bool NodeNeedsExpanding(const TreeNode &node) const			{ return node.IsLeaf(); }
+
+		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
+		virtual TreeNode *SelectChild(const TreeNode &parent) const = 0;
+
+	protected:
+		virtual TreeNode &Expand(TreeNode &nodeToBeExpanded);
+
+		//Performs tree expansion by generating children for the given root.
+		virtual void PerformExpansion(TreeNode &nodeToBeExpanded) = 0;
+
+		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
+		//By default, this is a synonym for SelectChild().
+		virtual TreeNode *SelectExpandedChild(const TreeNode &parent) const	{ return SelectChild(parent); }
+
+	protected:
+		//TODO: Can't return the score in one function call. Make Backpropagate public so the score can be saved later.
+		ScoreType Simulate(TreeNode &nodeToBeSimulated);
+
+		void Backpropagate(TreeNode &nodeToBackpropagateFrom, const ScoreType score);
+
+	private:
+		void Copy(const MonteCarloTreeBase &other);
+		void Move(MonteCarloTreeBase &&other);
+
+	private:
+		TreeNode m_root;
 	};
 
 	//Base class for a simple Monte Carlo Tree Search algorithm.
-	template <typename StateType, typename ScoreType>
+	/*template <typename StateType, typename ScoreType>
 	class MonteCarloBase
 	{
 		static_assert(!std::is_abstract<ScoreType>::value,
@@ -250,5 +296,5 @@ namespace RamAi
 
 	protected:
 		TreeNode<NodeType> m_root;
-	};
+	};*/
 };

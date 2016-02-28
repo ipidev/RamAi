@@ -1,11 +1,11 @@
 #pragma once
 
 #include "MonteCarlo\TreeNode.h"
-#include "MonteCarlo\UctMonteCarlo.h"
+#include "MonteCarlo\UctMonteCarloTree.h"
 
 namespace RamAi
 {
-	class State
+	/*class State
 	{
 	public:
 		State() = default;
@@ -23,26 +23,26 @@ namespace RamAi
 		int m_number;
 	};
 
-	class MonteCarloTest : public UctMonteCarlo<State>
+	class MonteCarloTest : public UctMonteCarloTree<State>
 	{
 	public:
 		MonteCarloTest(const State &initialState, const float bias)
-			: UctMonteCarlo(initialState, bias)
+			: UctMonteCarloTree(initialState, bias)
 		{
 		}
 
 		MonteCarloTest(State &&initialState, const float bias)
-			: UctMonteCarlo(std::move(initialState), bias)
+			: UctMonteCarloTree(std::move(initialState), bias)
 		{
 		}
 
 		MonteCarloTest(const MonteCarloTest &other)
-			: UctMonteCarlo(other)
+			: UctMonteCarloTree(other)
 		{
 		}
 
 		MonteCarloTest(MonteCarloTest &&other)
-			: UctMonteCarlo(std::move(other))
+			: UctMonteCarloTree(std::move(other))
 		{
 		}
 
@@ -79,5 +79,5 @@ namespace RamAi
 		{
 			return (state.GetNumber() % 2) == 0 ? 1.0f : 0.0f;
 		}
-	};
+	};*/
 };

@@ -45,12 +45,6 @@
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MonteCarlo\MonteCarloBase.h">
-      <Filter>Header Files\MonteCarlo</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MonteCarlo\UctMonteCarlo.h">
-      <Filter>Header Files\MonteCarlo</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MonteCarlo\BestScoreCollection.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
@@ -78,13 +72,16 @@
     <ClInclude Include="Source\Score\Score.h">
       <Filter>Header Files\Score</Filter>
     </ClInclude>
+    <ClInclude Include="Source\MonteCarlo\MonteCarloTreeBase.h">
+      <Filter>Header Files\MonteCarlo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MonteCarlo\UctMonteCarloTree.h">
+      <Filter>Header Files\MonteCarlo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MonteCarlo\UctMonteCarlo.cpp">
-      <Filter>Source Files\MonteCarlo</Filter>
     </ClCompile>
     <ClCompile Include="Source\State\Ram.cpp">
       <Filter>Source Files\State</Filter>
@@ -106,6 +103,12 @@
     </ClCompile>
     <ClCompile Include="Source\Score\Score.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MonteCarlo\MonteCarloTreeBase.cpp">
+      <Filter>Source Files\MonteCarlo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MonteCarlo\UctMonteCarloTree.cpp">
+      <Filter>Source Files\MonteCarlo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
