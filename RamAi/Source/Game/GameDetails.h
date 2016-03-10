@@ -1,6 +1,6 @@
 /*
 	RamAi - A general game-playing AI that uses RAM states as input to a value function
-	Copyright (C) 2015 Sean Latham
+	Copyright (C) 2016 Sean Latham
 
 	This program is free software; you can redistribute it and / or modify
 	it under the terms of the GNU General Public License as published by
@@ -17,47 +17,28 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
-#include "Api.h"
+#pragma once
 
-#include <cstdlib>
-#include <ctime>
+#include <string>
 
-#include "MonteCarlo\TestMonteCarloTree.h"
+#include "Data/BinaryCodedDecimal.h"
 
 
-RamAi::Api::Api(const Console::Specs &consoleSpecs)
+namespace RamAi
 {
-	Console::SetSpecs(consoleSpecs);
+	//A struct that holds information about the currently loaded game.
+	struct GameDetails
+	{
+	public:
+		GameDetails();
 
-	srand(static_cast<unsigned int>(time(NULL)));
-}
+	public:
+		std::string gameName;
 
-RamAi::Api::Api(Api &&other)
-{
-	Move(std::move(other));
-}
-
-RamAi::Api::~Api()
-{
-}
-
-RamAi::Api &RamAi::Api::operator= (Api &&other)
-{
-	Move(std::move(other));
-	return *this;
-}
-
-void RamAi::Api::InitialiseGame(const GameDetails &gameDetails)
-{
-}
-
-RamAi::ButtonSet RamAi::Api::CalculateInput()
-{
-	//For now just generate random button presses.
-	const size_t buttonSetSize = 1 << Console::GetSpecs().numberOfGamePadButtons;
-	return ButtonSet(rand() % 256);
-}
-
-void RamAi::Api::Move(Api &&other)
-{
-}
+	public:
+		//TODO: Should this be in its own struct?
+		size_t scoreOffset;
+		size_t scoreSize;
+		BinaryCodedDecimal::Endianness scoreEndianness;
+	};
+};

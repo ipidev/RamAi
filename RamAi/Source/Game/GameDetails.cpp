@@ -1,6 +1,6 @@
 /*
 	RamAi - A general game-playing AI that uses RAM states as input to a value function
-	Copyright (C) 2015 Sean Latham
+	Copyright (C) 2016 Sean Latham
 
 	This program is free software; you can redistribute it and / or modify
 	it under the terms of the GNU General Public License as published by
@@ -17,47 +17,13 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
-#include "Api.h"
+#include "GameDetails.h"
 
-#include <cstdlib>
-#include <ctime>
-
-#include "MonteCarlo\TestMonteCarloTree.h"
-
-
-RamAi::Api::Api(const Console::Specs &consoleSpecs)
+RamAi::GameDetails::GameDetails()
 {
-	Console::SetSpecs(consoleSpecs);
+	gameName = "None";
 
-	srand(static_cast<unsigned int>(time(NULL)));
-}
-
-RamAi::Api::Api(Api &&other)
-{
-	Move(std::move(other));
-}
-
-RamAi::Api::~Api()
-{
-}
-
-RamAi::Api &RamAi::Api::operator= (Api &&other)
-{
-	Move(std::move(other));
-	return *this;
-}
-
-void RamAi::Api::InitialiseGame(const GameDetails &gameDetails)
-{
-}
-
-RamAi::ButtonSet RamAi::Api::CalculateInput()
-{
-	//For now just generate random button presses.
-	const size_t buttonSetSize = 1 << Console::GetSpecs().numberOfGamePadButtons;
-	return ButtonSet(rand() % 256);
-}
-
-void RamAi::Api::Move(Api &&other)
-{
+	scoreOffset = 0;
+	scoreSize = 0;
+	scoreEndianness = BinaryCodedDecimal::Endianness::Big;
 }

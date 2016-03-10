@@ -22,6 +22,7 @@
 #include <memory>
 
 #include "Action\ButtonSet.h"
+#include "Game\GameDetails.h"
 #include "Console.h"
 
 
@@ -40,6 +41,10 @@ namespace RamAi
 	public:
 		Api &operator= (const Api &other) = delete;
 		Api &operator= (Api &&other);
+
+	public:
+		//Initialises the AI with a new game's settings.
+		void InitialiseGame(const GameDetails &gameDetails);
 
 	public:
 		ButtonSet CalculateInput();
