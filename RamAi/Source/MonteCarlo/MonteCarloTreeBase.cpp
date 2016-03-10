@@ -155,8 +155,8 @@ RamAi::TreeNode &RamAi::MonteCarloTreeBase::Expand(TreeNode &nodeToBeExpanded)
 
 RamAi::MonteCarloTreeBase::ScoreType RamAi::MonteCarloTreeBase::Simulate(TreeNode &nodeToBeSimulated)
 {
-	//TODO: Remove.
-	return rand() % 100;
+	//TODO: Score needs to be normalised in order to work correctly.
+	return rand() % 2;
 }
 
 void RamAi::MonteCarloTreeBase::Backpropagate(TreeNode &nodeToBackpropagateFrom, const ScoreType score)

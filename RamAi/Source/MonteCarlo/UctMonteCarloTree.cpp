@@ -62,7 +62,6 @@ RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent) c
 	}
 	else
 	{
-		//TODO: Does this still work?
 		BestScoreCollection<const TreeNode*, float> bestNodes(-std::numeric_limits<float>::infinity());
 
 		for (auto it = parent.GetIteratorBegin(); it != parent.GetIteratorEnd(); ++it)

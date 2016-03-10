@@ -35,7 +35,6 @@ RamAi::Api::Api(const Console::Specs &consoleSpecs)
 
 	for (int i = 0; i < 100; ++i)
 	{
-		//TODO: UCT doesn't work.
 		mcts.PerformSearch();
 	}
 }
