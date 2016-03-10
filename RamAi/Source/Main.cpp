@@ -19,7 +19,7 @@
 
 #include <iostream>
 
-#include "MonteCarloTest.h"
+#include "MonteCarlo/TestMonteCarloTree.h"
 
 int main(int argc, char **argv)
 {

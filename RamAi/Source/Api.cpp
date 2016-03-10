@@ -22,12 +22,22 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "MonteCarlo\TestMonteCarloTree.h"
+
 
 RamAi::Api::Api(const Console::Specs &consoleSpecs)
 {
 	Console::SetSpecs(consoleSpecs);
 
 	srand(static_cast<unsigned int>(time(NULL)));
+
+	TestMonteCarloTree mcts(0.5f);
+
+	for (int i = 0; i < 100; ++i)
+	{
+		//TODO: UCT doesn't work.
+		mcts.PerformSearch();
+	}
 }
 
 RamAi::Api::Api(Api &&other)
