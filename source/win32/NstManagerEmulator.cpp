@@ -1242,6 +1242,19 @@ namespace Nestopia
 						if (context.controllers[port] != Context::UNKNOWN)
 							Nes::Input(*this).ConnectController( port, static_cast<Nes::Input::Type>(context.controllers[port]) );
 					}
+
+					//[SLBEGIN]: Initialising RamAi API.
+					if (ramAiApi)
+					{
+						//TODO: Temporary initialisation.
+						RamAi::GameDetails gameDetails;
+
+						const std::wstring gameNameWide(context.image.File().Ptr());
+						gameDetails.gameName = std::string(gameNameWide.cbegin(), gameNameWide.end() - 4);
+
+						ramAiApi->InitialiseGame(gameDetails);
+					}
+					//[SLEND]
 				}
 
 				return true;
