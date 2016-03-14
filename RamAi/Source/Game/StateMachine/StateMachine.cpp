@@ -1,0 +1,121 @@
+/*
+	RamAi - A general game-playing AI that uses RAM states as input to a value function
+	Copyright (C) 2016 Sean Latham
+
+	This program is free software; you can redistribute it and / or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License along
+	with this program; if not, write to the Free Software Foundation, Inc.,
+	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
+*/
+
+#include "StateMachine.h"
+
+#include <cassert>
+
+#include "InitialisationState.h"
+
+
+RamAi::StateMachine::State::State(StateMachine &stateMachine)
+{
+	m_stateMachine = &stateMachine;
+}
+
+RamAi::StateMachine::State::State(State &&other)
+{
+	Move(std::move(other));
+}
+
+RamAi::StateMachine::State::~State()
+{
+}
+
+RamAi::StateMachine::State &RamAi::StateMachine::State::operator= (State &&other)
+{
+	Move(std::move(other));
+	return *this;
+}
+
+void RamAi::StateMachine::State::OnStateEntered(const std::weak_ptr<State> &oldState, const Type oldStateType)
+{
+}
+
+void RamAi::StateMachine::State::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)
+{
+}
+
+void RamAi::StateMachine::State::Move(State &&other)
+{
+	m_stateMachine = other.m_stateMachine;
+	other.m_stateMachine = nullptr;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+RamAi::StateMachine::StateMachine(const GameDetails &gameDetails)
+	: m_gameDetails(gameDetails)
+	, m_tree()
+	, m_currentStateType(State::Type::Initialisation)
+{
+	InitialiseStates();
+}
+
+RamAi::StateMachine::~StateMachine()
+{
+}
+
+RamAi::ButtonSet RamAi::StateMachine::CalculateInput(const Ram &ram)
+{
+	ButtonSet returnValue;
+
+	if (std::shared_ptr<State> currentState = GetCurrentState().lock())
+	{
+		returnValue = currentState->CalculateInput(ram);
+
+		//See if we should change state.
+		const State::Type desiredStateType = currentState->GetDesiredStateType(ram);
+
+		if (desiredStateType != m_currentStateType)
+		{
+			ChangeState(desiredStateType);
+		}
+	}
+
+	return returnValue;
+}
+
+void RamAi::StateMachine::InitialiseStates()
+{
+	m_states[State::Type::Initialisation] = std::make_shared<InitialisationState>(*this);
+}
+
+void RamAi::StateMachine::ChangeState(const State::Type newStateType)
+{
+	assert(newStateType != m_currentStateType);
+
+	if (newStateType != m_currentStateType)
+	{
+		//Tell the old state that it's being left.
+		if (std::shared_ptr<State> oldState = GetCurrentState().lock())
+		{
+			oldState->OnStateExited(GetState(newStateType), newStateType);
+		}
+
+		const State::Type oldStateType = m_currentStateType;
+		m_currentStateType = newStateType;
+
+		//Tell the new state that it's being entered.
+		if (std::shared_ptr<State> newState = GetCurrentState().lock())
+		{
+			newState->OnStateEntered(GetState(oldStateType), oldStateType);
+		}
+	}
+}

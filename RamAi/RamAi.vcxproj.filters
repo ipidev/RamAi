@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{d2a71cb1-98d8-435a-97ad-c6fe479509af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\StateMachine">
+      <UniqueIdentifier>{d9416d2e-2601-48a8-9af7-b7c182d95b17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\StateMachine">
+      <UniqueIdentifier>{48363a61-50ff-4c6e-9604-f8cc175827e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
@@ -93,6 +99,12 @@
     <ClInclude Include="Source\MonteCarlo\GameMonteCarloTree.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\StateMachine\InitialisationState.h">
+      <Filter>Header Files\Game\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\StateMachine\StateMachine.h">
+      <Filter>Header Files\Game\StateMachine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -133,6 +145,12 @@
     </ClCompile>
     <ClCompile Include="Source\MonteCarlo\GameMonteCarloTree.cpp">
       <Filter>Source Files\MonteCarlo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\StateMachine\InitialisationState.cpp">
+      <Filter>Source Files\Game\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\StateMachine\StateMachine.cpp">
+      <Filter>Source Files\Game\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

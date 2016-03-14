@@ -25,6 +25,8 @@
     <ClInclude Include="Source\Data\BinaryCodedDecimal.h" />
     <ClInclude Include="Source\Data\Bitfield.h" />
     <ClInclude Include="Source\Game\GameDetails.h" />
+    <ClInclude Include="Source\Game\StateMachine\InitialisationState.h" />
+    <ClInclude Include="Source\Game\StateMachine\StateMachine.h" />
     <ClInclude Include="Source\MonteCarlo\BestScoreCollection.h" />
     <ClInclude Include="Source\MonteCarlo\GameMonteCarloTree.h" />
     <ClInclude Include="Source\MonteCarlo\MonteCarloTreeBase.h" />
@@ -40,6 +42,8 @@
     <ClCompile Include="Source\Console.cpp" />
     <ClCompile Include="Source\Data\BinaryCodedDecimal.cpp" />
     <ClCompile Include="Source\Game\GameDetails.cpp" />
+    <ClCompile Include="Source\Game\StateMachine\InitialisationState.cpp" />
+    <ClCompile Include="Source\Game\StateMachine\StateMachine.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MonteCarlo\GameMonteCarloTree.cpp" />
     <ClCompile Include="Source\MonteCarlo\MonteCarloTreeBase.cpp" />
