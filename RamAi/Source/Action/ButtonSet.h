@@ -56,6 +56,8 @@ namespace RamAi
 
 	public:
 		const Bitfield<BitfieldType> GetBitfield() const		{ return m_bitfield; }
+		Bitfield<BitfieldType> &GetBitfield()					{ return m_bitfield; }
+
 		void SetBitfield(const Bitfield<BitfieldType> bitfield)	{ m_bitfield = bitfield; }
 
 	private:
