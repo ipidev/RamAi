@@ -90,6 +90,9 @@
     <ClInclude Include="Source\Game\GameDetails.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Source\MonteCarlo\GameMonteCarloTree.h">
+      <Filter>Header Files\MonteCarlo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\GameDetails.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MonteCarlo\GameMonteCarloTree.cpp">
+      <Filter>Source Files\MonteCarlo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
