@@ -75,6 +75,7 @@ RamAi::ButtonSet RamAi::Api::CalculateInput()
 			//For now just generate random button presses.
 			const size_t buttonSetSize = 1 << Console::GetSpecs().numberOfGamePadButtons;
 			returnValue = ButtonSet(rand() % 256);
+			returnValue.GetBitfield().UnsetAll(Console::GetSpecs().initialisationButtonSet.GetBitfield().GetValue());
 		}
 	}
 

@@ -28,7 +28,7 @@
 
 
 Nestopia::RamAiApi::RamAiApi()
-	: RamAi::Api(RamAi::Console::Specs(2048, 8))
+	: RamAi::Api(s_specsContainer.specs)
 	, m_allowHumanOverride(true)
 {
 }
@@ -46,8 +46,17 @@ void Nestopia::RamAiApi::CalculateInput(Nes::Core::Input::Controllers *const inp
 		RamAi::Bitfield<RamAi::ButtonSet::BitfieldType> buttonBitfield = randomButtons.GetBitfield();
 
 		//Never press start or select for now!!
-		buttonBitfield.UnsetAll(Nes::Core::Input::Controllers::Pad::START | Nes::Core::Input::Controllers::Pad::SELECT);
+		//buttonBitfield.UnsetAll(Nes::Core::Input::Controllers::Pad::START | Nes::Core::Input::Controllers::Pad::SELECT);
 
 		input->pad[0].buttons = buttonBitfield.GetValue();
 	}
 }
+
+Nestopia::RamAiApi::SpecsContainer::SpecsContainer()
+{
+	specs.ramSize = 2048;
+	specs.numberOfGamePadButtons = 8;
+	specs.initialisationButtonSet = RamAi::ButtonSet(Nes::Core::Input::Controllers::Pad::START);
+}
+
+Nestopia::RamAiApi::SpecsContainer Nestopia::RamAiApi::s_specsContainer = Nestopia::RamAiApi::SpecsContainer();

@@ -22,6 +22,8 @@
 
 #include <cassert>
 
+#include "Console.h"
+
 
 RamAi::InitialisationState::InitialisationState(StateMachine &stateMachine)
 	: State(stateMachine)
@@ -64,7 +66,7 @@ RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
 	if ((m_numberOfFramesExecuted % 2) == 0)
 	{
 		//TODO: Get actual pause value.
-		returnValue.GetBitfield().SetValue(16);
+		returnValue = Console::GetSpecs().initialisationButtonSet;
 	}
 
 	++m_numberOfFramesExecuted;

@@ -20,10 +20,11 @@
 #include "Console.h"
 
 
-RamAi::Console::Specs::Specs(const size_t inRamSize, const size_t inNumberOfGamePadButtons)
+/*RamAi::Console::Specs::Specs(const size_t inRamSize, const size_t inNumberOfGamePadButtons, const ButtonSet inInitialisationButtonSet)
 	: ramSize(inRamSize)
 	, numberOfGamePadButtons(inNumberOfGamePadButtons)
+	, initialisationButtonSet(inInitialisationButtonSet)
 {
-}
+}*/
 
 RamAi::Console::Specs RamAi::Console::s_specs = RamAi::Console::Specs();

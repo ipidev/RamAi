@@ -21,6 +21,8 @@
 
 #include <memory>
 
+#include "Action\ButtonSet.h"
+
 
 namespace RamAi
 {
@@ -32,10 +34,11 @@ namespace RamAi
 		struct Specs
 		{
 			Specs() = default;
-			Specs(const size_t ramSize, const size_t numberOfGamePadButtons);
+			//Specs(const size_t inRamSize, const size_t inNumberOfGamePadButtons, const ButtonSet inInitialisationButtonSet);
 
 			size_t ramSize;
 			size_t numberOfGamePadButtons;
+			ButtonSet initialisationButtonSet;		//The button(s) needed to press to skip any title screen/menus.
 		};
 
 	public:

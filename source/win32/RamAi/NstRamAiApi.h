@@ -57,6 +57,20 @@ namespace Nestopia
 
 	private:
 		bool m_allowHumanOverride;
+
+	private:
+		//Container used to initialise the specs with the right values.
+		class SpecsContainer
+		{
+		public:
+			SpecsContainer();
+			~SpecsContainer() = default;
+
+		public:
+			RamAi::Console::Specs specs;
+		};
+
+		static SpecsContainer s_specsContainer;
 	};
 };
 
