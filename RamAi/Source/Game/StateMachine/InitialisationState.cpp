@@ -26,6 +26,7 @@
 RamAi::InitialisationState::InitialisationState(StateMachine &stateMachine)
 	: State(stateMachine)
 {
+	m_numberOfFramesExecuted = 0;
 }
 
 RamAi::InitialisationState::InitialisationState(InitialisationState &&other)
