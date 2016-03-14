@@ -23,6 +23,7 @@
 
 #include "Action\ButtonSet.h"
 #include "Game\GameDetails.h"
+#include "Game\StateMachine\StateMachine.h"
 #include "Console.h"
 
 
@@ -51,5 +52,8 @@ namespace RamAi
 
 	private:
 		void Move(Api &&other);
+
+	private:
+		std::unique_ptr<StateMachine> m_stateMachine;
 	};
 };

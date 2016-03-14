@@ -95,6 +95,10 @@ namespace RamAi
 		std::weak_ptr<State> GetCurrentState()								{ return m_states[m_currentStateType]; }
 
 	public:
+		bool IsCurrentStateValid() const									{ return IsStateValid(m_currentStateType); }
+		bool IsStateValid(const State::Type stateType) const				{ return m_states[stateType].get() != nullptr; }
+
+	public:
 		//The main interface with the state machine.
 		ButtonSet CalculateInput(const Ram &ram);
 

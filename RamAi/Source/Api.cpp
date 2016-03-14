@@ -19,6 +19,7 @@
 
 #include "Api.h"
 
+#include <cassert>
 #include <cstdlib>
 #include <ctime>
 
@@ -49,15 +50,38 @@ RamAi::Api &RamAi::Api::operator= (Api &&other)
 
 void RamAi::Api::InitialiseGame(const GameDetails &gameDetails)
 {
+	//Create a new state machine.
+	m_stateMachine = std::make_unique<StateMachine>(gameDetails);
 }
 
 RamAi::ButtonSet RamAi::Api::CalculateInput()
 {
-	//For now just generate random button presses.
-	const size_t buttonSetSize = 1 << Console::GetSpecs().numberOfGamePadButtons;
-	return ButtonSet(rand() % 256);
+	ButtonSet returnValue;
+
+	assert(m_stateMachine);
+
+	if (m_stateMachine)
+	{
+		//TODO: Still uses a random input when there is no valid current state.
+		if (m_stateMachine->IsCurrentStateValid())
+		{
+			//TODO: Need to provide actual RAM.
+			Ram ram(Console::GetSpecs().ramSize);
+
+			returnValue = m_stateMachine->CalculateInput(ram);
+		}
+		else
+		{
+			//For now just generate random button presses.
+			const size_t buttonSetSize = 1 << Console::GetSpecs().numberOfGamePadButtons;
+			returnValue = ButtonSet(rand() % 256);
+		}
+	}
+
+	return returnValue;
 }
 
 void RamAi::Api::Move(Api &&other)
 {
+	m_stateMachine = std::move(other.m_stateMachine);
 }
