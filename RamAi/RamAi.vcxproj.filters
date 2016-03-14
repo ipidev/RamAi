@@ -105,6 +105,9 @@
     <ClInclude Include="Source\Game\StateMachine\StateMachine.h">
       <Filter>Header Files\Game\StateMachine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\State\Savestate.h">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -151,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\StateMachine\StateMachine.cpp">
       <Filter>Source Files\Game\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\State\Savestate.cpp">
+      <Filter>Source Files\State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

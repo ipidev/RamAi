@@ -35,6 +35,7 @@
     <ClInclude Include="Source\MonteCarlo\UctMonteCarloTree.h" />
     <ClInclude Include="Source\Score\Score.h" />
     <ClInclude Include="Source\State\Ram.h" />
+    <ClInclude Include="Source\State\Savestate.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Action\ButtonSet.cpp" />
@@ -52,6 +53,7 @@
     <ClCompile Include="Source\MonteCarlo\UctMonteCarloTree.cpp" />
     <ClCompile Include="Source\Score\Score.cpp" />
     <ClCompile Include="Source\State\Ram.cpp" />
+    <ClCompile Include="Source\State\Savestate.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F1063B79-5C38-4B22-8A61-CD7CE50AA909}</ProjectGuid>
