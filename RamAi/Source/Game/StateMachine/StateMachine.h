@@ -19,11 +19,13 @@
 
 #pragma once
 
+#include <functional>
 #include <memory>
 
 #include "Game/GameDetails.h"
 #include "MonteCarlo/GameMonteCarloTree.h"
 #include "State/Ram.h"
+#include "State/Savestate.h"
 
 
 namespace RamAi
@@ -95,6 +97,10 @@ namespace RamAi
 		std::weak_ptr<State> GetCurrentState()								{ return m_states[m_currentStateType]; }
 
 	public:
+		std::function<Savestate()> &GetSaveStateHandle()					{ return m_saveStateHandle; }
+		std::function<void(Savestate&&)> &GetLoadStateHandle()				{ return m_loadStateHandle; }
+
+	public:
 		bool IsCurrentStateValid() const									{ return IsStateValid(m_currentStateType); }
 		bool IsStateValid(const State::Type stateType) const				{ return m_states[stateType].get() != nullptr; }
 
@@ -113,5 +119,9 @@ namespace RamAi
 
 		std::shared_ptr<State> m_states[State::Type::Max];
 		State::Type m_currentStateType;
+
+	protected:
+		std::function<Savestate()> m_saveStateHandle;
+		std::function<void(Savestate&&)> m_loadStateHandle;
 	};
 };
