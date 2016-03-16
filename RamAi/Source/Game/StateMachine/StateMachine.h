@@ -98,7 +98,7 @@ namespace RamAi
 
 	public:
 		std::function<Savestate()> &GetSaveStateHandle()					{ return m_saveStateHandle; }
-		std::function<void(Savestate&&)> &GetLoadStateHandle()				{ return m_loadStateHandle; }
+		std::function<void(const Savestate&)> &GetLoadStateHandle()			{ return m_loadStateHandle; }
 
 	public:
 		bool IsCurrentStateValid() const									{ return IsStateValid(m_currentStateType); }
@@ -122,6 +122,6 @@ namespace RamAi
 
 	protected:
 		std::function<Savestate()> m_saveStateHandle;
-		std::function<void(Savestate&&)> m_loadStateHandle;
+		std::function<void(const Savestate &)> m_loadStateHandle;
 	};
 };
