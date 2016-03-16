@@ -29,21 +29,30 @@ namespace RamAi
 	{
 	public:
 		Savestate();
-		Savestate(std::unique_ptr<uint8_t[]> &&data);
+		Savestate(std::unique_ptr<uint8_t[]> &&data, const size_t size);
 		Savestate(void *data, const size_t size);
-		Savestate(const Savestate &other) = delete;
+		Savestate(const Savestate &other);
 		Savestate(Savestate &&other);
 		~Savestate();
 
 	public:
-		Savestate &operator= (const Savestate &other) = delete;
+		Savestate &operator= (const Savestate &other);
 		Savestate &operator= (Savestate &&other);
 
 	public:
 		const std::unique_ptr<uint8_t[]> &GetData() const	{ return m_data; }
 		std::unique_ptr<uint8_t[]> &GetData()				{ return m_data; }
 
+		size_t GetSize() const								{ return m_size; }
+
+	private:
+		void CopyBytes(const uint8_t *bytes, const size_t size);
+
+		void Copy(const Savestate &other);
+		void Move(Savestate &&other);
+
 	private:
 		std::unique_ptr<uint8_t[]> m_data;
+		size_t m_size;
 	};
 };

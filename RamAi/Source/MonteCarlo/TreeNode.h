@@ -19,10 +19,12 @@
 
 #pragma once
 
+#include <memory>
 #include <unordered_map>
 
 #include "Action/ButtonSet.h"
 #include "Score/Score.h"
+#include "State/Savestate.h"
 
 
 namespace RamAi
@@ -31,6 +33,7 @@ namespace RamAi
 	{
 	public:
 		TreeNode();
+		TreeNode(Savestate &&savestate);
 		TreeNode(const TreeNode &other);
 		TreeNode(TreeNode &&other);
 		~TreeNode();
@@ -53,9 +56,13 @@ namespace RamAi
 		std::unordered_map<ButtonSet, TreeNode>::const_iterator GetIteratorBegin() const	{ return m_children.cbegin(); }
 		std::unordered_map<ButtonSet, TreeNode>::const_iterator GetIteratorEnd() const		{ return m_children.cend(); }
 
+	public:
 		const TreeNode *GetParent() const							{ return m_parent; }
 		TreeNode *GetParent()										{ return m_parent; }
 		bool IsRoot() const											{ return m_parent == nullptr; }
+
+		const std::unique_ptr<Savestate> &GetSavestate() const		{ return m_savestate; }
+		void SetSavestate(Savestate &&savestate)					{ m_savestate = std::make_unique<Savestate>(std::move(savestate)); }
 
 		const Score &GetScore() const								{ return m_score; }
 		Score &GetScore()											{ return m_score; }
@@ -71,6 +78,7 @@ namespace RamAi
 	private:
 		std::unordered_map<ButtonSet, TreeNode> m_children;
 		TreeNode *m_parent;
+		std::unique_ptr<Savestate> m_savestate;
 		Score m_score;
 	};
 };

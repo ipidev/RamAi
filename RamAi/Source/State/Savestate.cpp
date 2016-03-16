@@ -23,33 +23,64 @@ RamAi::Savestate::Savestate()
 {
 }
 
-RamAi::Savestate::Savestate(std::unique_ptr<uint8_t[]> &&data)
+RamAi::Savestate::Savestate(std::unique_ptr<uint8_t[]> &&data, const size_t size)
 	: m_data(std::move(data))
+	, m_size(size)
 {
 }
 
 RamAi::Savestate::Savestate(void *data, const size_t size)
 	: m_data(std::make_unique<uint8_t[]>(size))
+	, m_size(size)
 {
 	uint8_t *dataAsBytes = reinterpret_cast<uint8_t*>(data);
+	CopyBytes(dataAsBytes, size);
+}
 
-	for (size_t i = 0; i < size; ++i)
-	{
-		m_data[i] = dataAsBytes[i];
-	}
+RamAi::Savestate::Savestate(const Savestate &other)
+{
+	Copy(other);
 }
 
 RamAi::Savestate::Savestate(Savestate &&other)
-	: m_data(std::move(other.m_data))
 {
+	Move(std::move(other));
 }
 
 RamAi::Savestate::~Savestate()
 {
 }
 
+RamAi::Savestate &RamAi::Savestate::operator= (const Savestate &other)
+{
+	Copy(other);
+	return *this;
+}
+
 RamAi::Savestate &RamAi::Savestate::operator= (Savestate &&other)
 {
-	m_data = std::move(other.m_data);
+	Move(std::move(other));
 	return *this;
+}
+
+void RamAi::Savestate::CopyBytes(const uint8_t *bytes, const size_t size)
+{
+	for (size_t i = 0; i < size; ++i)
+	{
+		m_data[i] = bytes[i];
+	}
+}
+
+void RamAi::Savestate::Copy(const Savestate &other)
+{
+	m_size = other.m_size;
+
+	m_data = std::make_unique<uint8_t[]>(m_size);
+	CopyBytes(other.GetData().get(), m_size);
+}
+
+void RamAi::Savestate::Move(Savestate &&other)
+{
+	m_data = std::move(other.m_data);
+	m_size = other.m_size;
 }

@@ -25,6 +25,14 @@ RamAi::TreeNode::TreeNode()
 	m_parent = nullptr;
 }
 
+
+RamAi::TreeNode::TreeNode(Savestate &&savestate)
+	: TreeNode()
+{
+	m_savestate = std::make_unique<Savestate>(std::move(savestate));
+}
+
+
 RamAi::TreeNode::TreeNode(const TreeNode &other)
 {
 	Copy(other);
@@ -80,6 +88,15 @@ void RamAi::TreeNode::Copy(const TreeNode &other)
 	m_children = other.m_children;
 	m_parent = other.m_parent;
 	m_score = other.m_score;
+
+	if (Savestate *otherSavestate = other.m_savestate.get())
+	{
+		m_savestate = std::make_unique<Savestate>(*otherSavestate);
+	}
+	else
+	{
+		m_savestate = nullptr;
+	}
 }
 
 void RamAi::TreeNode::Move(TreeNode &&other)
@@ -88,6 +105,8 @@ void RamAi::TreeNode::Move(TreeNode &&other)
 
 	m_parent = other.m_parent;
 	other.m_parent = nullptr;
+
+	m_savestate = std::move(other.m_savestate);
 
 	m_score = std::move(other.m_score);
 }
