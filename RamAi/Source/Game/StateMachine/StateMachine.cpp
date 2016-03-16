@@ -76,7 +76,36 @@ RamAi::ButtonSet RamAi::StateMachine::CalculateInput(const Ram &ram)
 {
 	ButtonSet returnValue;
 
-	if (std::shared_ptr<State> currentState = GetCurrentState().lock())
+	{
+		State *currentState = nullptr;
+		State::Type desiredStateType = m_currentStateType;
+		State::Type previousStateType = desiredStateType;
+
+		//Get the current state. This is a bit complicated, as our current state may want to change.
+		//In this case, we need to repeatedly change state until no more change is desired (or we change to a null state)!
+		do
+		{
+			currentState = GetCurrentStateInternal().get();
+			desiredStateType = currentState ? currentState->GetDesiredStateType(ram) : m_currentStateType;
+
+			if (desiredStateType != m_currentStateType)
+			{
+				//Store the current state type before changing it.
+				previousStateType = m_currentStateType;
+
+				ChangeState(desiredStateType);
+			}
+		}
+		while (currentState && desiredStateType != previousStateType);
+
+		//Use the current state to calculate input.
+		if (currentState)
+		{
+			returnValue = currentState->CalculateInput(ram);
+		}
+	}
+
+	/*if (std::shared_ptr<State> currentState = GetCurrentState().lock())
 	{
 		returnValue = currentState->CalculateInput(ram);
 
@@ -87,7 +116,7 @@ RamAi::ButtonSet RamAi::StateMachine::CalculateInput(const Ram &ram)
 		{
 			ChangeState(desiredStateType);
 		}
-	}
+	}*/
 
 	return returnValue;
 }

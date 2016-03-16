@@ -111,6 +111,9 @@ namespace RamAi
 	protected:
 		void InitialiseStates();
 
+		const std::shared_ptr<State> &GetCurrentStateInternal() const		{ return m_states[m_currentStateType]; }
+		std::shared_ptr<State> &GetCurrentStateInternal()					{ return m_states[m_currentStateType]; }
+
 		void ChangeState(const State::Type newStateType);
 
 	protected:
