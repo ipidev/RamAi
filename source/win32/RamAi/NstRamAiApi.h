@@ -43,7 +43,7 @@ namespace Nes
 
 namespace Nestopia
 {
-	class RamAiApi : public RamAi::Api
+	class RamAiApi : public RamAi::Api, public RamAi::ISavestateInteractable
 	{
 	public:
 		RamAiApi(Managers::Emulator &emulator);
@@ -54,13 +54,17 @@ namespace Nestopia
 		void SetAllowHumanOverride(const bool b)	{ m_allowHumanOverride = b; }
 
 	public:
+		//Initialises the game, passing in the right callbacks.
+		void InitialiseGame(const RamAi::GameDetails &gameDetails);
+
 		void CalculateInput(Nes::Core::Input::Controllers *const input);
 
 	private:
-		RamAi::Savestate SaveState();
+		//ISavestateInteractable implementation.
+		virtual RamAi::Savestate SaveState() override;
 		RamAi::Savestate BufferToSavestate(const Collection::Buffer &buffer);
 
-		void LoadState(const RamAi::Savestate &savestate);
+		virtual void LoadState(const RamAi::Savestate &savestate) override;
 
 	private:
 		Managers::Emulator &m_emulator;

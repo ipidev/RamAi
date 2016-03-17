@@ -91,7 +91,7 @@ void RamAi::InitialisationState::OnStateExited(const std::weak_ptr<State> &newSt
 	State::OnStateExited(newState, newStateType);
 
 	//Save the current state into the root of the tree.
-	/*assert(m_stateMachine);
+	assert(m_stateMachine);
 
 	if (m_stateMachine)
 	{
@@ -105,5 +105,5 @@ void RamAi::InitialisationState::OnStateExited(const std::weak_ptr<State> &newSt
 			TreeNode &treeRoot = m_stateMachine->GetTree().GetRoot();
 			treeRoot.SetSavestate(std::move(savestate));
 		}
-	}*/
+	}
 }

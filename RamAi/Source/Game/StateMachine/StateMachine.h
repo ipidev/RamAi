@@ -30,6 +30,14 @@
 
 namespace RamAi
 {
+	//An interface that allows various callbacks to save/load states to be used.
+	class ISavestateInteractable
+	{
+	public:
+		virtual Savestate SaveState() = 0;
+		virtual void LoadState(const Savestate &savestate) = 0;
+	};
+
 	//A state machine that is ultimately responsible for making actions in the game.
 	class StateMachine
 	{

@@ -48,10 +48,12 @@ RamAi::Api &RamAi::Api::operator= (Api &&other)
 	return *this;
 }
 
-void RamAi::Api::InitialiseGame(const GameDetails &gameDetails)
+void RamAi::Api::InitialiseGame(const GameDetails &gameDetails, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle)
 {
 	//Create a new state machine.
 	m_stateMachine = std::make_unique<StateMachine>(gameDetails);
+	m_stateMachine->GetSaveStateHandle() = saveStateHandle;
+	m_stateMachine->GetLoadStateHandle() = loadStateHandle;
 }
 
 RamAi::ButtonSet RamAi::Api::CalculateInput()

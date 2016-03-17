@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include <cassert>
 #include <memory>
 
 #include "Action\ButtonSet.h"
@@ -45,7 +46,7 @@ namespace RamAi
 
 	public:
 		//Initialises the AI with a new game's settings.
-		void InitialiseGame(const GameDetails &gameDetails);
+		void InitialiseGame(const GameDetails &gameDetails, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle);
 
 	public:
 		ButtonSet CalculateInput();

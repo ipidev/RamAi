@@ -39,6 +39,18 @@ Nestopia::RamAiApi::~RamAiApi()
 {
 }
 
+void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameDetails &gameDetails)
+{
+	//Bind functions to this specific instance and pass them to the base class.
+	RamAi::StateMachine::SaveStateHandleSignature saveStateHandle = std::bind(&RamAiApi::SaveState, this);
+
+	//std::placeholders are used for extra parameters that are filled in later.
+	RamAi::StateMachine::LoadStateHandleSignature loadStateHandle = std::bind(&RamAiApi::LoadState, this, std::placeholders::_1); 
+
+	//Call the base.
+	RamAi::Api::InitialiseGame(gameDetails, saveStateHandle, loadStateHandle);
+}
+
 void Nestopia::RamAiApi::CalculateInput(Nes::Core::Input::Controllers *const input)
 {
 	if (input)
