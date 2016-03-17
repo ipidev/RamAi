@@ -65,6 +65,7 @@ namespace Nestopia
 		RamAi::Savestate BufferToSavestate(const Collection::Buffer &buffer);
 
 		virtual void LoadState(const RamAi::Savestate &savestate) override;
+		Collection::Buffer SavestateToBuffer(const RamAi::Savestate &savestate);
 
 	private:
 		Managers::Emulator &m_emulator;

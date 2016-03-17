@@ -95,6 +95,21 @@ RamAi::Savestate Nestopia::RamAiApi::BufferToSavestate(const Collection::Buffer 
 
 void Nestopia::RamAiApi::LoadState(const RamAi::Savestate &savestate)
 {
+	//Most of this is derived from Nestopia::Managers::Emulator::LoadState().
+	Collection::Buffer buffer = std::move(SavestateToBuffer(savestate));
+	Io::Stream::In stream(buffer);
+
+	Nes::Result result = Nes::Machine(m_emulator).LoadState(stream);
+
+	assert(NES_SUCCEEDED(result));
+}
+
+Nestopia::Collection::Buffer Nestopia::RamAiApi::SavestateToBuffer(const RamAi::Savestate &savestate)
+{
+	const char *charPtr = reinterpret_cast<const char*>(savestate.GetData().get());
+	Collection::Buffer buffer(charPtr, savestate.GetSize());
+
+	return buffer;
 }
 
 Nestopia::RamAiApi::SpecsContainer::SpecsContainer()
