@@ -79,6 +79,10 @@ namespace RamAi
 		};
 
 	public:
+		typedef std::function<Savestate()> SaveStateHandleSignature;
+		typedef std::function<void(const Savestate&)> LoadStateHandleSignature;
+
+	public:
 		StateMachine(const GameDetails &gameDetails);
 		~StateMachine();
 
@@ -97,8 +101,8 @@ namespace RamAi
 		std::weak_ptr<State> GetCurrentState()								{ return m_states[m_currentStateType]; }
 
 	public:
-		std::function<Savestate()> &GetSaveStateHandle()					{ return m_saveStateHandle; }
-		std::function<void(const Savestate&)> &GetLoadStateHandle()			{ return m_loadStateHandle; }
+		SaveStateHandleSignature &GetSaveStateHandle()						{ return m_saveStateHandle; }
+		LoadStateHandleSignature &GetLoadStateHandle()						{ return m_loadStateHandle; }
 
 	public:
 		bool IsCurrentStateValid() const									{ return IsStateValid(m_currentStateType); }
@@ -124,7 +128,7 @@ namespace RamAi
 		State::Type m_currentStateType;
 
 	protected:
-		std::function<Savestate()> m_saveStateHandle;
-		std::function<void(const Savestate &)> m_loadStateHandle;
+		SaveStateHandleSignature m_saveStateHandle;
+		LoadStateHandleSignature m_loadStateHandle;
 	};
 };
