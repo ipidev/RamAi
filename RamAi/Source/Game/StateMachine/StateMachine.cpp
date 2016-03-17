@@ -105,19 +105,6 @@ RamAi::ButtonSet RamAi::StateMachine::CalculateInput(const Ram &ram)
 		}
 	}
 
-	/*if (std::shared_ptr<State> currentState = GetCurrentState().lock())
-	{
-		returnValue = currentState->CalculateInput(ram);
-
-		//See if we should change state.
-		const State::Type desiredStateType = currentState->GetDesiredStateType(ram);
-
-		if (desiredStateType != m_currentStateType)
-		{
-			ChangeState(desiredStateType);
-		}
-	}*/
-
 	return returnValue;
 }
 
