@@ -30,7 +30,7 @@ namespace RamAi
 	public:
 		Savestate();
 		Savestate(std::unique_ptr<uint8_t[]> &&data, const size_t size);
-		Savestate(void *data, const size_t size);
+		Savestate(const uint8_t *data, const size_t size);
 		Savestate(const Savestate &other);
 		Savestate(Savestate &&other);
 		~Savestate();

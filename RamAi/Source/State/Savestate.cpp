@@ -29,12 +29,11 @@ RamAi::Savestate::Savestate(std::unique_ptr<uint8_t[]> &&data, const size_t size
 {
 }
 
-RamAi::Savestate::Savestate(void *data, const size_t size)
+RamAi::Savestate::Savestate(const uint8_t *data, const size_t size)
 	: m_data(std::make_unique<uint8_t[]>(size))
 	, m_size(size)
 {
-	uint8_t *dataAsBytes = reinterpret_cast<uint8_t*>(data);
-	CopyBytes(dataAsBytes, size);
+	CopyBytes(data, size);
 }
 
 RamAi::Savestate::Savestate(const Savestate &other)

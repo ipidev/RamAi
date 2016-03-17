@@ -25,10 +25,12 @@
 #include "NstRamAiApi.h"
 
 #include "../../core/api/NstApiInput.hpp"
+#include "../NstIoStream.hpp"
 
 
-Nestopia::RamAiApi::RamAiApi()
+Nestopia::RamAiApi::RamAiApi(Managers::Emulator &emulator)
 	: RamAi::Api(s_specsContainer.specs)
+	, m_emulator(emulator)
 	, m_allowHumanOverride(true)
 {
 }
@@ -52,6 +54,37 @@ void Nestopia::RamAiApi::CalculateInput(Nes::Core::Input::Controllers *const inp
 	}
 }
 
+RamAi::Savestate Nestopia::RamAiApi::SaveState()
+{
+	//Most of this is derived from Nestopia::Managers::Emulator::SaveState().
+	Collection::Buffer buffer;
+	Io::Stream::Out stream(buffer);
+
+	Nes::Result result = Nes::Machine(m_emulator).SaveState(stream, s_compressSavestates ? Nes::Machine::USE_COMPRESSION : Nes::Machine::NO_COMPRESSION);
+
+	if (NES_SUCCEEDED(result))
+	{
+		return std::move(BufferToSavestate(buffer));
+	}
+	else
+	{
+		return RamAi::Savestate();
+	}
+}
+
+RamAi::Savestate Nestopia::RamAiApi::BufferToSavestate(const Collection::Buffer &buffer)
+{
+	//Get byte array from buffer.
+	const uint8_t *bytePtr = reinterpret_cast<const uint8_t*>(buffer.Ptr());
+	const size_t numberOfBytes = buffer.Size();
+
+	return RamAi::Savestate(bytePtr, numberOfBytes);
+}
+
+void Nestopia::RamAiApi::LoadState(const RamAi::Savestate &savestate)
+{
+}
+
 Nestopia::RamAiApi::SpecsContainer::SpecsContainer()
 {
 	specs.ramSize = 2048;
@@ -60,3 +93,5 @@ Nestopia::RamAiApi::SpecsContainer::SpecsContainer()
 }
 
 Nestopia::RamAiApi::SpecsContainer Nestopia::RamAiApi::s_specsContainer = Nestopia::RamAiApi::SpecsContainer();
+
+bool Nestopia::RamAiApi::s_compressSavestates = false;

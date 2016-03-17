@@ -28,6 +28,7 @@
 #pragma once
 
 #include "../../../RamAi/Source/Api.h"
+#include "../NstManagerEmulator.hpp"
 
 namespace Nes
 {
@@ -45,7 +46,7 @@ namespace Nestopia
 	class RamAiApi : public RamAi::Api
 	{
 	public:
-		RamAiApi();
+		RamAiApi(Managers::Emulator &emulator);
 		~RamAiApi();
 
 	public:
@@ -56,6 +57,14 @@ namespace Nestopia
 		void CalculateInput(Nes::Core::Input::Controllers *const input);
 
 	private:
+		RamAi::Savestate SaveState();
+		RamAi::Savestate BufferToSavestate(const Collection::Buffer &buffer);
+
+		void LoadState(const RamAi::Savestate &savestate);
+
+	private:
+		Managers::Emulator &m_emulator;
+
 		bool m_allowHumanOverride;
 
 	private:
@@ -71,6 +80,9 @@ namespace Nestopia
 		};
 
 		static SpecsContainer s_specsContainer;
+
+	private:
+		static bool s_compressSavestates;
 	};
 };
 

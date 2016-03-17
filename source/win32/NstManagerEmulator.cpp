@@ -451,7 +451,7 @@ namespace Nestopia
 
 			//[SLBEGIN]: Adding RamAi API.
 			//TODO: Optionally instantiate RamAi interface?
-			ramAiApi = std::make_unique<RamAiApi>();
+			ramAiApi = std::make_unique<RamAiApi>(*this);
 			//[SLEND]
 		}
 
