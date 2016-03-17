@@ -74,7 +74,7 @@ namespace RamAi
 		protected:
 			void Move(State &&other);
 
-		private:
+		protected:
 			StateMachine *m_stateMachine;
 		};
 

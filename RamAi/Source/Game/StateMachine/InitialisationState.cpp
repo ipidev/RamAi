@@ -89,4 +89,21 @@ RamAi::StateMachine::State::Type RamAi::InitialisationState::GetDesiredStateType
 void RamAi::InitialisationState::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)
 {
 	State::OnStateExited(newState, newStateType);
+
+	//Save the current state into the root of the tree.
+	assert(m_stateMachine);
+
+	if (m_stateMachine)
+	{
+		//TODO: Improve interface here? Should there be a common function on the state machine that throws exceptions, etc?
+		assert(m_stateMachine->GetSaveStateHandle());
+
+		if (m_stateMachine->GetSaveStateHandle())
+		{
+			Savestate savestate = std::move(m_stateMachine->GetSaveStateHandle()());
+
+			TreeNode &treeRoot = m_stateMachine->GetTree().GetRoot();
+			treeRoot.SetSavestate(std::move(savestate));
+		}
+	}
 }

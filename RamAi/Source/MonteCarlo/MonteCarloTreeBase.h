@@ -49,6 +49,10 @@ namespace RamAi
 		MonteCarloTreeBase &operator= (MonteCarloTreeBase &&other);
 
 	public:
+		const TreeNode &GetRoot() const		{ return m_root; }
+		TreeNode &GetRoot()					{ return m_root; }
+
+	public:
 		void PerformSearch();
 
 	public:
