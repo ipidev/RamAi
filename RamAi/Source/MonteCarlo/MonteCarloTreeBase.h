@@ -51,9 +51,10 @@ namespace RamAi
 	public:
 		void PerformSearch();
 
-	protected:
+	public:
 		TreeNode &Select();
 
+	protected:
 		//Returns true if the given node should be expanded.
 		//By default, returns true if the given node has no children.
 		virtual bool NodeNeedsExpanding(const TreeNode &node) const			{ return node.IsLeaf(); }
@@ -61,9 +62,10 @@ namespace RamAi
 		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
 		virtual TreeNode *SelectChild(const TreeNode &parent) const = 0;
 
-	protected:
+	public:
 		virtual TreeNode &Expand(TreeNode &nodeToBeExpanded);
 
+	protected:
 		//Performs tree expansion by generating children for the given root.
 		virtual void PerformExpansion(TreeNode &nodeToBeExpanded) = 0;
 
@@ -71,7 +73,7 @@ namespace RamAi
 		//By default, this is a synonym for SelectChild().
 		virtual TreeNode *SelectExpandedChild(const TreeNode &parent) const	{ return SelectChild(parent); }
 
-	protected:
+	public:
 		//TODO: Can't return the score in one function call. Make Backpropagate public so the score can be saved later.
 		ScoreType Simulate(TreeNode &nodeToBeSimulated);
 
