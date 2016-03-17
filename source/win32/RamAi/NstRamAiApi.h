@@ -43,7 +43,7 @@ namespace Nes
 
 namespace Nestopia
 {
-	class RamAiApi : public RamAi::Api, public RamAi::ISavestateInteractable
+	class RamAiApi : public RamAi::Api
 	{
 	public:
 		RamAiApi(Managers::Emulator &emulator);
@@ -61,10 +61,10 @@ namespace Nestopia
 
 	private:
 		//ISavestateInteractable implementation.
-		virtual RamAi::Savestate SaveState() override;
+		RamAi::Savestate SaveState();
 		RamAi::Savestate BufferToSavestate(const Collection::Buffer &buffer);
 
-		virtual void LoadState(const RamAi::Savestate &savestate) override;
+		void LoadState(const RamAi::Savestate &savestate);
 		Collection::Buffer SavestateToBuffer(const RamAi::Savestate &savestate);
 
 	private:
