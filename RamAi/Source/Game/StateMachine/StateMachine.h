@@ -44,7 +44,6 @@ namespace RamAi
 				Initialisation,
 				Expansion,
 				Simulation,
-				Backpropagation,
 				Max
 			};
 

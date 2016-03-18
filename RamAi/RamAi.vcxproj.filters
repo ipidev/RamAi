@@ -111,6 +111,9 @@
     <ClInclude Include="Source\Game\StateMachine\ExpansionState.h">
       <Filter>Header Files\Game\StateMachine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\StateMachine\SimulationState.h">
+      <Filter>Header Files\Game\StateMachine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -162,6 +165,9 @@
       <Filter>Source Files\State</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\StateMachine\ExpansionState.cpp">
+      <Filter>Source Files\Game\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\StateMachine\SimulationState.cpp">
       <Filter>Source Files\Game\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>

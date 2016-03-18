@@ -23,6 +23,7 @@
 
 #include "InitialisationState.h"
 #include "ExpansionState.h"
+#include "SimulationState.h"
 
 
 RamAi::StateMachine::State::State(StateMachine &stateMachine)
@@ -113,6 +114,7 @@ void RamAi::StateMachine::InitialiseStates()
 {
 	m_states[State::Type::Initialisation] = std::make_shared<InitialisationState>(*this);
 	m_states[State::Type::Expansion] = std::make_shared<ExpansionState>(*this);
+	m_states[State::Type::Simulation] = std::make_shared<SimulationState>(*this);
 }
 
 void RamAi::StateMachine::ChangeState(const State::Type newStateType)
