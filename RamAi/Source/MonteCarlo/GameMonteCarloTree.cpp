@@ -33,7 +33,8 @@ RamAi::GameMonteCarloTree::~GameMonteCarloTree()
 
 bool RamAi::GameMonteCarloTree::NodeNeedsExpanding(const TreeNode &node) const
 {
-	return MonteCarloTreeBase::NodeNeedsExpanding(node);
+	//TODO: This needs to be changed to allow the tree to eventually expand into all allowed button combinations.
+	return node.GetNumberOfChildren() < 2;
 }
 
 void RamAi::GameMonteCarloTree::PerformExpansion(TreeNode &nodeToBeExpanded)
@@ -41,8 +42,19 @@ void RamAi::GameMonteCarloTree::PerformExpansion(TreeNode &nodeToBeExpanded)
 	//TODO: Magic numbers that currently return left/right/A for Nestopia. Fix!!
 	std::vector<ButtonSet> leftRightAButtonSet = ButtonSet::GetAllCombinations(Bitfield<uint32_t>(0), Bitfield<uint32_t>(193));
 
-	for (size_t i = 0; i < leftRightAButtonSet.size(); ++i)
+	//Select and add one child at random.
+	while (leftRightAButtonSet.size() > 0)
 	{
-		nodeToBeExpanded.AddChild(leftRightAButtonSet[i]);
+		size_t chosenIndex = rand() % leftRightAButtonSet.size();
+
+		if (!nodeToBeExpanded.ContainsAction(leftRightAButtonSet[chosenIndex]))
+		{
+			nodeToBeExpanded.AddChild(leftRightAButtonSet[chosenIndex]);
+			break;
+		}
+		else
+		{
+			leftRightAButtonSet.erase(leftRightAButtonSet.begin() + chosenIndex);
+		}
 	}
 }

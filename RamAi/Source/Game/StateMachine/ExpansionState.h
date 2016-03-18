@@ -48,9 +48,6 @@ namespace RamAi
 		virtual void OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType) override;
 
 	protected:
-		TreeNode &GetExpandedNode(GameMonteCarloTree &tree);
-
-	protected:
 		TreeNode *m_expandedNode;
 		ButtonSet m_expansionAction;
 

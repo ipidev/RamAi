@@ -65,17 +65,31 @@ void RamAi::ExpansionState::OnStateEntered(const std::weak_ptr<State>& oldState,
 
 	if (m_stateMachine)
 	{
-		//Expand the tree.
+		//Select the most urgent node from the tree and load its state.
 		GameMonteCarloTree &tree = m_stateMachine->GetTree();
-		m_expandedNode = &GetExpandedNode(tree);
+		
+		TreeNode &selectedNode = tree.Select();
+		assert(selectedNode.HasSavestate());
 
-		assert(m_expandedNode);
-
-		//Store the action(s) that are needed to reach the newly expanded state.
-		if (TreeNode *parent = m_expandedNode->GetParent())
+		if (selectedNode.HasSavestate())
 		{
-			bool gotAction = parent->GetActionLeadingToChild(*m_expandedNode, m_expansionAction);
-			assert(gotAction);
+			assert(m_stateMachine->GetLoadStateHandle());
+
+			if (m_stateMachine->GetLoadStateHandle())
+			{
+				m_stateMachine->GetLoadStateHandle()(*selectedNode.GetSavestate());
+			}
+
+			//Expand the node and store it.
+			m_expandedNode = &tree.Expand(selectedNode);
+			assert(m_expandedNode);
+
+			//Store the action(s) that are needed to reach the newly expanded state.
+			if (TreeNode *parent = m_expandedNode->GetParent())
+			{
+				bool gotAction = parent->GetActionLeadingToChild(*m_expandedNode, m_expansionAction);
+				assert(gotAction);
+			}
 		}
 	}
 }
@@ -134,15 +148,6 @@ void RamAi::ExpansionState::OnStateExited(const std::weak_ptr<State> &newState, 
 	{
 		assert(m_expandedNode->HasSavestate());
 	}
-}
-
-RamAi::TreeNode &RamAi::ExpansionState::GetExpandedNode(GameMonteCarloTree &tree)
-{
-	//Select the most urgent node in the tree and expand it.
-	TreeNode &selectedNode = tree.Select();
-	TreeNode &expandedNode = tree.Expand(selectedNode);
-
-	return expandedNode;
 }
 
 const size_t RamAi::ExpansionState::s_maximumNumberOfActions = 1;
