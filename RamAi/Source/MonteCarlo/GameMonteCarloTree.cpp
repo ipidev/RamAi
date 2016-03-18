@@ -19,6 +19,9 @@
 
 #include "GameMonteCarloTree.h"
 
+#include "Action/ButtonSet.h"
+
+
 RamAi::GameMonteCarloTree::GameMonteCarloTree()
 	: UctMonteCarloTree(0.5f)
 {
@@ -35,4 +38,11 @@ bool RamAi::GameMonteCarloTree::NodeNeedsExpanding(const TreeNode &node) const
 
 void RamAi::GameMonteCarloTree::PerformExpansion(TreeNode &nodeToBeExpanded)
 {
+	//TODO: Magic numbers that currently return left/right/A for Nestopia. Fix!!
+	std::vector<ButtonSet> leftRightAButtonSet = ButtonSet::GetAllCombinations(Bitfield<uint32_t>(0), Bitfield<uint32_t>(193));
+
+	for (size_t i = 0; i < leftRightAButtonSet.size(); ++i)
+	{
+		nodeToBeExpanded.AddChild(leftRightAButtonSet[i]);
+	}
 }
