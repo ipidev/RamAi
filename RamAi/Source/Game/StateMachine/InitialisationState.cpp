@@ -83,7 +83,7 @@ RamAi::StateMachine::State::Type RamAi::InitialisationState::GetDesiredStateType
 	//We shouldn't ever go over the target number of frames - that means we must have skipped one!
 	assert(m_numberOfFramesExecuted <= targetNumberOfFrames);
 
-	return m_numberOfFramesExecuted >= 60 ? Type::Selection : Type::Initialisation;
+	return m_numberOfFramesExecuted >= 60 ? Type::Expansion : Type::Initialisation;
 }
 
 void RamAi::InitialisationState::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)

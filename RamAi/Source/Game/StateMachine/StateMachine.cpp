@@ -22,6 +22,7 @@
 #include <cassert>
 
 #include "InitialisationState.h"
+#include "ExpansionState.h"
 
 
 RamAi::StateMachine::State::State(StateMachine &stateMachine)
@@ -88,11 +89,11 @@ RamAi::ButtonSet RamAi::StateMachine::CalculateInput(const Ram &ram)
 			currentState = GetCurrentStateInternal().get();
 			desiredStateType = currentState ? currentState->GetDesiredStateType(ram) : m_currentStateType;
 
+			//Store the current state type before changing it.
+			previousStateType = m_currentStateType;
+
 			if (desiredStateType != m_currentStateType)
 			{
-				//Store the current state type before changing it.
-				previousStateType = m_currentStateType;
-
 				ChangeState(desiredStateType);
 			}
 		}
@@ -111,6 +112,7 @@ RamAi::ButtonSet RamAi::StateMachine::CalculateInput(const Ram &ram)
 void RamAi::StateMachine::InitialiseStates()
 {
 	m_states[State::Type::Initialisation] = std::make_shared<InitialisationState>(*this);
+	m_states[State::Type::Expansion] = std::make_shared<ExpansionState>(*this);
 }
 
 void RamAi::StateMachine::ChangeState(const State::Type newStateType)

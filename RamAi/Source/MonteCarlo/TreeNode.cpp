@@ -71,6 +71,21 @@ RamAi::TreeNode *RamAi::TreeNode::GetChild(const ButtonSet &buttonSet)
 	return (it != m_children.end()) ? &it->second : nullptr;
 }
 
+bool RamAi::TreeNode::GetActionLeadingToChild(const TreeNode &child, ButtonSet &outAction) const
+{
+	for (auto it = m_children.cbegin(); it != m_children.cend(); ++it)
+	{
+		//If the child nodes match, return the action that leads from this node to the child.
+		if (&(it->second) == &child)
+		{
+			outAction = it->first;
+			return true;
+		}
+	}
+
+	return false;
+}
+
 RamAi::TreeNode *RamAi::TreeNode::AddChild(const ButtonSet &buttonSet)
 {
 	auto result = m_children.insert({buttonSet, std::move(TreeNode(this))});

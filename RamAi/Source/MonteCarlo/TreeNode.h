@@ -50,6 +50,8 @@ namespace RamAi
 		TreeNode *GetChild(const ButtonSet &buttonSet);
 		bool ContainsAction(const ButtonSet &buttonSet) const		{ return GetChild(buttonSet) != nullptr; }
 
+		bool GetActionLeadingToChild(const TreeNode &child, ButtonSet &outAction) const;
+
 		size_t GetNumberOfChildren() const							{ return m_children.size(); }
 		bool IsLeaf() const											{ return GetNumberOfChildren() == 0; }
 
@@ -61,6 +63,7 @@ namespace RamAi
 		TreeNode *GetParent()										{ return m_parent; }
 		bool IsRoot() const											{ return m_parent == nullptr; }
 
+		bool HasSavestate() const									{ return m_savestate.get() != nullptr; }
 		const std::unique_ptr<Savestate> &GetSavestate() const		{ return m_savestate; }
 		void SetSavestate(Savestate &&savestate)					{ m_savestate = std::make_unique<Savestate>(std::move(savestate)); }
 

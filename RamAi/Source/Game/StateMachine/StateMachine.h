@@ -42,7 +42,6 @@ namespace RamAi
 			enum Type
 			{
 				Initialisation,
-				Selection,
 				Expansion,
 				Simulation,
 				Backpropagation,
