@@ -14,6 +14,7 @@
     <ProjectGuid>{CCC3A09C-0F7A-4E12-8594-11F2C60D71DA}</ProjectGuid>
     <RootNamespace>Core</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -41,12 +42,14 @@
     <_ProjectFileVersion>14.0.23107.0</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)debugout\</OutDir>
+    <OutDir>$(SolutionDir)..\lib\</OutDir>
     <IntDir>debug\core\</IntDir>
+    <TargetName>emucoredebug</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)releaseout\</OutDir>
+    <OutDir>$(SolutionDir)..\lib\</OutDir>
     <IntDir>release\core\</IntDir>
+    <TargetName>emucore</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

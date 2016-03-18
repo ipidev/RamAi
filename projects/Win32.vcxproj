@@ -51,9 +51,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)releaseout\</OutDir>
     <IntDir>release\win32\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
     <LibraryPath>$(DXSDK_DIR)lib\x86;$(OutDir);$(LibraryPath)</LibraryPath>
+    <TargetName>$(SolutionName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,6 +118,7 @@
       <DebugInformationFormat />
       <CallingConvention>FastCall</CallingConvention>
       <OmitDefaultLibName>false</OmitDefaultLibName>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
