@@ -20,10 +20,15 @@
 
 #include "SimulationState.h"
 
+#include <cassert>
+
+#include "ExpansionState.h"
+
 
 RamAi::SimulationState::SimulationState(StateMachine &stateMachine)
 	: State(stateMachine)
 {
+	m_simulatedNode = nullptr;
 	m_numberOfFramesExecuted = 0;
 }
 
@@ -49,6 +54,22 @@ RamAi::SimulationState &RamAi::SimulationState::operator= (SimulationState &&oth
 void RamAi::SimulationState::OnStateEntered(const std::weak_ptr<State>& oldState, const Type oldStateType)
 {
 	State::OnStateEntered(oldState, oldStateType);
+
+	//Get the node we're currently on from the previous state.
+	if (oldStateType == Type::Expansion)
+	{
+		if (State *oldStateRaw = oldState.lock().get())
+		{
+			ExpansionState *expansionState = static_cast<ExpansionState*>(oldStateRaw);
+			assert(expansionState);
+
+			if (expansionState)
+			{
+				assert(expansionState->GetExpandedNode());
+				m_simulatedNode = expansionState->GetExpandedNode();
+			}
+		}
+	}
 
 	m_numberOfFramesExecuted = 0;
 }
@@ -83,4 +104,19 @@ RamAi::StateMachine::State::Type RamAi::SimulationState::GetDesiredStateType(con
 void RamAi::SimulationState::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)
 {
 	State::OnStateExited(newState, newStateType);
+
+	//Backpropagate the result back up the tree.
+	assert(m_stateMachine);
+
+	if (m_stateMachine)
+	{
+		assert(m_simulatedNode);
+
+		if (m_simulatedNode)
+		{
+			GameMonteCarloTree &tree = m_stateMachine->GetTree();
+
+			tree.Backpropagate(*m_simulatedNode, 0);
+		}
+	}
 }

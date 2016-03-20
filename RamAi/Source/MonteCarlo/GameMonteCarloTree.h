@@ -38,5 +38,7 @@ namespace RamAi
 		virtual bool NodeNeedsExpanding(const TreeNode &node) const;
 
 		virtual void PerformExpansion(TreeNode &nodeToBeExpanded) override;
+
+		virtual TreeNode *SelectExpandedChild(const TreeNode &parent) const override;
 	};
 };

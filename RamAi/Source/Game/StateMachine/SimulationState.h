@@ -47,6 +47,7 @@ namespace RamAi
 		virtual void OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType) override;
 
 	protected:
+		TreeNode *m_simulatedNode;
 		size_t m_numberOfFramesExecuted;
 	};
 };

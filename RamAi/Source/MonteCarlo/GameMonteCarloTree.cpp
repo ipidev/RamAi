@@ -19,6 +19,8 @@
 
 #include "GameMonteCarloTree.h"
 
+#include <cassert>
+
 #include "Action/ButtonSet.h"
 
 
@@ -57,4 +59,24 @@ void RamAi::GameMonteCarloTree::PerformExpansion(TreeNode &nodeToBeExpanded)
 			leftRightAButtonSet.erase(leftRightAButtonSet.begin() + chosenIndex);
 		}
 	}
+}
+
+RamAi::TreeNode *RamAi::GameMonteCarloTree::SelectExpandedChild(const TreeNode &parent) const
+{
+	//We should only be expanding one child at a time, so we should return our newly expanded child here.
+	//Thus, we just need to select the node that hasn't been given a score yet.
+	for (auto it = parent.GetIteratorBegin(); it != parent.GetIteratorEnd(); ++it)
+	{
+		if (it->second.GetScore().GetVisits() == 0)
+		{
+			assert(!it->second.HasSavestate());
+
+			//TODO: Fix constness here by making the base function non-const.
+			return const_cast<TreeNode*>(&(it->second));
+		}
+	}
+
+	//Didn't find it?
+	assert(false);
+	return nullptr;
 }
