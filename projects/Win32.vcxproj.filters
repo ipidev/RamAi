@@ -427,6 +427,9 @@
     <ClCompile Include="..\source\win32\RamAi\NstRamAiApi.cpp">
       <Filter>RamAi</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\win32\RamAi\NstRamAiDebug.cpp">
+      <Filter>RamAi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\win32\NstApplicationConfiguration.hpp">
@@ -794,6 +797,9 @@
     </ClInclude>
     <ClInclude Include="..\source\win32\NstMain.hpp" />
     <ClInclude Include="..\source\win32\RamAi\NstRamAiApi.h">
+      <Filter>RamAi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\win32\RamAi\NstRamAiDebug.h">
       <Filter>RamAi</Filter>
     </ClInclude>
   </ItemGroup>

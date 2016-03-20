@@ -26,13 +26,15 @@
 
 #include "../../core/api/NstApiInput.hpp"
 #include "../NstIoStream.hpp"
+#include "NstRamAiDebug.h"
 
 
 Nestopia::RamAiApi::RamAiApi(Managers::Emulator &emulator)
-	: RamAi::Api(s_specsContainer.specs)
+	: RamAi::Api(s_specsContainer.specs, std::make_unique<RamAiDebug>())
 	, m_emulator(emulator)
 	, m_allowHumanOverride(true)
 {
+	RamAi::Debug::Out("hooray!");
 }
 
 Nestopia::RamAiApi::~RamAiApi()
