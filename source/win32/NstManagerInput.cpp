@@ -886,7 +886,9 @@ namespace Nestopia
 			typedef Window::Input::Settings Settings;
 			const Settings::Key* const NST_RESTRICT keys = dialog->GetSettings().GetKeys(Settings::EMULATION_KEYS);
 
-			emulator.ToggleSpeed( keys[Settings::EMULATION_KEY_ALT_SPEED].GetState() );
+			//[SLBEGIN]: Disabled toggle speed key.
+			//emulator.ToggleSpeed( keys[Settings::EMULATION_KEY_ALT_SPEED].GetState() );
+			//[SLEND]
 			emulator.ToggleRewind( keys[Settings::EMULATION_KEY_REWIND].GetState() );
 
 			commands.Poll();

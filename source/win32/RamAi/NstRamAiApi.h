@@ -68,6 +68,9 @@ namespace Nestopia
 		Collection::Buffer SavestateToBuffer(const RamAi::Savestate &savestate);
 
 	private:
+		void EnableTurbo(const bool turboOn);
+
+	private:
 		Managers::Emulator &m_emulator;
 
 		bool m_allowHumanOverride;

@@ -50,6 +50,8 @@ void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameDetails &gameDetails)
 
 	//Call the base.
 	RamAi::Api::InitialiseGame(gameDetails, saveStateHandle, loadStateHandle);
+
+	EnableTurbo(true);
 }
 
 void Nestopia::RamAiApi::CalculateInput(Nes::Core::Input::Controllers *const input)
@@ -111,6 +113,18 @@ Nestopia::Collection::Buffer Nestopia::RamAiApi::SavestateToBuffer(const RamAi::
 	Collection::Buffer buffer(charPtr, savestate.GetSize());
 
 	return buffer;
+}
+
+void Nestopia::RamAiApi::EnableTurbo(const bool turboOn)
+{
+	if (turboOn)
+	{
+		m_emulator.ToggleSpeed(true);
+	}
+	else
+	{
+		m_emulator.ToggleSpeed(false);
+	}
 }
 
 Nestopia::RamAiApi::SpecsContainer::SpecsContainer()
