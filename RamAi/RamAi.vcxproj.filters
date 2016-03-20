@@ -114,6 +114,9 @@
     <ClInclude Include="Source\Game\StateMachine\SimulationState.h">
       <Filter>Header Files\Game\StateMachine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -169,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\StateMachine\SimulationState.cpp">
       <Filter>Source Files\Game\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Debug.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

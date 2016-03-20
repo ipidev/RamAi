@@ -27,8 +27,14 @@
 
 
 RamAi::Api::Api(const Console::Specs &consoleSpecs)
+	: Api(consoleSpecs, nullptr)
+{
+}
+
+RamAi::Api::Api(const Console::Specs &consoleSpecs, std::unique_ptr<Debug> &&debugInstance)
 {
 	Console::SetSpecs(consoleSpecs);
+	Debug::SetInstance(std::move(debugInstance));
 
 	srand(static_cast<unsigned int>(time(NULL)));
 }

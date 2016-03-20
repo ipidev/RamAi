@@ -26,6 +26,7 @@
 #include "Game\GameDetails.h"
 #include "Game\StateMachine\StateMachine.h"
 #include "Console.h"
+#include "Debug.h"
 
 
 namespace RamAi
@@ -36,6 +37,7 @@ namespace RamAi
 	{
 	public:
 		Api(const Console::Specs &consoleSpecs);
+		Api(const Console::Specs &consoleSpecs, std::unique_ptr<Debug> &&debugInstance);
 		Api(const Api &other) = delete;
 		Api(Api &&other);
 		~Api();
