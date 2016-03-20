@@ -37,6 +37,8 @@ RamAi::Api::Api(const Console::Specs &consoleSpecs, std::unique_ptr<Debug> &&deb
 	Debug::SetInstance(std::move(debugInstance));
 
 	srand(static_cast<unsigned int>(time(NULL)));
+
+	Debug::Out("RamAi instantiated. Waiting for game...");
 }
 
 RamAi::Api::Api(Api &&other)
@@ -56,6 +58,8 @@ RamAi::Api &RamAi::Api::operator= (Api &&other)
 
 void RamAi::Api::InitialiseGame(const GameDetails &gameDetails, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle)
 {
+	Debug::ClearScreen();
+
 	//Create a new state machine.
 	m_stateMachine = std::make_unique<StateMachine>(gameDetails);
 	m_stateMachine->GetSaveStateHandle() = saveStateHandle;

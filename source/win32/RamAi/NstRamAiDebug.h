@@ -42,6 +42,7 @@ namespace Nestopia
 
 	public:
 		virtual void InstanceOut(const std::string &string, const RamAi::Colour colour) override;
+		virtual void InstanceClearScreen() override;
 
 	protected:
 		WORD RamAiColourToWord(const RamAi::Colour colour) const;

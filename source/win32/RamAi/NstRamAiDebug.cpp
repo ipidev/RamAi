@@ -68,6 +68,11 @@ void Nestopia::RamAiDebug::InstanceOut(const std::string &string, const RamAi::C
 	}
 }
 
+void Nestopia::RamAiDebug::InstanceClearScreen()
+{
+	system("cls");
+}
+
 WORD Nestopia::RamAiDebug::RamAiColourToWord(const RamAi::Colour colour) const
 {
 	WORD returnValue = 0;

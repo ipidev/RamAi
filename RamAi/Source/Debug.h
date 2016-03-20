@@ -51,9 +51,11 @@ namespace RamAi
 		static void SetInstance(std::unique_ptr<Debug> &&instance)	{ s_instance = std::move(instance); }
 
 		static void Out(const std::string &string, const Colour colour = Colour::White);
+		static void ClearScreen();
 
 	public:
 		virtual void InstanceOut(const std::string &string, const Colour colour) = 0;
+		virtual void InstanceClearScreen() = 0;
 
 	private:
 		static std::unique_ptr<Debug> s_instance;

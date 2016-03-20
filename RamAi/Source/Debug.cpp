@@ -35,4 +35,12 @@ void RamAi::Debug::Out(const std::string &string, const Colour colour)
 	}
 }
 
+void RamAi::Debug::ClearScreen()
+{
+	if (s_instance)
+	{
+		s_instance->InstanceClearScreen();
+	}
+}
+
 std::unique_ptr<RamAi::Debug> RamAi::Debug::s_instance = nullptr;
