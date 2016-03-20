@@ -25,6 +25,20 @@
 
 namespace RamAi
 {
+	//Primary and secondary colours of light.
+	enum Colour
+	{
+		Black	= 0,
+		Red		= 1 << 0,
+		Green	= 1 << 1,
+		Blue	= 1 << 2,
+
+		Yellow	= Red | Green,
+		Cyan	= Green | Blue,
+		Magenta	= Blue | Red,
+		White	= Red | Green | Blue
+	};
+
 	//Singleton class responsible for managing a debug output console.
 	class Debug
 	{
@@ -36,10 +50,10 @@ namespace RamAi
 		static Debug *GetInstance()									{ return s_instance.get(); }
 		static void SetInstance(std::unique_ptr<Debug> &&instance)	{ s_instance = std::move(instance); }
 
-		static void Out(const std::string &string);
+		static void Out(const std::string &string, const Colour colour = Colour::White);
 
 	public:
-		virtual void InstanceOut(const std::string &string) = 0;
+		virtual void InstanceOut(const std::string &string, const Colour colour) = 0;
 
 	private:
 		static std::unique_ptr<Debug> s_instance;

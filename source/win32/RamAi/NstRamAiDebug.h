@@ -41,7 +41,10 @@ namespace Nestopia
 		~RamAiDebug();
 
 	public:
-		virtual void InstanceOut(const std::string &string) override;
+		virtual void InstanceOut(const std::string &string, const RamAi::Colour colour) override;
+
+	protected:
+		WORD RamAiColourToWord(const RamAi::Colour colour) const;
 
 	private:
 		HANDLE m_outputHandle;

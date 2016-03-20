@@ -59,10 +59,23 @@ Nestopia::RamAiDebug::~RamAiDebug()
 	}
 }
 
-void Nestopia::RamAiDebug::InstanceOut(const std::string &string)
+void Nestopia::RamAiDebug::InstanceOut(const std::string &string, const RamAi::Colour colour)
 {
 	if (m_outputHandle != INVALID_HANDLE_VALUE)
 	{
+		SetConsoleTextAttribute(m_outputHandle, RamAiColourToWord(colour));
 		WriteConsoleA(m_outputHandle, string.c_str(), string.length(), nullptr, NULL);
 	}
+}
+
+WORD Nestopia::RamAiDebug::RamAiColourToWord(const RamAi::Colour colour) const
+{
+	WORD returnValue = 0;
+
+	if ((colour & RamAi::Colour::Red) != 0)		{ returnValue |= FOREGROUND_RED; }
+	if ((colour & RamAi::Colour::Green) != 0)	{ returnValue |= FOREGROUND_GREEN; }
+	if ((colour & RamAi::Colour::Blue) != 0)	{ returnValue |= FOREGROUND_BLUE; }
+	if (colour != RamAi::Colour::White)			{ returnValue |= FOREGROUND_INTENSITY; }
+
+	return returnValue;
 }

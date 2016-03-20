@@ -27,11 +27,11 @@ RamAi::Debug::~Debug()
 {
 }
 
-void RamAi::Debug::Out(const std::string &string)
+void RamAi::Debug::Out(const std::string &string, const Colour colour)
 {
 	if (s_instance)
 	{
-		s_instance->InstanceOut(string);
+		s_instance->InstanceOut(string, colour);
 	}
 }
 

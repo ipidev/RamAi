@@ -34,7 +34,6 @@ Nestopia::RamAiApi::RamAiApi(Managers::Emulator &emulator)
 	, m_emulator(emulator)
 	, m_allowHumanOverride(true)
 {
-	RamAi::Debug::Out("hooray!");
 }
 
 Nestopia::RamAiApi::~RamAiApi()
