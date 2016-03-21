@@ -54,13 +54,16 @@ void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameDetails &gameDetails)
 	EnableTurbo(true);
 }
 
-void Nestopia::RamAiApi::CalculateInput(Nes::Core::Input::Controllers *const input)
+void Nestopia::RamAiApi::CalculateInput(const Nes::byte *ramBytes, Nes::Core::Input::Controllers *const input)
 {
 	if (input)
 	{
-		//Get random input for now.
-		RamAi::ButtonSet randomButtons = RamAi::Api::CalculateInput();
-		RamAi::Bitfield<RamAi::ButtonSet::BitfieldType> buttonBitfield = randomButtons.GetBitfield();
+		//Get desired input from RamAi.
+		RamAi::Ram ram = std::move(NstRamToRamAiRam(ramBytes));
+		RamAi::ButtonSet buttonSet = RamAi::Api::CalculateInput(ram);
+
+		//Set the bitfield on the controller inputs.
+		RamAi::Bitfield<RamAi::ButtonSet::BitfieldType> buttonBitfield = buttonSet.GetBitfield();
 
 		//Never press start or select for now!!
 		//buttonBitfield.UnsetAll(Nes::Core::Input::Controllers::Pad::START | Nes::Core::Input::Controllers::Pad::SELECT);
@@ -127,9 +130,14 @@ void Nestopia::RamAiApi::EnableTurbo(const bool turboOn)
 	}
 }
 
+RamAi::Ram Nestopia::RamAiApi::NstRamToRamAiRam(const Nes::byte *ramBytes)
+{
+	return RamAi::Ram(ramBytes, Nes::Core::Cpu::RAM_SIZE);
+}
+
 Nestopia::RamAiApi::SpecsContainer::SpecsContainer()
 {
-	specs.ramSize = 2048;
+	specs.ramSize = Nes::Core::Cpu::RAM_SIZE;
 	specs.numberOfGamePadButtons = 8;
 	specs.initialisationButtonSet = RamAi::ButtonSet(Nes::Core::Input::Controllers::Pad::START);
 }

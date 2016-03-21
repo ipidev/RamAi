@@ -29,6 +29,7 @@
 
 #include "../../../RamAi/Source/Api.h"
 #include "../NstManagerEmulator.hpp"
+#include "../../core/NstCpu.hpp"
 
 namespace Nes
 {
@@ -57,7 +58,8 @@ namespace Nestopia
 		//Initialises the game, passing in the right callbacks.
 		void InitialiseGame(const RamAi::GameDetails &gameDetails);
 
-		void CalculateInput(Nes::Core::Input::Controllers *const input);
+		//Takes the emulator's RAM state and sets the relevant inputs.
+		void CalculateInput(const Nes::byte *ramBytes, Nes::Core::Input::Controllers *const input);
 
 	private:
 		//ISavestateInteractable implementation.
@@ -69,6 +71,8 @@ namespace Nestopia
 
 	private:
 		void EnableTurbo(const bool turboOn);
+
+		static RamAi::Ram NstRamToRamAiRam(const Nes::byte *ramBytes);
 
 	private:
 		Managers::Emulator &m_emulator;

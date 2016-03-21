@@ -66,7 +66,7 @@ void RamAi::Api::InitialiseGame(const GameDetails &gameDetails, const StateMachi
 	m_stateMachine->GetLoadStateHandle() = loadStateHandle;
 }
 
-RamAi::ButtonSet RamAi::Api::CalculateInput()
+RamAi::ButtonSet RamAi::Api::CalculateInput(const Ram &ram)
 {
 	ButtonSet returnValue;
 
@@ -77,9 +77,6 @@ RamAi::ButtonSet RamAi::Api::CalculateInput()
 		//TODO: Still uses a random input when there is no valid current state.
 		if (m_stateMachine->IsCurrentStateValid())
 		{
-			//TODO: Need to provide actual RAM.
-			Ram ram(Console::GetSpecs().ramSize);
-
 			returnValue = m_stateMachine->CalculateInput(ram);
 		}
 		else

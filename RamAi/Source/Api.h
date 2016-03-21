@@ -51,7 +51,7 @@ namespace RamAi
 		void InitialiseGame(const GameDetails &gameDetails, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle);
 
 	public:
-		ButtonSet CalculateInput();
+		ButtonSet CalculateInput(const Ram &ram);
 
 	private:
 		void Move(Api &&other);
