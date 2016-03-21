@@ -93,6 +93,10 @@ namespace Nes
 			*/
 			ulong Frame() const throw();
 
+			//[SLBEGIN]: Added really quick hacky accessor for the RAM.
+			const byte *GetRamBytes();
+			//[SLEND]
+
 		private:
 
 			Core::Machine& machine;
@@ -103,6 +107,7 @@ namespace Nes
 			{
 				return machine;
 			}
+			
 		};
 	}
 }

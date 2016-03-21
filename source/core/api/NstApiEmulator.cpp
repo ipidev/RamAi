@@ -61,5 +61,10 @@ namespace Nes
 		{
 			return machine.tracker.Frame();
 		}
+
+		const byte *Emulator::GetRamBytes()
+		{
+			return machine.cpu.GetRam();
+		}
 	}
 }

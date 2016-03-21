@@ -42,10 +42,6 @@
 #include "../core/api/NstApiRewinder.hpp"
 #include "../core/api/NstApiUser.hpp"
 
-//[SLBEGIN]: Including machine.
-#include "../core/NstMachine.hpp"
-//[SLEND]
-
 //[SLBEGIN]: Adding RamAi API.
 #include "RamAi/NstRamAiApi.h"
 //[SLEND]
@@ -571,7 +567,7 @@ namespace Nestopia
 
 				//[SLBEGIN]: Adding RamAi API.
 				if (ramAiApi)
-					//ramAiApi->CalculateInput(GetMachine().cpu.GetRam(), input);
+					ramAiApi->CalculateInput(Nes::Emulator::GetRamBytes(), input);
 				//[SLEND]
 
 				Nes::Emulator::Execute( video, sound, input );
