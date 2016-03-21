@@ -63,9 +63,6 @@
     <ClInclude Include="Source\MonteCarlo\BestScoreCollection.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
-    <ClInclude Include="Source\State\Ram.h">
-      <Filter>Header Files\State</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Api.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -117,13 +114,13 @@
     <ClInclude Include="Source\Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Data\Ram.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\State\Ram.cpp">
-      <Filter>Source Files\State</Filter>
     </ClCompile>
     <ClCompile Include="Source\Api.cpp">
       <Filter>Source Files</Filter>
@@ -175,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="Source\Debug.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Data\Ram.cpp">
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

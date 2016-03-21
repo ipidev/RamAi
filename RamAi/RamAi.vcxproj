@@ -24,6 +24,7 @@
     <ClInclude Include="Source\Api.h" />
     <ClInclude Include="Source\Data\BinaryCodedDecimal.h" />
     <ClInclude Include="Source\Data\Bitfield.h" />
+    <ClInclude Include="Source\Data\Ram.h" />
     <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\Game\GameDetails.h" />
     <ClInclude Include="Source\Game\StateMachine\InitialisationState.h" />
@@ -37,7 +38,6 @@
     <ClInclude Include="Source\MonteCarlo\TreeNode.h" />
     <ClInclude Include="Source\MonteCarlo\UctMonteCarloTree.h" />
     <ClInclude Include="Source\Score\Score.h" />
-    <ClInclude Include="Source\State\Ram.h" />
     <ClInclude Include="Source\State\Savestate.h" />
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +45,7 @@
     <ClCompile Include="Source\Api.cpp" />
     <ClCompile Include="Source\Console.cpp" />
     <ClCompile Include="Source\Data\BinaryCodedDecimal.cpp" />
+    <ClCompile Include="Source\Data\Ram.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\Game\GameDetails.cpp" />
     <ClCompile Include="Source\Game\StateMachine\InitialisationState.cpp" />
@@ -58,7 +59,6 @@
     <ClCompile Include="Source\MonteCarlo\TreeNode.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarloTree.cpp" />
     <ClCompile Include="Source\Score\Score.cpp" />
-    <ClCompile Include="Source\State\Ram.cpp" />
     <ClCompile Include="Source\State\Savestate.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
