@@ -22,9 +22,9 @@
 #include <functional>
 #include <memory>
 
+#include "Data/Ram.h"
 #include "Game/GameDetails.h"
 #include "MonteCarlo/GameMonteCarloTree.h"
-#include "State/Ram.h"
 #include "State/Savestate.h"
 
 
