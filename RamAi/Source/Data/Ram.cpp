@@ -22,6 +22,8 @@
 #include <algorithm>
 #include <cassert>
 
+#include "BinaryCodedDecimal.h"
+
 
 RamAi::Ram::Ram()
 	: m_data(nullptr)
@@ -100,4 +102,11 @@ void RamAi::Ram::Clear(const uint8_t defaultValue)
 	{
 		memset(ownData, defaultValue, m_size);
 	}
+}
+
+uint32_t RamAi::Ram::GetCurrentScore(const GameDetails &gameDetails) const
+{
+	const uint8_t *scoreAddress = m_data.get() + gameDetails.scoreOffset;
+
+	return BinaryCodedDecimal::ToInt(scoreAddress, gameDetails.scoreSize, gameDetails.scoreEndianness);
 }

@@ -21,6 +21,8 @@
 
 #include <memory>
 
+#include "Game/GameDetails.h"
+
 
 namespace RamAi
 {
@@ -52,6 +54,9 @@ namespace RamAi
 	public:
 		void Copy(const uint8_t *data, const size_t size);
 		void Clear(const uint8_t defaultValue = 0);
+
+	public:
+		uint32_t GetCurrentScore(const GameDetails &gameDetails) const;
 
 	private:
 		std::unique_ptr<uint8_t[]> m_data;
