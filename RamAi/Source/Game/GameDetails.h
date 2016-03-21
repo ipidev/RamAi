@@ -40,5 +40,9 @@ namespace RamAi
 		size_t scoreOffset;
 		size_t scoreSize;
 		BinaryCodedDecimal::Endianness scoreEndianness;
+
+	public:
+		//Returns the maximum score possible based off of the number of BCD digits.
+		uint32_t GetMaximumScore() const;
 	};
 };

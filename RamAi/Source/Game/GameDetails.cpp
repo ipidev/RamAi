@@ -27,3 +27,8 @@ RamAi::GameDetails::GameDetails()
 	scoreSize = 0;
 	scoreEndianness = BinaryCodedDecimal::Endianness::Big;
 }
+
+uint32_t RamAi::GameDetails::GetMaximumScore() const
+{
+	return BinaryCodedDecimal::Power(10, static_cast<uint32_t>(scoreSize)) - 1;
+}
