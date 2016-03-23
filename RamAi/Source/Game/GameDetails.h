@@ -36,12 +36,21 @@ namespace RamAi
 		std::string gameName;
 
 	public:
+		//The number of frames during initialisation in which to mash the start button.
+		size_t initialisationStartButtonFrames;
+
+		//The total number of frames to wait before creating the root state.
+		size_t initialisationTotalFrames;
+
+	public:
 		//TODO: Should this be in its own struct?
 		size_t scoreOffset;
 		size_t scoreSize;
 		BinaryCodedDecimal::Endianness scoreEndianness;
 
 	public:
+		size_t GetMaximumInitialisationFrames() const;
+
 		//Returns the maximum score possible based off of the number of BCD digits.
 		uint32_t GetMaximumScore() const;
 	};

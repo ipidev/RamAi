@@ -61,12 +61,20 @@ RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
 {
 	ButtonSet returnValue;
 
-	//Return the pause button on even frames, and the empty button set on odd frames.
-	//This will cause the pause button to be mashed as fast as possible!
-	if ((m_numberOfFramesExecuted % 2) == 0)
+	assert(m_stateMachine);
+
+	if (m_stateMachine)
 	{
-		//TODO: Get actual pause value.
-		returnValue = Console::GetSpecs().initialisationButtonSet;
+		if (m_numberOfFramesExecuted < m_stateMachine->GetGameDetails().initialisationStartButtonFrames)
+		{
+			//Return the pause button on even frames, and the empty button set on odd frames.
+			//This will cause the pause button to be mashed as fast as possible!
+			if ((m_numberOfFramesExecuted % 2) == 0)
+			{
+				//TODO: Get actual pause value.
+				returnValue = Console::GetSpecs().initialisationButtonSet;
+			}
+		}
 	}
 
 	++m_numberOfFramesExecuted;
@@ -75,15 +83,22 @@ RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
 
 RamAi::StateMachine::State::Type RamAi::InitialisationState::GetDesiredStateType(const Ram &ram)
 {
-	//Go to the selection state once we've executed enough frames to skip the title screen.
+	assert(m_stateMachine);
 
-	//TODO: Get actual number of frames.
-	const size_t targetNumberOfFrames = 60;
+	if (m_stateMachine)
+	{
+		//Go to the selection state once we've executed enough frames to skip the title screen.
+		const size_t initialisationFrames = m_stateMachine->GetGameDetails().GetMaximumInitialisationFrames();
 
-	//We shouldn't ever go over the target number of frames - that means we must have skipped one!
-	assert(m_numberOfFramesExecuted <= targetNumberOfFrames);
+		//We shouldn't ever go over the target number of frames - that means we must have skipped one!
+		assert(m_numberOfFramesExecuted <= initialisationFrames);
 
-	return m_numberOfFramesExecuted >= 60 ? Type::Expansion : Type::Initialisation;
+		return m_numberOfFramesExecuted >= initialisationFrames ? Type::Expansion : Type::Initialisation;
+	}
+	else
+	{
+		return Type::Initialisation;
+	}
 }
 
 void RamAi::InitialisationState::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)

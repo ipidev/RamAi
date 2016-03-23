@@ -1252,6 +1252,9 @@ namespace Nestopia
 						const std::wstring gameNameWide(context.image.File().Ptr());
 						gameDetails.gameName = std::string(gameNameWide.cbegin(), gameNameWide.end() - 4);
 
+						gameDetails.initialisationStartButtonFrames = 60;
+						gameDetails.initialisationTotalFrames = 180;
+
 						ramAiApi->InitialiseGame(gameDetails);
 					}
 					//[SLEND]

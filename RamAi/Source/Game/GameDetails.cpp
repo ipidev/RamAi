@@ -19,13 +19,24 @@
 
 #include "GameDetails.h"
 
+#include <algorithm>
+
+
 RamAi::GameDetails::GameDetails()
 {
 	gameName = "None";
 
+	initialisationStartButtonFrames = 0;
+	initialisationTotalFrames = 0;
+
 	scoreOffset = 0;
 	scoreSize = 0;
 	scoreEndianness = BinaryCodedDecimal::Endianness::Big;
+}
+
+size_t RamAi::GameDetails::GetMaximumInitialisationFrames() const
+{
+	return std::max(initialisationStartButtonFrames, initialisationTotalFrames);
 }
 
 uint32_t RamAi::GameDetails::GetMaximumScore() const
