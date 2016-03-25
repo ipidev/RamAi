@@ -88,7 +88,7 @@ float RamAi::UctMonteCarloTree::CalculateUcbScore(const TreeNode &parent, const 
 		const float rootVisitsFloat = static_cast<float>(rootVisits);
 		const float childVisitsFloat = static_cast<float>(childVisits);
 
-		const float visitsRadical = sqrt(log(rootVisitsFloat) / childVisitsFloat);
+		const float visitsRadical = sqrt((2.0f * log(rootVisitsFloat)) / childVisitsFloat);
 		const float childScoreMean = child.GetScore().GetTotalScore() / childVisitsFloat;
 
 		const float ucb = childScoreMean + (m_bias * visitsRadical);
