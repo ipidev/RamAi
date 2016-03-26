@@ -56,7 +56,7 @@ namespace Nestopia
 
 	public:
 		//Initialises the game, passing in the right callbacks.
-		void InitialiseGame(const RamAi::GameDetails &gameDetails);
+		void InitialiseGame(const RamAi::GameSettings &gameDetails);
 
 		//Takes the emulator's RAM state and sets the relevant inputs.
 		void CalculateInput(const Nes::byte *ramBytes, Nes::Core::Input::Controllers *const input);

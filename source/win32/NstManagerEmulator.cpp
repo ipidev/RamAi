@@ -1247,15 +1247,15 @@ namespace Nestopia
 					if (ramAiApi)
 					{
 						//TODO: Temporary initialisation.
-						RamAi::GameDetails gameDetails;
+						RamAi::GameSettings gameSettings;
 
 						const std::wstring gameNameWide(context.image.File().Ptr());
-						gameDetails.gameName = std::string(gameNameWide.cbegin(), gameNameWide.end() - 4);
+						gameSettings.gameName = std::string(gameNameWide.cbegin(), gameNameWide.end() - 4);
 
-						gameDetails.initialisationStartButtonFrames = 60;
-						gameDetails.initialisationTotalFrames = 180;
+						gameSettings.initialisationStartButtonFrames = 60;
+						gameSettings.initialisationTotalFrames = 180;
 
-						ramAiApi->InitialiseGame(gameDetails);
+						ramAiApi->InitialiseGame(gameSettings);
 					}
 					//[SLEND]
 				}

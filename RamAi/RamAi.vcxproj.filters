@@ -93,9 +93,6 @@
     <ClInclude Include="Source\MonteCarlo\TestMonteCarloTree.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\GameDetails.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MonteCarlo\GameMonteCarloTree.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
@@ -124,6 +121,9 @@
       <Filter>Header Files\Settings</Filter>
     </ClInclude>
     <ClInclude Include="Source\Settings\ConsoleSettings.h">
+      <Filter>Header Files\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Settings\GameSettings.h">
       <Filter>Header Files\Settings</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,9 +155,6 @@
     <ClCompile Include="Source\Score\Score.cpp">
       <Filter>Source Files\Score</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\GameDetails.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MonteCarlo\GameMonteCarloTree.cpp">
       <Filter>Source Files\MonteCarlo</Filter>
     </ClCompile>
@@ -186,6 +183,9 @@
       <Filter>Source Files\Settings</Filter>
     </ClCompile>
     <ClCompile Include="Source\Settings\ConsoleSettings.cpp">
+      <Filter>Source Files\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Settings\GameSettings.cpp">
       <Filter>Source Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>

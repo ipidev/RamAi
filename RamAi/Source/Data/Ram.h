@@ -21,7 +21,7 @@
 
 #include <memory>
 
-#include "Game/GameDetails.h"
+#include "Settings/GameSettings.h"
 
 
 namespace RamAi
@@ -56,7 +56,7 @@ namespace RamAi
 		void Clear(const uint8_t defaultValue = 0);
 
 	public:
-		uint32_t GetCurrentScore(const GameDetails &gameDetails) const;
+		uint32_t GetCurrentScore(const GameSettings &gameSettings) const;
 
 	private:
 		std::unique_ptr<uint8_t[]> m_data;

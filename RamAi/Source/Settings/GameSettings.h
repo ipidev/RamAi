@@ -27,10 +27,10 @@
 namespace RamAi
 {
 	//A struct that holds information about the currently loaded game.
-	struct GameDetails
+	struct GameSettings
 	{
 	public:
-		GameDetails();
+		GameSettings();
 
 	public:
 		std::string gameName;

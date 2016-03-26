@@ -23,9 +23,9 @@
 #include <memory>
 
 #include "Action\ButtonSet.h"
-#include "Game\GameDetails.h"
 #include "Game\StateMachine\StateMachine.h"
 #include "Settings\ConsoleSettings.h"
+#include "Settings/GameSettings.h"
 #include "Debug.h"
 
 
@@ -48,7 +48,7 @@ namespace RamAi
 
 	public:
 		//Initialises the AI with a new game's settings.
-		void InitialiseGame(const GameDetails &gameDetails, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle);
+		void InitialiseGame(const GameSettings &gameSettings, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle);
 
 	public:
 		ButtonSet CalculateInput(const Ram &ram);

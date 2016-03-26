@@ -17,12 +17,12 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
-#include "GameDetails.h"
+#include "GameSettings.h"
 
 #include <algorithm>
 
 
-RamAi::GameDetails::GameDetails()
+RamAi::GameSettings::GameSettings()
 {
 	gameName = "None";
 
@@ -34,12 +34,12 @@ RamAi::GameDetails::GameDetails()
 	scoreEndianness = BinaryCodedDecimal::Endianness::Big;
 }
 
-size_t RamAi::GameDetails::GetMaximumInitialisationFrames() const
+size_t RamAi::GameSettings::GetMaximumInitialisationFrames() const
 {
 	return std::max(initialisationStartButtonFrames, initialisationTotalFrames);
 }
 
-uint32_t RamAi::GameDetails::GetMaximumScore() const
+uint32_t RamAi::GameSettings::GetMaximumScore() const
 {
 	return BinaryCodedDecimal::Power(10, static_cast<uint32_t>(scoreSize)) - 1;
 }

@@ -40,7 +40,7 @@ Nestopia::RamAiApi::~RamAiApi()
 {
 }
 
-void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameDetails &gameDetails)
+void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameSettings &gameDetails)
 {
 	//Bind functions to this specific instance and pass them to the base class.
 	RamAi::StateMachine::SaveStateHandleSignature saveStateHandle = std::bind(&RamAiApi::SaveState, this);

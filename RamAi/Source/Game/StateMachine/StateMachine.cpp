@@ -62,8 +62,8 @@ void RamAi::StateMachine::State::Move(State &&other)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-RamAi::StateMachine::StateMachine(const GameDetails &gameDetails)
-	: m_gameDetails(gameDetails)
+RamAi::StateMachine::StateMachine(const GameSettings &gameSettings)
+	: m_gameSettings(gameSettings)
 	, m_tree()
 	, m_currentStateType(State::Type::Initialisation)
 {

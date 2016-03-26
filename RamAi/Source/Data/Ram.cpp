@@ -104,9 +104,9 @@ void RamAi::Ram::Clear(const uint8_t defaultValue)
 	}
 }
 
-uint32_t RamAi::Ram::GetCurrentScore(const GameDetails &gameDetails) const
+uint32_t RamAi::Ram::GetCurrentScore(const GameSettings &gameSettings) const
 {
-	const uint8_t *scoreAddress = m_data.get() + gameDetails.scoreOffset;
+	const uint8_t *scoreAddress = m_data.get() + gameSettings.scoreOffset;
 
-	return BinaryCodedDecimal::ToInt(scoreAddress, gameDetails.scoreSize, gameDetails.scoreEndianness);
+	return BinaryCodedDecimal::ToInt(scoreAddress, gameSettings.scoreSize, gameSettings.scoreEndianness);
 }
