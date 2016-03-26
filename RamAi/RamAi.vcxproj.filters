@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Game\StateMachine">
       <UniqueIdentifier>{48363a61-50ff-4c6e-9604-f8cc175827e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Settings">
+      <UniqueIdentifier>{d67704d1-20f0-4bbe-93a2-c449f97358a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings">
+      <UniqueIdentifier>{f5076ed4-c78b-4df4-8512-cf10941c263b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
@@ -117,6 +123,9 @@
     <ClInclude Include="Source\Data\Ram.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Settings\AiSettings.h">
+      <Filter>Header Files\Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -175,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="Source\Data\Ram.cpp">
       <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Settings\AiSettings.cpp">
+      <Filter>Source Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

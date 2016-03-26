@@ -38,6 +38,7 @@
     <ClInclude Include="Source\MonteCarlo\TreeNode.h" />
     <ClInclude Include="Source\MonteCarlo\UctMonteCarloTree.h" />
     <ClInclude Include="Source\Score\Score.h" />
+    <ClInclude Include="Source\Settings\AiSettings.h" />
     <ClInclude Include="Source\State\Savestate.h" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +60,7 @@
     <ClCompile Include="Source\MonteCarlo\TreeNode.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarloTree.cpp" />
     <ClCompile Include="Source\Score\Score.cpp" />
+    <ClCompile Include="Source\Settings\AiSettings.cpp" />
     <ClCompile Include="Source\State\Savestate.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
