@@ -55,6 +55,12 @@
     <Filter Include="Source Files\StateMachine">
       <UniqueIdentifier>{b9e0cfe0-dfb5-42ed-8e01-c34624fb7475}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Settings\Importers">
+      <UniqueIdentifier>{7f532a2c-7824-40c3-ba7e-32539082ee97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings\Importers">
+      <UniqueIdentifier>{a5c408d0-9fc3-4cf1-8306-62dbc131148e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\MonteCarlo\TreeNode.h">
@@ -120,6 +126,9 @@
     <ClInclude Include="Source\StateMachine\SimulationState.h">
       <Filter>Header Files\StateMachine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Settings\Importers\BasicSettingsImporter.h">
+      <Filter>Header Files\Settings\Importers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -181,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="Source\StateMachine\SimulationState.cpp">
       <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Settings\Importers\BasicSettingsImporter.cpp">
+      <Filter>Source Files\Settings\Importers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -35,6 +35,7 @@
     <ClInclude Include="Source\Settings\AiSettings.h" />
     <ClInclude Include="Source\Settings\ConsoleSettings.h" />
     <ClInclude Include="Source\Settings\GameSettings.h" />
+    <ClInclude Include="Source\Settings\Importers\BasicSettingsImporter.h" />
     <ClInclude Include="Source\StateMachine\ExpansionState.h" />
     <ClInclude Include="Source\StateMachine\InitialisationState.h" />
     <ClInclude Include="Source\StateMachine\SimulationState.h" />
@@ -57,6 +58,7 @@
     <ClCompile Include="Source\Settings\AiSettings.cpp" />
     <ClCompile Include="Source\Settings\ConsoleSettings.cpp" />
     <ClCompile Include="Source\Settings\GameSettings.cpp" />
+    <ClCompile Include="Source\Settings\Importers\BasicSettingsImporter.cpp" />
     <ClCompile Include="Source\StateMachine\ExpansionState.cpp" />
     <ClCompile Include="Source\StateMachine\InitialisationState.cpp" />
     <ClCompile Include="Source\StateMachine\SimulationState.cpp" />
