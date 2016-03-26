@@ -19,11 +19,32 @@
 
 #include "AiSettings.h"
 
+#include "Importers\BasicSettingsImporter.h"
+
 
 RamAi::AiSettings::Data::Data()
 {
 	macroActionLength = 1;
 	maximumSimulationTime = 120.0f;
 }
+
+RamAi::AiSettings::Data RamAi::AiSettings::Import(char *settingsFile)
+{
+	Data data;
+	BasicSettingsImporter settingsImporter(settingsFile, "AiSettings");
+
+	if (settingsImporter.ContainsKey("MacroActionLength"))
+	{
+		data.macroActionLength = static_cast<size_t>(std::stoi(settingsImporter["MacroActionLength"]));
+	}
+
+	if (settingsImporter.ContainsKey("MaximumSimulationTime"))
+	{
+		data.maximumSimulationTime = std::stof(settingsImporter["MaximumSimulationTime"]);
+	}
+
+	return data;
+}
+
 
 RamAi::AiSettings::Data RamAi::AiSettings::s_data = Data();

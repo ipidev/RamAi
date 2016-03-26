@@ -45,6 +45,8 @@ namespace RamAi
 		static const Data &GetData()			{ return s_data; }
 		static void SetData(const Data &data)	{ s_data = data; }
 
+		static Data Import(char *settingsFile);
+
 	private:
 		static Data s_data;
 	};
