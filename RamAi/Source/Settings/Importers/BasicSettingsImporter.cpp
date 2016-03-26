@@ -48,6 +48,8 @@ RamAi::BasicSettingsImporter::BasicSettingsImporter(char *xmlString, const std::
 			{
 				m_map.emplace(std::move(nodeName), currentNode->value());
 			}
+
+			currentNode = currentNode->next_sibling();
 		}
 	}
 }

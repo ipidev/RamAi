@@ -61,6 +61,9 @@ namespace Nestopia
 		//Takes the emulator's RAM state and sets the relevant inputs.
 		void CalculateInput(const Nes::byte *ramBytes, Nes::Core::Input::Controllers *const input);
 
+	public:
+		void ImportAiSettings();
+
 	private:
 		//ISavestateInteractable implementation.
 		RamAi::Savestate SaveState();
@@ -95,6 +98,8 @@ namespace Nestopia
 
 	private:
 		static bool s_compressSavestates;
+
+		static const std::wstring s_aiSettingsFileName;
 	};
 };
 

@@ -50,6 +50,8 @@ namespace RamAi
 		//Initialises the AI with a new game's settings.
 		void InitialiseGame(const GameSettings &gameSettings, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle);
 
+		void ImportAiSettings(char *settingsFile);
+
 	public:
 		ButtonSet CalculateInput(const Ram &ram);
 

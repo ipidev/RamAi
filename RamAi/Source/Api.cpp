@@ -24,6 +24,7 @@
 #include <ctime>
 
 #include "MonteCarlo\TestMonteCarloTree.h"
+#include "Settings\AiSettings.h"
 
 
 RamAi::Api::Api(const ConsoleSettings::Specs &consoleSpecs)
@@ -64,6 +65,11 @@ void RamAi::Api::InitialiseGame(const GameSettings &gameSettings, const StateMac
 	m_stateMachine = std::make_unique<StateMachine>(gameSettings);
 	m_stateMachine->GetSaveStateHandle() = saveStateHandle;
 	m_stateMachine->GetLoadStateHandle() = loadStateHandle;
+}
+
+void RamAi::Api::ImportAiSettings(char *settingsFile)
+{
+	AiSettings::Import(settingsFile);
 }
 
 RamAi::ButtonSet RamAi::Api::CalculateInput(const Ram &ram)

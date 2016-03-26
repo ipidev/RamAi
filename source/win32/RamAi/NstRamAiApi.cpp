@@ -26,6 +26,8 @@
 
 #include "../../core/api/NstApiInput.hpp"
 #include "../NstIoStream.hpp"
+#include "../NstIoFile.hpp"
+#include "../NstApplicationInstance.hpp"
 #include "NstRamAiDebug.h"
 
 
@@ -69,6 +71,37 @@ void Nestopia::RamAiApi::CalculateInput(const Nes::byte *ramBytes, Nes::Core::In
 		//buttonBitfield.UnsetAll(Nes::Core::Input::Controllers::Pad::START | Nes::Core::Input::Controllers::Pad::SELECT);
 
 		input->pad[0].buttons = buttonBitfield.GetValue();
+	}
+}
+
+void Nestopia::RamAiApi::ImportAiSettings()
+{
+	//Here begins the string buggery.
+	//STL wide string to Nestopia wide string.
+	String::Generic<wchar_t> aiSettingsFileNameString(s_aiSettingsFileName.c_str(), s_aiSettingsFileName.length());
+
+	//Nestopia file path to Nestopia wide string.
+	Path aiSettingsPath = Application::Instance::GetExePath(aiSettingsFileNameString);
+	String::Generic<wchar_t> aiSettingsPathString(aiSettingsPath.Ptr(), aiSettingsPath.Length());
+
+	try
+	{
+		//Open the file.
+		Io::File file(aiSettingsPathString, Io::File::READ | Io::File::EXISTING);
+
+		//Copy the bytes from the file into a buffer, then add a null-terminator on the end...
+		static const size_t fileDataSize = 2048;
+		char fileData[fileDataSize];
+
+		size_t numberOfCharsRead = file.ReadSome(fileData, fileDataSize);
+		fileData[numberOfCharsRead] = '\0';
+
+		//Finally import it!
+		Api::ImportAiSettings(fileData);
+	}
+	catch (...)
+	{
+		RamAi::Debug::OutLine("Couldn't import AI settings.", RamAi::Colour::Red);
 	}
 }
 
@@ -145,3 +178,5 @@ Nestopia::RamAiApi::SpecsContainer::SpecsContainer()
 Nestopia::RamAiApi::SpecsContainer Nestopia::RamAiApi::s_specsContainer = Nestopia::RamAiApi::SpecsContainer();
 
 bool Nestopia::RamAiApi::s_compressSavestates = false;
+
+const std::wstring Nestopia::RamAiApi::s_aiSettingsFileName = L"aiSettings.xml";
