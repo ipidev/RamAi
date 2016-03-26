@@ -70,6 +70,8 @@ namespace RamAi
 		const Score &GetScore() const								{ return m_score; }
 		Score &GetScore()											{ return m_score; }
 
+		size_t GetIdNumber() const									{ return m_idNumber; }
+
 	public:
 		TreeNode *AddChild(const ButtonSet &buttonSet);
 		TreeNode *AddChild(ButtonSet &&buttonSet);
@@ -83,5 +85,8 @@ namespace RamAi
 		TreeNode *m_parent;
 		std::unique_ptr<Savestate> m_savestate;
 		Score m_score;
+
+		size_t m_idNumber;
+		static size_t s_nextIdNumber;
 	};
 };

@@ -23,6 +23,9 @@
 RamAi::TreeNode::TreeNode()
 {
 	m_parent = nullptr;
+
+	m_idNumber = s_nextIdNumber;
+	++s_nextIdNumber;
 }
 
 
@@ -103,6 +106,7 @@ void RamAi::TreeNode::Copy(const TreeNode &other)
 	m_children = other.m_children;
 	m_parent = other.m_parent;
 	m_score = other.m_score;
+	m_idNumber = other.m_idNumber; //We shouldn't allow copying IDs, but whatever. It's just for debugging.
 
 	if (Savestate *otherSavestate = other.m_savestate.get())
 	{
@@ -124,4 +128,7 @@ void RamAi::TreeNode::Move(TreeNode &&other)
 	m_savestate = std::move(other.m_savestate);
 
 	m_score = std::move(other.m_score);
+	m_idNumber = other.m_idNumber;
 }
+
+size_t RamAi::TreeNode::s_nextIdNumber = 0;
