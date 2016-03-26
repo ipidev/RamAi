@@ -26,14 +26,14 @@
 #include "MonteCarlo\TestMonteCarloTree.h"
 
 
-RamAi::Api::Api(const Console::Specs &consoleSpecs)
+RamAi::Api::Api(const ConsoleSettings::Specs &consoleSpecs)
 	: Api(consoleSpecs, nullptr)
 {
 }
 
-RamAi::Api::Api(const Console::Specs &consoleSpecs, std::unique_ptr<Debug> &&debugInstance)
+RamAi::Api::Api(const ConsoleSettings::Specs &consoleSpecs, std::unique_ptr<Debug> &&debugInstance)
 {
-	Console::SetSpecs(consoleSpecs);
+	ConsoleSettings::SetSpecs(consoleSpecs);
 	Debug::SetInstance(std::move(debugInstance));
 
 	srand(static_cast<unsigned int>(time(NULL)));
@@ -82,9 +82,9 @@ RamAi::ButtonSet RamAi::Api::CalculateInput(const Ram &ram)
 		else
 		{
 			//For now just generate random button presses.
-			const size_t buttonSetSize = 1 << Console::GetSpecs().numberOfGamePadButtons;
+			const size_t buttonSetSize = 1 << ConsoleSettings::GetSpecs().numberOfGamePadButtons;
 			returnValue = ButtonSet(rand() % 256);
-			returnValue.GetBitfield().UnsetAll(Console::GetSpecs().initialisationButtonSet.GetBitfield().GetValue());
+			returnValue.GetBitfield().UnsetAll(ConsoleSettings::GetSpecs().initialisationButtonSet.GetBitfield().GetValue());
 		}
 	}
 

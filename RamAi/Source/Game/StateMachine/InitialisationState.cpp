@@ -22,7 +22,7 @@
 
 #include <cassert>
 
-#include "Console.h"
+#include "Settings\ConsoleSettings.h"
 
 
 RamAi::InitialisationState::InitialisationState(StateMachine &stateMachine)
@@ -72,7 +72,7 @@ RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
 			if ((m_numberOfFramesExecuted % 2) == 0)
 			{
 				//TODO: Get actual pause value.
-				returnValue = Console::GetSpecs().initialisationButtonSet;
+				returnValue = ConsoleSettings::GetSpecs().initialisationButtonSet;
 			}
 		}
 	}

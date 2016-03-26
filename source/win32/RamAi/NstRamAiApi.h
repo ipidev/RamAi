@@ -88,7 +88,7 @@ namespace Nestopia
 			~SpecsContainer() = default;
 
 		public:
-			RamAi::Console::Specs specs;
+			RamAi::ConsoleSettings::Specs specs;
 		};
 
 		static SpecsContainer s_specsContainer;

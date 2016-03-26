@@ -25,7 +25,7 @@
 #include "Action\ButtonSet.h"
 #include "Game\GameDetails.h"
 #include "Game\StateMachine\StateMachine.h"
-#include "Console.h"
+#include "Settings\ConsoleSettings.h"
 #include "Debug.h"
 
 
@@ -36,8 +36,8 @@ namespace RamAi
 	class Api
 	{
 	public:
-		Api(const Console::Specs &consoleSpecs);
-		Api(const Console::Specs &consoleSpecs, std::unique_ptr<Debug> &&debugInstance);
+		Api(const ConsoleSettings::Specs &consoleSpecs);
+		Api(const ConsoleSettings::Specs &consoleSpecs, std::unique_ptr<Debug> &&debugInstance);
 		Api(const Api &other) = delete;
 		Api(Api &&other);
 		~Api();

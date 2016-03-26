@@ -17,14 +17,7 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
-#include "Console.h"
+#include "ConsoleSettings.h"
 
 
-/*RamAi::Console::Specs::Specs(const size_t inRamSize, const size_t inNumberOfGamePadButtons, const ButtonSet inInitialisationButtonSet)
-	: ramSize(inRamSize)
-	, numberOfGamePadButtons(inNumberOfGamePadButtons)
-	, initialisationButtonSet(inInitialisationButtonSet)
-{
-}*/
-
-RamAi::Console::Specs RamAi::Console::s_specs = RamAi::Console::Specs();
+RamAi::ConsoleSettings::Specs RamAi::ConsoleSettings::s_specs = RamAi::ConsoleSettings::Specs();

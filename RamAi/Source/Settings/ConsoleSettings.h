@@ -27,14 +27,13 @@
 namespace RamAi
 {
 	//Static class that holds information of the game console currently in use.
-	class Console
+	class ConsoleSettings
 	{
 	public:
 		//A plain-old-data struct that holds all of the specifications.
 		struct Specs
 		{
 			Specs() = default;
-			//Specs(const size_t inRamSize, const size_t inNumberOfGamePadButtons, const ButtonSet inInitialisationButtonSet);
 
 			size_t ramSize;
 			size_t numberOfGamePadButtons;
@@ -43,8 +42,8 @@ namespace RamAi
 
 	public:
 		//Static class - construction is forbidden.
-		Console() = delete;
-		~Console() = delete;
+		ConsoleSettings() = delete;
+		~ConsoleSettings() = delete;
 
 	public:
 		static const Specs &GetSpecs()				{ return s_specs; }

@@ -78,9 +78,6 @@
     <ClInclude Include="Source\Action\ButtonSet.h">
       <Filter>Header Files\Action</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Console.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Data\BinaryCodedDecimal.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
@@ -126,6 +123,9 @@
     <ClInclude Include="Source\Settings\AiSettings.h">
       <Filter>Header Files\Settings</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Settings\ConsoleSettings.h">
+      <Filter>Header Files\Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -136,9 +136,6 @@
     </ClCompile>
     <ClCompile Include="Source\Action\ButtonSet.cpp">
       <Filter>Source Files\Action</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Console.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Data\BinaryCodedDecimal.cpp">
       <Filter>Source Files\Data</Filter>
@@ -186,6 +183,9 @@
       <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="Source\Settings\AiSettings.cpp">
+      <Filter>Source Files\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Settings\ConsoleSettings.cpp">
       <Filter>Source Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>
