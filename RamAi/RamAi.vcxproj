@@ -25,10 +25,6 @@
     <ClInclude Include="Source\Data\Bitfield.h" />
     <ClInclude Include="Source\Data\Ram.h" />
     <ClInclude Include="Source\Debug.h" />
-    <ClInclude Include="Source\Game\StateMachine\InitialisationState.h" />
-    <ClInclude Include="Source\Game\StateMachine\ExpansionState.h" />
-    <ClInclude Include="Source\Game\StateMachine\SimulationState.h" />
-    <ClInclude Include="Source\Game\StateMachine\StateMachine.h" />
     <ClInclude Include="Source\MonteCarlo\BestScoreCollection.h" />
     <ClInclude Include="Source\MonteCarlo\GameMonteCarloTree.h" />
     <ClInclude Include="Source\MonteCarlo\MonteCarloTreeBase.h" />
@@ -39,6 +35,10 @@
     <ClInclude Include="Source\Settings\AiSettings.h" />
     <ClInclude Include="Source\Settings\ConsoleSettings.h" />
     <ClInclude Include="Source\Settings\GameSettings.h" />
+    <ClInclude Include="Source\StateMachine\ExpansionState.h" />
+    <ClInclude Include="Source\StateMachine\InitialisationState.h" />
+    <ClInclude Include="Source\StateMachine\SimulationState.h" />
+    <ClInclude Include="Source\StateMachine\StateMachine.h" />
     <ClInclude Include="Source\State\Savestate.h" />
   </ItemGroup>
   <ItemGroup>
@@ -47,10 +47,6 @@
     <ClCompile Include="Source\Data\BinaryCodedDecimal.cpp" />
     <ClCompile Include="Source\Data\Ram.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
-    <ClCompile Include="Source\Game\StateMachine\InitialisationState.cpp" />
-    <ClCompile Include="Source\Game\StateMachine\ExpansionState.cpp" />
-    <ClCompile Include="Source\Game\StateMachine\SimulationState.cpp" />
-    <ClCompile Include="Source\Game\StateMachine\StateMachine.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MonteCarlo\GameMonteCarloTree.cpp" />
     <ClCompile Include="Source\MonteCarlo\MonteCarloTreeBase.cpp" />
@@ -61,6 +57,10 @@
     <ClCompile Include="Source\Settings\AiSettings.cpp" />
     <ClCompile Include="Source\Settings\ConsoleSettings.cpp" />
     <ClCompile Include="Source\Settings\GameSettings.cpp" />
+    <ClCompile Include="Source\StateMachine\ExpansionState.cpp" />
+    <ClCompile Include="Source\StateMachine\InitialisationState.cpp" />
+    <ClCompile Include="Source\StateMachine\SimulationState.cpp" />
+    <ClCompile Include="Source\StateMachine\StateMachine.cpp" />
     <ClCompile Include="Source\State\Savestate.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

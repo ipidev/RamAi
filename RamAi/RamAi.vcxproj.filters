@@ -43,23 +43,17 @@
     <Filter Include="Source Files\Score">
       <UniqueIdentifier>{84d01829-cd4e-4dde-8ede-9beaaff7201f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Game">
-      <UniqueIdentifier>{c37af585-09f3-4ceb-9413-bde5b622e8e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game">
-      <UniqueIdentifier>{d2a71cb1-98d8-435a-97ad-c6fe479509af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game\StateMachine">
-      <UniqueIdentifier>{d9416d2e-2601-48a8-9af7-b7c182d95b17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\StateMachine">
-      <UniqueIdentifier>{48363a61-50ff-4c6e-9604-f8cc175827e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Settings">
       <UniqueIdentifier>{d67704d1-20f0-4bbe-93a2-c449f97358a5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Settings">
       <UniqueIdentifier>{f5076ed4-c78b-4df4-8512-cf10941c263b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\StateMachine">
+      <UniqueIdentifier>{1a8a3307-0b73-40b8-9cdd-0a90969dccdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StateMachine">
+      <UniqueIdentifier>{b9e0cfe0-dfb5-42ed-8e01-c34624fb7475}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,20 +90,8 @@
     <ClInclude Include="Source\MonteCarlo\GameMonteCarloTree.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\StateMachine\InitialisationState.h">
-      <Filter>Header Files\Game\StateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\StateMachine\StateMachine.h">
-      <Filter>Header Files\Game\StateMachine</Filter>
-    </ClInclude>
     <ClInclude Include="Source\State\Savestate.h">
       <Filter>Header Files\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\StateMachine\ExpansionState.h">
-      <Filter>Header Files\Game\StateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\StateMachine\SimulationState.h">
-      <Filter>Header Files\Game\StateMachine</Filter>
     </ClInclude>
     <ClInclude Include="Source\Debug.h">
       <Filter>Header Files</Filter>
@@ -125,6 +107,18 @@
     </ClInclude>
     <ClInclude Include="Source\Settings\GameSettings.h">
       <Filter>Header Files\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StateMachine\StateMachine.h">
+      <Filter>Header Files\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StateMachine\ExpansionState.h">
+      <Filter>Header Files\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StateMachine\InitialisationState.h">
+      <Filter>Header Files\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StateMachine\SimulationState.h">
+      <Filter>Header Files\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,20 +152,8 @@
     <ClCompile Include="Source\MonteCarlo\GameMonteCarloTree.cpp">
       <Filter>Source Files\MonteCarlo</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\StateMachine\InitialisationState.cpp">
-      <Filter>Source Files\Game\StateMachine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\StateMachine\StateMachine.cpp">
-      <Filter>Source Files\Game\StateMachine</Filter>
-    </ClCompile>
     <ClCompile Include="Source\State\Savestate.cpp">
       <Filter>Source Files\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\StateMachine\ExpansionState.cpp">
-      <Filter>Source Files\Game\StateMachine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\StateMachine\SimulationState.cpp">
-      <Filter>Source Files\Game\StateMachine</Filter>
     </ClCompile>
     <ClCompile Include="Source\Debug.cpp">
       <Filter>Source Files</Filter>
@@ -187,6 +169,18 @@
     </ClCompile>
     <ClCompile Include="Source\Settings\GameSettings.cpp">
       <Filter>Source Files\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StateMachine\StateMachine.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StateMachine\ExpansionState.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StateMachine\InitialisationState.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StateMachine\SimulationState.cpp">
+      <Filter>Source Files\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

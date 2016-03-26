@@ -23,9 +23,9 @@
 #include <memory>
 
 #include "Action\ButtonSet.h"
-#include "Game\StateMachine\StateMachine.h"
 #include "Settings\ConsoleSettings.h"
-#include "Settings/GameSettings.h"
+#include "Settings\GameSettings.h"
+#include "StateMachine\StateMachine.h"
 #include "Debug.h"
 
 
