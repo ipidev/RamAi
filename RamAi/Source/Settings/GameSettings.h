@@ -53,5 +53,8 @@ namespace RamAi
 
 		//Returns the maximum score possible based off of the number of BCD digits.
 		uint32_t GetMaximumScore() const;
+
+	public:
+		static GameSettings Import(char *settingsFile);
 	};
 };
