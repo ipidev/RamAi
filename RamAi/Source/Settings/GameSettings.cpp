@@ -36,6 +36,38 @@ RamAi::GameSettings::GameSettings()
 	scoreEndianness = BinaryCodedDecimal::Endianness::Big;
 }
 
+void RamAi::GameSettings::Import(char *settingsFile)
+{
+	BasicSettingsImporter settingsImporter(settingsFile, "GameSettings");
+
+	if (settingsImporter.ContainsKey("InitialisationStartButtonFrames"))
+	{
+		initialisationStartButtonFrames = static_cast<size_t>(std::stoi(settingsImporter["InitialisationStartButtonFrames"]));
+	}
+
+	if (settingsImporter.ContainsKey("InitialisationTotalFrames"))
+	{
+		initialisationTotalFrames = static_cast<size_t>(std::stoi(settingsImporter["InitialisationTotalFrames"]));
+	}
+
+	if (settingsImporter.ContainsKey("ScoreOffset"))
+	{
+		scoreOffset = static_cast<size_t>(std::stoi(settingsImporter["ScoreOffset"]));
+	}
+
+	if (settingsImporter.ContainsKey("ScoreSize"))
+	{
+		scoreSize = static_cast<size_t>(std::stoi(settingsImporter["ScoreSize"]));
+	}
+
+	if (settingsImporter.ContainsKey("ScoreEndianness"))
+	{
+		const std::string endiannessString = settingsImporter["ScoreEndianness"];
+
+		scoreEndianness = (endiannessString == "Big") ? BinaryCodedDecimal::Endianness::Big : BinaryCodedDecimal::Endianness::Little;
+	}
+}
+
 size_t RamAi::GameSettings::GetMaximumInitialisationFrames() const
 {
 	return std::max(initialisationStartButtonFrames, initialisationTotalFrames);
@@ -44,39 +76,4 @@ size_t RamAi::GameSettings::GetMaximumInitialisationFrames() const
 uint32_t RamAi::GameSettings::GetMaximumScore() const
 {
 	return BinaryCodedDecimal::Power(10, static_cast<uint32_t>(scoreSize)) - 1;
-}
-
-RamAi::GameSettings RamAi::GameSettings::Import(char *settingsFile)
-{
-	GameSettings settings;
-	BasicSettingsImporter settingsImporter(settingsFile, "GameSettings");
-
-	if (settingsImporter.ContainsKey("InitialisationStartButtonFrames"))
-	{
-		settings.initialisationStartButtonFrames = static_cast<size_t>(std::stoi(settingsImporter["InitialisationStartButtonFrames"]));
-	}
-
-	if (settingsImporter.ContainsKey("InitialisationTotalFrames"))
-	{
-		settings.initialisationTotalFrames = static_cast<size_t>(std::stoi(settingsImporter["InitialisationTotalFrames"]));
-	}
-
-	if (settingsImporter.ContainsKey("ScoreOffset"))
-	{
-		settings.scoreOffset = static_cast<size_t>(std::stoi(settingsImporter["ScoreOffset"]));
-	}
-
-	if (settingsImporter.ContainsKey("ScoreSize"))
-	{
-		settings.scoreSize = static_cast<size_t>(std::stoi(settingsImporter["ScoreSize"]));
-	}
-
-	if (settingsImporter.ContainsKey("ScoreEndianness"))
-	{
-		const std::string endiannessString = settingsImporter["ScoreEndianness"];
-
-		settings.scoreEndianness = (endiannessString == "Big") ? BinaryCodedDecimal::Endianness::Big : BinaryCodedDecimal::Endianness::Little;
-	}
-
-	return settings;
 }

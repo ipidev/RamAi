@@ -49,12 +49,12 @@ namespace RamAi
 		BinaryCodedDecimal::Endianness scoreEndianness;
 
 	public:
+		void Import(char *settingsFile);
+
+	public:
 		size_t GetMaximumInitialisationFrames() const;
 
 		//Returns the maximum score possible based off of the number of BCD digits.
 		uint32_t GetMaximumScore() const;
-
-	public:
-		static GameSettings Import(char *settingsFile);
 	};
 };
