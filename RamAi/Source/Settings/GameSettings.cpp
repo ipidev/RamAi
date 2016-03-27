@@ -28,8 +28,8 @@ RamAi::GameSettings::GameSettings()
 {
 	gameName = "None";
 
-	initialisationStartButtonFrames = 0;
-	initialisationTotalFrames = 0;
+	initialisationStartButtonFrames = initialisationStartButtonFrames = 60;
+	initialisationTotalFrames = 180;
 
 	scoreOffset = 0;
 	scoreSize = 0;

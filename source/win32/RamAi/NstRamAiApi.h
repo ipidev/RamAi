@@ -64,6 +64,9 @@ namespace Nestopia
 	public:
 		void ImportAiSettings();
 
+		//This interface isn't great, but whatever.
+		void ImportGameSettings(RamAi::GameSettings &gameSettings, const Path &path, const std::wstring &gameName);
+
 	private:
 		//ISavestateInteractable implementation.
 		RamAi::Savestate SaveState();
@@ -100,6 +103,7 @@ namespace Nestopia
 		static bool s_compressSavestates;
 
 		static const std::wstring s_aiSettingsFileName;
+		static const std::wstring s_settingsExtension;
 	};
 };
 

@@ -1251,11 +1251,11 @@ namespace Nestopia
 						//TODO: Temporary initialisation.
 						RamAi::GameSettings gameSettings;
 
-						const std::wstring gameNameWide(context.image.File().Ptr());
-						gameSettings.gameName = std::string(gameNameWide.cbegin(), gameNameWide.end() - 4);
+						auto gameNameFileName = context.image.File();
+						const std::wstring gameNameWide(gameNameFileName.Ptr(), gameNameFileName.Length() - 4);
+						gameSettings.gameName = std::string(gameNameWide.cbegin(), gameNameWide.cend());
 
-						gameSettings.initialisationStartButtonFrames = 60;
-						gameSettings.initialisationTotalFrames = 180;
+						ramAiApi->ImportGameSettings(gameSettings, settings.paths.start.Directory(), gameNameWide);
 
 						ramAiApi->InitialiseGame(gameSettings);
 					}

@@ -105,6 +105,34 @@ void Nestopia::RamAiApi::ImportAiSettings()
 	}
 }
 
+void Nestopia::RamAiApi::ImportGameSettings(RamAi::GameSettings &gameSettings, const Path &path, const std::wstring &gameName)
+{
+	std::wstring gamePathStlString(path.Ptr(), path.Length());
+	std::wstring fullStlString = gamePathStlString + gameName + s_settingsExtension;
+	String::Generic<wchar_t> fullNstString(fullStlString.c_str(), fullStlString.length());
+
+	try
+	{
+		//Open the file.
+		Io::File file(fullNstString, Io::File::READ | Io::File::EXISTING);
+
+		//Copy the bytes from the file into a buffer, then add a null-terminator on the end...
+		static const size_t fileDataSize = 2048;
+		char fileData[fileDataSize];
+
+		size_t numberOfCharsRead = file.ReadSome(fileData, fileDataSize);
+		fileData[numberOfCharsRead] = '\0';
+
+		//Finally import it!
+		gameSettings.Import(fileData);
+	}
+	catch (...)
+	{
+		//TODO: This won't display properly becaues the console gets cleared immediately upon loading.
+		RamAi::Debug::OutLine("Couldn't import game settings..", RamAi::Colour::Red);
+	}
+}
+
 RamAi::Savestate Nestopia::RamAiApi::SaveState()
 {
 	//Most of this is derived from Nestopia::Managers::Emulator::SaveState().
@@ -180,3 +208,5 @@ Nestopia::RamAiApi::SpecsContainer Nestopia::RamAiApi::s_specsContainer = Nestop
 bool Nestopia::RamAiApi::s_compressSavestates = false;
 
 const std::wstring Nestopia::RamAiApi::s_aiSettingsFileName = L"aiSettings.xml";
+
+const std::wstring Nestopia::RamAiApi::s_settingsExtension = L".xml";
