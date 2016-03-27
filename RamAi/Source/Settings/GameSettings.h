@@ -52,6 +52,10 @@ namespace RamAi
 		void Import(char *settingsFile);
 
 	public:
+		bool IsValid() const				{ return HasValidScoreLocation(); }
+		bool HasValidScoreLocation() const	{ return scoreOffset != 0 && scoreSize > 0; }
+
+	public:
 		size_t GetMaximumInitialisationFrames() const;
 
 		//Returns the maximum score possible based off of the number of BCD digits.

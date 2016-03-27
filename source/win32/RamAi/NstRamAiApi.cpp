@@ -128,8 +128,6 @@ void Nestopia::RamAiApi::ImportGameSettings(RamAi::GameSettings &gameSettings, c
 	}
 	catch (...)
 	{
-		//TODO: This won't display properly becaues the console gets cleared immediately upon loading.
-		RamAi::Debug::OutLine("Couldn't import game settings..", RamAi::Colour::Red);
 	}
 }
 

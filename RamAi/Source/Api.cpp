@@ -65,6 +65,11 @@ void RamAi::Api::InitialiseGame(const GameSettings &gameSettings, const StateMac
 	m_stateMachine = std::make_unique<StateMachine>(gameSettings);
 	m_stateMachine->GetSaveStateHandle() = saveStateHandle;
 	m_stateMachine->GetLoadStateHandle() = loadStateHandle;
+
+	if (!gameSettings.IsValid())
+	{
+		Debug::OutLine("Current game settings are invalid.", Colour::Red);
+	}
 }
 
 void RamAi::Api::ImportAiSettings(char *settingsFile)
