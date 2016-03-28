@@ -35,6 +35,8 @@ namespace RamAi
 		{
 			Specs() = default;
 
+			size_t frameRate;						//The number of frames executed per second.
+
 			size_t ramSize;
 			size_t numberOfGamePadButtons;
 			ButtonSet initialisationButtonSet;		//The button(s) needed to press to skip any title screen/menus.

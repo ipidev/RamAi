@@ -196,6 +196,7 @@ RamAi::Ram Nestopia::RamAiApi::NstRamToRamAiRam(const Nes::byte *ramBytes)
 
 Nestopia::RamAiApi::SpecsContainer::SpecsContainer()
 {
+	specs.frameRate = 60;
 	specs.ramSize = Nes::Core::Cpu::RAM_SIZE;
 	specs.numberOfGamePadButtons = 8;
 	specs.initialisationButtonSet = RamAi::ButtonSet(Nes::Core::Input::Controllers::Pad::START);
