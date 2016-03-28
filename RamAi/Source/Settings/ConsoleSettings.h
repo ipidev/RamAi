@@ -61,6 +61,14 @@ namespace RamAi
 
 		public:
 			uint32_t GetNumberOfInputCombinations() const;
+
+			std::vector<ButtonSet> GetAllInputCombinations() const;
+
+		public:
+			ButtonSet GenerateRandomInput() const	{ return GetRandomDirection() | GetRandomButton(); }
+
+			ButtonSet GetRandomDirection() const;
+			ButtonSet GetRandomButton() const;
 		};
 
 	public:

@@ -84,18 +84,10 @@ void RamAi::SimulationState::OnStateEntered(const std::weak_ptr<State>& oldState
 
 RamAi::ButtonSet RamAi::SimulationState::CalculateInput(const Ram &ram)
 {
-	ButtonSet returnValue;
-
-	//Get random buttons. TODO: Don't use these magic numbers!
-	std::vector<ButtonSet> buttonsToChooseFrom = ButtonSet::GetAllCombinations(Bitfield<uint32_t>(0), Bitfield<uint32_t>(193));
-	
-	if (buttonsToChooseFrom.size() > 0)
-	{
-		size_t chosenIndex = rand() % buttonsToChooseFrom.size();
-		returnValue = buttonsToChooseFrom[chosenIndex];
-	}
-
 	++m_numberOfFramesExecuted;
+
+	ButtonSet returnValue = ConsoleSettings::GetSpecs().GenerateRandomInput();
+
 	return returnValue;
 }
 

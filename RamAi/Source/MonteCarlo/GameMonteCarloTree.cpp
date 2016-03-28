@@ -22,6 +22,7 @@
 #include <cassert>
 
 #include "Action/ButtonSet.h"
+#include "Settings/ConsoleSettings.h"
 
 
 RamAi::GameMonteCarloTree::GameMonteCarloTree()
@@ -41,22 +42,23 @@ bool RamAi::GameMonteCarloTree::NodeNeedsExpanding(const TreeNode &node) const
 
 void RamAi::GameMonteCarloTree::PerformExpansion(TreeNode &nodeToBeExpanded)
 {
-	//TODO: Magic numbers that currently return left/right/A for Nestopia. Fix!!
-	std::vector<ButtonSet> leftRightAButtonSet = ButtonSet::GetAllCombinations(Bitfield<uint32_t>(0), Bitfield<uint32_t>(193));
+	std::vector<ButtonSet> allInputCombinations = std::move(ConsoleSettings::GetSpecs().GetAllInputCombinations());
 
 	//Select and add one child at random.
-	while (leftRightAButtonSet.size() > 0)
+	while (allInputCombinations.size() > 0)
 	{
-		size_t chosenIndex = rand() % leftRightAButtonSet.size();
+		const size_t chosenIndex = rand() % allInputCombinations.size();
 
-		if (!nodeToBeExpanded.ContainsAction(leftRightAButtonSet[chosenIndex]))
+		//Add the action to the tree if it is unique.
+		if (!nodeToBeExpanded.ContainsAction(allInputCombinations[chosenIndex]))
 		{
-			nodeToBeExpanded.AddChild(leftRightAButtonSet[chosenIndex]);
+			nodeToBeExpanded.AddChild(allInputCombinations[chosenIndex]);
 			break;
 		}
+		//Otherwise, discard it.
 		else
 		{
-			leftRightAButtonSet.erase(leftRightAButtonSet.begin() + chosenIndex);
+			allInputCombinations.erase(allInputCombinations.begin() + chosenIndex);
 		}
 	}
 }

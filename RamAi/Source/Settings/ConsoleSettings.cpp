@@ -19,11 +19,46 @@
 
 #include "ConsoleSettings.h"
 
+#include <cassert>
+
 
 uint32_t RamAi::ConsoleSettings::Specs::GetNumberOfInputCombinations() const
 {
 	//TODO: Currently assumes non-diagonals.
 	return static_cast<uint32_t>(DirectionalPad::Max) * buttonsField.GetNumberOfCombinations();
+}
+
+std::vector<RamAi::ButtonSet> RamAi::ConsoleSettings::Specs::GetAllInputCombinations() const
+{
+	std::vector<ButtonSet> returnValue;
+	returnValue.reserve(GetNumberOfInputCombinations());
+
+	//For each possible direction, get all of the button sets that contain it and the other buttons, and add them to the end of the list.
+	for (size_t i = 0; i < DirectionalPad::Max; ++i)
+	{
+		std::vector<ButtonSet> combinationsForCurrentDirection = ButtonSet::GetAllCombinations(directionalPadFields[i].GetBitfield(), buttonsField.GetBitfield());
+		returnValue.insert(returnValue.cend(), combinationsForCurrentDirection.begin(), combinationsForCurrentDirection.end());
+	}
+
+	//Sanity check - this should be all of the combinations possible!
+	assert(returnValue.size() == GetNumberOfInputCombinations());
+
+	return returnValue;
+}
+
+RamAi::ButtonSet RamAi::ConsoleSettings::Specs::GetRandomDirection() const
+{
+	//Simply choose a random direction. No diagonals... yet!
+	size_t randomIndex = rand() % static_cast<size_t>(DirectionalPad::Max);
+
+	return directionalPadFields[randomIndex];
+}
+
+RamAi::ButtonSet RamAi::ConsoleSettings::Specs::GetRandomButton() const
+{
+	Bitfield<ButtonSet::BitfieldType> randomBitfield = rand();
+
+	return ButtonSet(randomBitfield & buttonsField.GetBitfield());
 }
 
 RamAi::ConsoleSettings::Specs RamAi::ConsoleSettings::s_specs = RamAi::ConsoleSettings::Specs();
