@@ -75,6 +75,8 @@ namespace Nestopia
 		void LoadState(const RamAi::Savestate &savestate);
 		Collection::Buffer SavestateToBuffer(const RamAi::Savestate &savestate);
 
+		void SaveLogToFile(const RamAi::ScoreLog &scoreLog);
+
 	private:
 		void EnableTurbo(const bool turboOn);
 

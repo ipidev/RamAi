@@ -81,7 +81,7 @@ namespace RamAi
 		typedef std::function<void(const Savestate&)> LoadStateHandleSignature;
 
 	public:
-		StateMachine();
+		StateMachine(const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle);
 		~StateMachine();
 
 	public:

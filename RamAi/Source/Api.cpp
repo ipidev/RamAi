@@ -56,20 +56,29 @@ RamAi::Api &RamAi::Api::operator= (Api &&other)
 	return *this;
 }
 
-void RamAi::Api::InitialiseGame(const GameSettings &gameSettings, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle)
+void RamAi::Api::InitialiseGame(const GameSettings &gameSettings,
+	const StateMachine::SaveStateHandleSignature &saveStateHandle,
+	const StateMachine::LoadStateHandleSignature &loadStateHandle,
+	const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle)
 {
 	Debug::ClearScreen();
 
 	GameSettings::SetInstance(gameSettings);
 
 	//Create a new state machine.
-	m_stateMachine = std::make_unique<StateMachine>();
+	m_stateMachine = std::make_unique<StateMachine>(saveLogToFileHandle);
 	m_stateMachine->GetSaveStateHandle() = saveStateHandle;
 	m_stateMachine->GetLoadStateHandle() = loadStateHandle;
 
+	//Log any errors.
 	if (!gameSettings.IsValid())
 	{
 		Debug::OutLine("Current game settings are invalid.", Colour::Red);
+	}
+
+	if (!saveLogToFileHandle)
+	{
+		Debug::OutLine("No save log to file handle - score log will not be saved to disk.", Colour::Red);
 	}
 }
 

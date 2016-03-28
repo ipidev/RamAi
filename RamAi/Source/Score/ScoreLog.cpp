@@ -19,15 +19,20 @@
 
 #include "ScoreLog.h"
 
+#include <cassert>
 
-RamAi::ScoreLog::ScoreLog()
+
+RamAi::ScoreLog::ScoreLog(const SaveLogToFileSignature &saveLogToFileHandle)
 {
+	m_saveLogToFileHandle = saveLogToFileHandle;
+
 	m_items.reserve(100);
 	m_currentIteration = 0;
 }
 
 RamAi::ScoreLog::~ScoreLog()
 {
+	SaveLogToFile();
 }
 
 void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree)
@@ -38,6 +43,9 @@ void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree)
 	const TreeNode &bestNode = tree.GetBestScoringNode();
 
 	AddItem(bestNode);
+
+	//TODO: Only occasionally save to file.
+	SaveLogToFile();
 }
 
 void RamAi::ScoreLog::AddItem(const TreeNode &bestNode)
@@ -48,4 +56,12 @@ void RamAi::ScoreLog::AddItem(const TreeNode &bestNode)
 	item.bestNodeDepth = bestNode.CalculateDepth();
 
 	m_items.push_back(std::move(item));
+}
+
+void RamAi::ScoreLog::SaveLogToFile()
+{
+	if (m_saveLogToFileHandle)
+	{
+		m_saveLogToFileHandle(*this);
+	}
 }

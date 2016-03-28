@@ -48,7 +48,10 @@ namespace RamAi
 
 	public:
 		//Initialises the AI with a new game's settings.
-		void InitialiseGame(const GameSettings &gameSettings, const StateMachine::SaveStateHandleSignature &saveStateHandle, const StateMachine::LoadStateHandleSignature &loadStateHandle);
+		void InitialiseGame(const GameSettings &gameSettings,
+			const StateMachine::SaveStateHandleSignature &saveStateHandle,
+			const StateMachine::LoadStateHandleSignature &loadStateHandle,
+			const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle);
 
 		void ImportAiSettings(char *settingsFile);
 

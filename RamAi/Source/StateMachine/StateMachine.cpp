@@ -62,9 +62,10 @@ void RamAi::StateMachine::State::Move(State &&other)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-RamAi::StateMachine::StateMachine()
+RamAi::StateMachine::StateMachine(const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle)
 	: m_tree()
 	, m_currentStateType(State::Type::Initialisation)
+	, m_scoreLog(saveLogToFileHandle)
 {
 	InitialiseStates();
 }

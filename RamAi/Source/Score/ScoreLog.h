@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include <functional>
 #include <vector>
 
 #include "MonteCarlo\GameMonteCarloTree.h"
@@ -39,7 +40,10 @@ namespace RamAi
 		};
 
 	public:
-		ScoreLog();
+		typedef std::function<void(const ScoreLog&)> SaveLogToFileSignature;
+
+	public:
+		ScoreLog(const SaveLogToFileSignature &saveLogToFileHandle);
 		~ScoreLog();
 
 	public:
@@ -51,8 +55,12 @@ namespace RamAi
 	protected:
 		void AddItem(const TreeNode &bestNode);
 
+		void SaveLogToFile();
+
 	private:
 		std::vector<Item> m_items;
 		uint32_t m_currentIteration;
+
+		SaveLogToFileSignature m_saveLogToFileHandle;
 	};
 };

@@ -50,8 +50,10 @@ void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameSettings &gameDetails)
 	//std::placeholders are used for extra parameters that are filled in later.
 	RamAi::StateMachine::LoadStateHandleSignature loadStateHandle = std::bind(&RamAiApi::LoadState, this, std::placeholders::_1); 
 
+	RamAi::ScoreLog::SaveLogToFileSignature saveLogToFileHandle = std::bind(&RamAiApi::SaveLogToFile, this, std::placeholders::_1); 
+
 	//Call the base.
-	RamAi::Api::InitialiseGame(gameDetails, saveStateHandle, loadStateHandle);
+	RamAi::Api::InitialiseGame(gameDetails, saveStateHandle, loadStateHandle, saveLogToFileHandle);
 
 	EnableTurbo(true);
 }
@@ -175,6 +177,12 @@ Nestopia::Collection::Buffer Nestopia::RamAiApi::SavestateToBuffer(const RamAi::
 	Collection::Buffer buffer(charPtr, savestate.GetSize());
 
 	return buffer;
+}
+
+void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog)
+{
+	//TODO: Make it actually save files!
+	RamAi::Debug::OutLine("save");
 }
 
 void Nestopia::RamAiApi::EnableTurbo(const bool turboOn)
