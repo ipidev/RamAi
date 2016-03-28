@@ -74,7 +74,7 @@ void RamAi::Api::InitialiseGame(const GameSettings &gameSettings, const StateMac
 
 void RamAi::Api::ImportAiSettings(char *settingsFile)
 {
-	AiSettings::Import(settingsFile);
+	AiSettings::SetData(AiSettings::Import(settingsFile));
 }
 
 RamAi::ButtonSet RamAi::Api::CalculateInput(const Ram &ram)
