@@ -28,6 +28,11 @@ RamAi::AiSettings::Data::Data()
 	maximumSimulationTime = 120.0f;
 }
 
+	size_t RamAi::AiSettings::Data::GetMaximumSimulationFrames(const size_t frameRate) const
+	{
+		return static_cast<size_t>(static_cast<float>(frameRate) * maximumSimulationTime);
+	}
+
 RamAi::AiSettings::Data RamAi::AiSettings::Import(char *settingsFile)
 {
 	Data data;

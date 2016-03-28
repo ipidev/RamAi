@@ -35,6 +35,9 @@ namespace RamAi
 
 			//The maximum length of time to simulate for, in seconds.
 			float maximumSimulationTime;
+
+		public:
+			size_t GetMaximumSimulationFrames(const size_t frameRate) const;
 		};
 
 	public:
