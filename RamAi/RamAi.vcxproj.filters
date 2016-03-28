@@ -90,9 +90,6 @@
     <ClInclude Include="Source\MonteCarlo\UctMonteCarloTree.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MonteCarlo\TestMonteCarloTree.h">
-      <Filter>Header Files\MonteCarlo</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MonteCarlo\GameMonteCarloTree.h">
       <Filter>Header Files\MonteCarlo</Filter>
     </ClInclude>
@@ -150,9 +147,6 @@
       <Filter>Source Files\MonteCarlo</Filter>
     </ClCompile>
     <ClCompile Include="Source\MonteCarlo\UctMonteCarloTree.cpp">
-      <Filter>Source Files\MonteCarlo</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MonteCarlo\TestMonteCarloTree.cpp">
       <Filter>Source Files\MonteCarlo</Filter>
     </ClCompile>
     <ClCompile Include="Source\Score\Score.cpp">

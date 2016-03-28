@@ -28,7 +28,6 @@
     <ClInclude Include="Source\MonteCarlo\BestScoreCollection.h" />
     <ClInclude Include="Source\MonteCarlo\GameMonteCarloTree.h" />
     <ClInclude Include="Source\MonteCarlo\MonteCarloTreeBase.h" />
-    <ClInclude Include="Source\MonteCarlo\TestMonteCarloTree.h" />
     <ClInclude Include="Source\MonteCarlo\TreeNode.h" />
     <ClInclude Include="Source\MonteCarlo\UctMonteCarloTree.h" />
     <ClInclude Include="Source\Score\Score.h" />
@@ -51,7 +50,6 @@
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MonteCarlo\GameMonteCarloTree.cpp" />
     <ClCompile Include="Source\MonteCarlo\MonteCarloTreeBase.cpp" />
-    <ClCompile Include="Source\MonteCarlo\TestMonteCarloTree.cpp" />
     <ClCompile Include="Source\MonteCarlo\TreeNode.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarloTree.cpp" />
     <ClCompile Include="Source\Score\Score.cpp" />
