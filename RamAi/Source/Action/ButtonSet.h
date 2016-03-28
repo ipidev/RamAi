@@ -45,8 +45,16 @@ namespace RamAi
 		ButtonSet &operator= (const ButtonSet &other);
 		ButtonSet &operator= (ButtonSet &&other);
 
-		bool operator== (const ButtonSet &other) const	{ return m_bitfield == other.m_bitfield; }
-		bool operator!= (const ButtonSet &other) const	{ return m_bitfield != other.m_bitfield; }
+		ButtonSet &operator|= (const ButtonSet &other)		{ m_bitfield |= other.m_bitfield; return *this; }
+		ButtonSet &operator&= (const ButtonSet &other)		{ m_bitfield &= other.m_bitfield; return *this; }
+		ButtonSet &operator^= (const ButtonSet &other)		{ m_bitfield ^= other.m_bitfield; return *this; }
+
+		ButtonSet operator| (const ButtonSet &other) const	{ return ButtonSet(m_bitfield | other.m_bitfield); }
+		ButtonSet operator& (const ButtonSet &other) const	{ return ButtonSet(m_bitfield & other.m_bitfield); }
+		ButtonSet operator^ (const ButtonSet &other) const	{ return ButtonSet(m_bitfield ^ other.m_bitfield); }
+
+		bool operator== (const ButtonSet &other) const		{ return m_bitfield == other.m_bitfield; }
+		bool operator!= (const ButtonSet &other) const		{ return m_bitfield != other.m_bitfield; }
 
 	public:
 		//Returns a collection of all button combinations that contain every permutation of the bitmasks
