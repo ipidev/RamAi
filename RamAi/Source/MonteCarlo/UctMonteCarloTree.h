@@ -29,7 +29,7 @@ namespace RamAi
 	class UctMonteCarloTree : public MonteCarloTreeBase
 	{
 	public:
-		UctMonteCarloTree(const float bias);
+		UctMonteCarloTree(const double bias);
 		UctMonteCarloTree(const UctMonteCarloTree &other);
 		UctMonteCarloTree(UctMonteCarloTree &&other);
 		virtual ~UctMonteCarloTree();
@@ -39,8 +39,8 @@ namespace RamAi
 		UctMonteCarloTree &operator= (UctMonteCarloTree &&other);
 
 	public:
-		const float GetBias() const		{ return m_bias; }
-		void SetBias(const float bias)	{ m_bias = bias; }
+		const double GetBias() const	{ return m_bias; }
+		void SetBias(const double bias)	{ m_bias = bias; }
 
 	protected:
 		virtual TreeNode *SelectChild(const TreeNode &parent) const override;
@@ -52,6 +52,6 @@ namespace RamAi
 		void Move(UctMonteCarloTree &&other);
 
 	protected:
-		float m_bias;
+		double m_bias;
 	};
 };

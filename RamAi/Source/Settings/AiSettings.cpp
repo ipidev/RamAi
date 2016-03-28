@@ -24,19 +24,25 @@
 
 RamAi::AiSettings::Data::Data()
 {
+	explorationBias = 0.5f;
 	macroActionLength = 1;
 	maximumSimulationTime = 120.0f;
 }
 
-	size_t RamAi::AiSettings::Data::GetMaximumSimulationFrames(const size_t frameRate) const
-	{
-		return static_cast<size_t>(static_cast<float>(frameRate) * maximumSimulationTime);
-	}
+size_t RamAi::AiSettings::Data::GetMaximumSimulationFrames(const size_t frameRate) const
+{
+	return static_cast<size_t>(static_cast<float>(frameRate) * maximumSimulationTime);
+}
 
 RamAi::AiSettings::Data RamAi::AiSettings::Import(char *settingsFile)
 {
 	Data data;
 	BasicSettingsImporter settingsImporter(settingsFile, "AiSettings");
+
+	if (settingsImporter.ContainsKey("ExplorationBias"))
+	{
+		data.explorationBias = std::stod(settingsImporter["ExplorationBias"]);
+	}
 
 	if (settingsImporter.ContainsKey("MacroActionLength"))
 	{

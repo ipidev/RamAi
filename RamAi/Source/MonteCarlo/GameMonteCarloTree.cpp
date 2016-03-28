@@ -22,11 +22,12 @@
 #include <cassert>
 
 #include "Action/ButtonSet.h"
+#include "Settings/AiSettings.h"
 #include "Settings/ConsoleSettings.h"
 
 
 RamAi::GameMonteCarloTree::GameMonteCarloTree()
-	: UctMonteCarloTree(0.5f)
+	: UctMonteCarloTree(AiSettings::GetData().explorationBias)
 {
 }
 

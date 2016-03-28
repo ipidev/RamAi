@@ -30,6 +30,9 @@ namespace RamAi
 			Data();
 			~Data() = default;
 
+			//The bias towards exploring the search tree versus exploiting known good areas.
+			double explorationBias;
+
 			//The number of times to repeat the action taken during expansion. 
 			size_t macroActionLength;
 

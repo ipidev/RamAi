@@ -20,7 +20,7 @@
 #include "UctMonteCarloTree.h"
 
 
-RamAi::UctMonteCarloTree::UctMonteCarloTree(const float bias)
+RamAi::UctMonteCarloTree::UctMonteCarloTree(const double bias)
 	: MonteCarloTreeBase()
 {
 	m_bias = bias;
@@ -88,7 +88,7 @@ double RamAi::UctMonteCarloTree::CalculateUcbScore(const TreeNode &parent, const
 		const double rootVisitsFloat = static_cast<double>(rootVisits);
 		const double childVisitsFloat = static_cast<double>(childVisits);
 
-		const double visitsRadical = sqrt((2.0f * log(rootVisitsFloat)) / childVisitsFloat);
+		const double visitsRadical = sqrt((2.0 * log(rootVisitsFloat)) / childVisitsFloat);
 		const double childScoreMean = child.GetScore().GetNormalisedScore(GameSettings::GetInstance());
 
 		const double ucb = childScoreMean + (m_bias * visitsRadical);
