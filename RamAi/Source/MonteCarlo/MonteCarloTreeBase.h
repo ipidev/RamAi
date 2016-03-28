@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include "Settings/GameSettings.h"
 #include "TreeNode.h"
 
 
@@ -53,10 +54,7 @@ namespace RamAi
 		TreeNode &GetRoot()					{ return m_root; }
 
 	public:
-		void PerformSearch();
-
-	public:
-		TreeNode &Select();
+		TreeNode &Select(const GameSettings &gameSettings);
 
 	protected:
 		//Returns true if the given node should be expanded.
@@ -64,10 +62,10 @@ namespace RamAi
 		virtual bool NodeNeedsExpanding(const TreeNode &node) const			{ return node.IsLeaf(); }
 
 		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
-		virtual TreeNode *SelectChild(const TreeNode &parent) const = 0;
+		virtual TreeNode *SelectChild(const TreeNode &parent, const GameSettings &gameSettings) const = 0;
 
 	public:
-		virtual TreeNode &Expand(TreeNode &nodeToBeExpanded);
+		virtual TreeNode &Expand(TreeNode &nodeToBeExpanded, const GameSettings &gameSettings);
 
 	protected:
 		//Performs tree expansion by generating children for the given root.
@@ -75,12 +73,9 @@ namespace RamAi
 
 		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
 		//By default, this is a synonym for SelectChild().
-		virtual TreeNode *SelectExpandedChild(const TreeNode &parent) const	{ return SelectChild(parent); }
+		virtual TreeNode *SelectExpandedChild(const TreeNode &parent, const GameSettings &gameSettings) const	{ return SelectChild(parent, gameSettings); }
 
 	public:
-		//TODO: Can't return the score in one function call. Make Backpropagate public so the score can be saved later.
-		ScoreType Simulate(TreeNode &nodeToBeSimulated);
-
 		void Backpropagate(TreeNode &nodeToBackpropagateFrom, const ScoreType score);
 
 	private:

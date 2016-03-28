@@ -21,6 +21,8 @@
 
 #include <cstdint>
 
+#include "Settings/GameSettings.h"
+
 
 namespace RamAi
 {
@@ -43,6 +45,9 @@ namespace RamAi
 
 	public:
 		void AddScore(const uint32_t score);
+		double GetNormalisedScore(const GameSettings &gameSettings) const;
+
+	protected:
 		double GetAverageScore() const;
 
 	private:

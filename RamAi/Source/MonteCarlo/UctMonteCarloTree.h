@@ -43,9 +43,9 @@ namespace RamAi
 		void SetBias(const float bias)	{ m_bias = bias; }
 
 	protected:
-		virtual TreeNode *SelectChild(const TreeNode &parent) const override;
+		virtual TreeNode *SelectChild(const TreeNode &parent, const GameSettings &gameSettings) const override;
 
-		float CalculateUcbScore(const TreeNode &parent, const TreeNode &child) const;
+		double CalculateUcbScore(const TreeNode &parent, const TreeNode &child, const GameSettings &gameSettings) const;
 
 	protected:
 		void Copy(const UctMonteCarloTree &other);

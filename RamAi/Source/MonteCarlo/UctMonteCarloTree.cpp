@@ -54,7 +54,7 @@ RamAi::UctMonteCarloTree &RamAi::UctMonteCarloTree::operator= (UctMonteCarloTree
 	return *this;
 }
 
-RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent) const
+RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent, const GameSettings &gameSettings) const
 {
 	if (parent.IsLeaf())
 	{
@@ -62,14 +62,14 @@ RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent) c
 	}
 	else
 	{
-		BestScoreCollection<const TreeNode*, float> bestNodes(-std::numeric_limits<float>::infinity());
+		BestScoreCollection<const TreeNode*, double> bestNodes(-std::numeric_limits<double>::infinity());
 
 		for (auto it = parent.GetIteratorBegin(); it != parent.GetIteratorEnd(); ++it)
 		{
 			const TreeNode &child = it->second;
 
 			//TODO: Check if the state is terminal, and skip add terminal states.
-			const float ucbScore = CalculateUcbScore(parent, child);
+			const float ucbScore = CalculateUcbScore(parent, child, gameSettings);
 			bestNodes.Add(&child, ucbScore);
 		}
 
@@ -78,25 +78,25 @@ RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent) c
 	}
 }
 
-float RamAi::UctMonteCarloTree::CalculateUcbScore(const TreeNode &parent, const TreeNode &child) const
+double RamAi::UctMonteCarloTree::CalculateUcbScore(const TreeNode &parent, const TreeNode &child, const GameSettings &gameSettings) const
 {
 	const uint64_t rootVisits = parent.GetScore().GetVisits();
 	const uint64_t childVisits = child.GetScore().GetVisits();
 
 	if (rootVisits > 0 && childVisits > 0)
 	{
-		const float rootVisitsFloat = static_cast<float>(rootVisits);
-		const float childVisitsFloat = static_cast<float>(childVisits);
+		const double rootVisitsFloat = static_cast<double>(rootVisits);
+		const double childVisitsFloat = static_cast<double>(childVisits);
 
-		const float visitsRadical = sqrt((2.0f * log(rootVisitsFloat)) / childVisitsFloat);
-		const float childScoreMean = child.GetScore().GetTotalScore() / childVisitsFloat;
+		const double visitsRadical = sqrt((2.0f * log(rootVisitsFloat)) / childVisitsFloat);
+		const double childScoreMean = child.GetScore().GetNormalisedScore(gameSettings);
 
-		const float ucb = childScoreMean + (m_bias * visitsRadical);
+		const double ucb = childScoreMean + (m_bias * visitsRadical);
 		return ucb;
 	}
 	else
 	{
-		return std::numeric_limits<float>::infinity();
+		return std::numeric_limits<double>::infinity();
 	}
 }
 

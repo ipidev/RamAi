@@ -22,6 +22,8 @@
 #include <limits>
 #include <utility>
 
+#include "Settings/ConsoleSettings.h"
+
 
 RamAi::Score::Score()
 {
@@ -61,6 +63,13 @@ void RamAi::Score::AddScore(const uint32_t score)
 	++m_visits;
 }
 
+double RamAi::Score::GetNormalisedScore(const GameSettings &gameSettings) const
+{
+	const double maximumScore = static_cast<double>(gameSettings.GetMaximumScore());
+
+	return maximumScore > 0.0f ? GetAverageScore() / maximumScore : std::numeric_limits<double>::infinity();
+}
+
 double RamAi::Score::GetAverageScore() const
 {
 	if (m_visits > 0)
@@ -69,7 +78,7 @@ double RamAi::Score::GetAverageScore() const
 	}
 	else
 	{
-		return std::numeric_limits<float>::infinity();
+		return std::numeric_limits<double>::infinity();
 	}
 }
 

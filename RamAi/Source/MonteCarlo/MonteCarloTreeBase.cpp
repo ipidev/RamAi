@@ -68,17 +68,7 @@ RamAi::MonteCarloTreeBase &RamAi::MonteCarloTreeBase::operator= (MonteCarloTreeB
 	return *this;
 }
 
-void RamAi::MonteCarloTreeBase::PerformSearch()
-{
-	TreeNode &selectedNode = Select();
-	TreeNode &expandedNode = Expand(selectedNode);
-
-	const ScoreType score = Simulate(expandedNode);
-
-	Backpropagate(expandedNode, score);
-}
-
-RamAi::TreeNode &RamAi::MonteCarloTreeBase::Select()
+RamAi::TreeNode &RamAi::MonteCarloTreeBase::Select(const GameSettings &gameSettings)
 {
 	TreeNode *currentNode = &m_root;
 
@@ -103,7 +93,7 @@ RamAi::TreeNode &RamAi::MonteCarloTreeBase::Select()
 		//Select one of its children and try again.
 		else
 		{
-			TreeNode *nextNode = SelectChild(*currentNode);
+			TreeNode *nextNode = SelectChild(*currentNode, gameSettings);
 
 			if (nextNode)
 			{
@@ -125,14 +115,14 @@ RamAi::TreeNode &RamAi::MonteCarloTreeBase::Select()
 	return *currentNode;
 }
 
-RamAi::TreeNode &RamAi::MonteCarloTreeBase::Expand(TreeNode &nodeToBeExpanded)
+RamAi::TreeNode &RamAi::MonteCarloTreeBase::Expand(TreeNode &nodeToBeExpanded, const GameSettings &gameSettings)
 {
 	PerformExpansion(nodeToBeExpanded);
 
 	//If expansion resulted in more children, select one of them.
 	if (!nodeToBeExpanded.IsLeaf())
 	{
-		TreeNode *nextNode = SelectExpandedChild(nodeToBeExpanded);
+		TreeNode *nextNode = SelectExpandedChild(nodeToBeExpanded, gameSettings);
 
 		if (nextNode)
 		{
@@ -151,12 +141,6 @@ RamAi::TreeNode &RamAi::MonteCarloTreeBase::Expand(TreeNode &nodeToBeExpanded)
 	{
 		return nodeToBeExpanded;
 	}
-}
-
-RamAi::MonteCarloTreeBase::ScoreType RamAi::MonteCarloTreeBase::Simulate(TreeNode &nodeToBeSimulated)
-{
-	//TODO: Score needs to be normalised in order to work correctly.
-	return rand() % 2;
 }
 
 void RamAi::MonteCarloTreeBase::Backpropagate(TreeNode &nodeToBackpropagateFrom, const ScoreType score)
