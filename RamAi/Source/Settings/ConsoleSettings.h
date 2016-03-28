@@ -58,6 +58,9 @@ namespace RamAi
 			//A single button set that represents the other pressable inputs on the gamepad.
 			//These may be pressed simultaneously.
 			ButtonSet buttonsField;
+
+		public:
+			uint32_t GetNumberOfInputCombinations() const;
 		};
 
 	public:

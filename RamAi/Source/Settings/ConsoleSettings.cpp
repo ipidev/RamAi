@@ -20,4 +20,10 @@
 #include "ConsoleSettings.h"
 
 
+uint32_t RamAi::ConsoleSettings::Specs::GetNumberOfInputCombinations() const
+{
+	//TODO: Currently assumes non-diagonals.
+	return static_cast<uint32_t>(DirectionalPad::Max) * buttonsField.GetNumberOfCombinations();
+}
+
 RamAi::ConsoleSettings::Specs RamAi::ConsoleSettings::s_specs = RamAi::ConsoleSettings::Specs();

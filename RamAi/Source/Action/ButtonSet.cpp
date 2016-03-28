@@ -99,3 +99,18 @@ std::vector<RamAi::ButtonSet> RamAi::ButtonSet::GetAllCombinations(const Bitfiel
 
 	return combinations;
 }
+
+uint32_t RamAi::ButtonSet::GetNumberOfCombinations() const
+{
+	uint32_t returnValue = 1;
+
+	for (size_t i = 0; i < Bitfield<BitfieldType>::NumberOfBits; ++i)
+	{
+		if (m_bitfield.IsBitSet(i))
+		{
+			returnValue *= 2;
+		}
+	}
+
+	return returnValue;
+}

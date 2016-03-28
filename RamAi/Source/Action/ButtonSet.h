@@ -60,6 +60,9 @@ namespace RamAi
 
 		void SetBitfield(const Bitfield<BitfieldType> bitfield)	{ m_bitfield = bitfield; }
 
+	public:
+		uint32_t GetNumberOfCombinations() const;
+
 	private:
 		Bitfield<BitfieldType> m_bitfield;
 	};
