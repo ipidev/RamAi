@@ -63,7 +63,7 @@ void RamAi::GameMonteCarloTree::PerformExpansion(TreeNode &nodeToBeExpanded)
 	}
 }
 
-RamAi::TreeNode *RamAi::GameMonteCarloTree::SelectExpandedChild(const TreeNode &parent, const GameSettings &gameSettings) const
+RamAi::TreeNode *RamAi::GameMonteCarloTree::SelectExpandedChild(const TreeNode &parent) const
 {
 	//We should only be expanding one child at a time, so we should return our newly expanded child here.
 	//Thus, we just need to select the node that hasn't been given a score yet.

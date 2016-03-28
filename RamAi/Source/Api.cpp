@@ -61,8 +61,10 @@ void RamAi::Api::InitialiseGame(const GameSettings &gameSettings, const StateMac
 {
 	Debug::ClearScreen();
 
+	GameSettings::SetInstance(gameSettings);
+
 	//Create a new state machine.
-	m_stateMachine = std::make_unique<StateMachine>(gameSettings);
+	m_stateMachine = std::make_unique<StateMachine>();
 	m_stateMachine->GetSaveStateHandle() = saveStateHandle;
 	m_stateMachine->GetLoadStateHandle() = loadStateHandle;
 

@@ -54,7 +54,7 @@ namespace RamAi
 		TreeNode &GetRoot()					{ return m_root; }
 
 	public:
-		TreeNode &Select(const GameSettings &gameSettings);
+		TreeNode &Select();
 
 	protected:
 		//Returns true if the given node should be expanded.
@@ -62,10 +62,10 @@ namespace RamAi
 		virtual bool NodeNeedsExpanding(const TreeNode &node) const			{ return node.IsLeaf(); }
 
 		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
-		virtual TreeNode *SelectChild(const TreeNode &parent, const GameSettings &gameSettings) const = 0;
+		virtual TreeNode *SelectChild(const TreeNode &parent) const = 0;
 
 	public:
-		virtual TreeNode &Expand(TreeNode &nodeToBeExpanded, const GameSettings &gameSettings);
+		virtual TreeNode &Expand(TreeNode &nodeToBeExpanded);
 
 	protected:
 		//Performs tree expansion by generating children for the given root.
@@ -73,7 +73,7 @@ namespace RamAi
 
 		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
 		//By default, this is a synonym for SelectChild().
-		virtual TreeNode *SelectExpandedChild(const TreeNode &parent, const GameSettings &gameSettings) const	{ return SelectChild(parent, gameSettings); }
+		virtual TreeNode *SelectExpandedChild(const TreeNode &parent) const	{ return SelectChild(parent); }
 
 	public:
 		void Backpropagate(TreeNode &nodeToBackpropagateFrom, const ScoreType score);

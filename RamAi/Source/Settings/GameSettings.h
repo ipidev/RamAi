@@ -31,6 +31,7 @@ namespace RamAi
 	{
 	public:
 		GameSettings();
+		~GameSettings() = default;
 
 	public:
 		std::string gameName;
@@ -60,5 +61,12 @@ namespace RamAi
 
 		//Returns the maximum score possible based off of the number of BCD digits.
 		uint32_t GetMaximumScore() const;
+
+	public:
+		static const GameSettings &GetInstance()				{ return s_instance; }
+		static void SetInstance(const GameSettings &instance)	{ s_instance = instance; }
+
+	private:
+		static GameSettings s_instance;
 	};
 };

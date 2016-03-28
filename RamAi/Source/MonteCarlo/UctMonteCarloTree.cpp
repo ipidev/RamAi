@@ -54,7 +54,7 @@ RamAi::UctMonteCarloTree &RamAi::UctMonteCarloTree::operator= (UctMonteCarloTree
 	return *this;
 }
 
-RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent, const GameSettings &gameSettings) const
+RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent) const
 {
 	if (parent.IsLeaf())
 	{
@@ -69,7 +69,7 @@ RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent, c
 			const TreeNode &child = it->second;
 
 			//TODO: Check if the state is terminal, and skip add terminal states.
-			const float ucbScore = CalculateUcbScore(parent, child, gameSettings);
+			const double ucbScore = CalculateUcbScore(parent, child);
 			bestNodes.Add(&child, ucbScore);
 		}
 
@@ -78,7 +78,7 @@ RamAi::TreeNode *RamAi::UctMonteCarloTree::SelectChild(const TreeNode &parent, c
 	}
 }
 
-double RamAi::UctMonteCarloTree::CalculateUcbScore(const TreeNode &parent, const TreeNode &child, const GameSettings &gameSettings) const
+double RamAi::UctMonteCarloTree::CalculateUcbScore(const TreeNode &parent, const TreeNode &child) const
 {
 	const uint64_t rootVisits = parent.GetScore().GetVisits();
 	const uint64_t childVisits = child.GetScore().GetVisits();
@@ -89,7 +89,7 @@ double RamAi::UctMonteCarloTree::CalculateUcbScore(const TreeNode &parent, const
 		const double childVisitsFloat = static_cast<double>(childVisits);
 
 		const double visitsRadical = sqrt((2.0f * log(rootVisitsFloat)) / childVisitsFloat);
-		const double childScoreMean = child.GetScore().GetNormalisedScore(gameSettings);
+		const double childScoreMean = child.GetScore().GetNormalisedScore(GameSettings::GetInstance());
 
 		const double ucb = childScoreMean + (m_bias * visitsRadical);
 		return ucb;

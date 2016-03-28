@@ -68,7 +68,7 @@ void RamAi::ExpansionState::OnStateEntered(const std::weak_ptr<State>& oldState,
 		//Select the most urgent node from the tree and load its state.
 		GameMonteCarloTree &tree = m_stateMachine->GetTree();
 		
-		TreeNode &selectedNode = tree.Select(m_stateMachine->GetGameSettings());
+		TreeNode &selectedNode = tree.Select();
 		assert(selectedNode.HasSavestate());
 
 		if (selectedNode.HasSavestate())
@@ -81,7 +81,7 @@ void RamAi::ExpansionState::OnStateEntered(const std::weak_ptr<State>& oldState,
 			}
 
 			//Expand the node and store it.
-			m_expandedNode = &tree.Expand(selectedNode, m_stateMachine->GetGameSettings());
+			m_expandedNode = &tree.Expand(selectedNode);
 			assert(m_expandedNode);
 
 			//Store the action(s) that are needed to reach the newly expanded state.

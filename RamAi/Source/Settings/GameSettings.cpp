@@ -77,3 +77,5 @@ uint32_t RamAi::GameSettings::GetMaximumScore() const
 {
 	return BinaryCodedDecimal::Power(10, static_cast<uint32_t>(scoreSize)) - 1;
 }
+
+RamAi::GameSettings RamAi::GameSettings::s_instance = GameSettings();

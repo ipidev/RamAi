@@ -128,6 +128,6 @@ void RamAi::SimulationState::UpdateCurrentScore(const Ram &ram)
 
 	if (m_stateMachine)
 	{
-		m_currentScore = ram.GetCurrentScore(m_stateMachine->GetGameSettings());
+		m_currentScore = ram.GetCurrentScore(GameSettings::GetInstance());
 	}
 }

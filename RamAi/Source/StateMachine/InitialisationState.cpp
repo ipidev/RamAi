@@ -23,6 +23,7 @@
 #include <cassert>
 
 #include "Settings\ConsoleSettings.h"
+#include "Settings\GameSettings.h"
 
 
 RamAi::InitialisationState::InitialisationState(StateMachine &stateMachine)
@@ -61,19 +62,14 @@ RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
 {
 	ButtonSet returnValue;
 
-	assert(m_stateMachine);
-
-	if (m_stateMachine)
+	if (m_numberOfFramesExecuted < GameSettings::GetInstance().initialisationStartButtonFrames)
 	{
-		if (m_numberOfFramesExecuted < m_stateMachine->GetGameSettings().initialisationStartButtonFrames)
+		//Return the pause button on even frames, and the empty button set on odd frames.
+		//This will cause the pause button to be mashed as fast as possible!
+		if ((m_numberOfFramesExecuted % 2) == 0)
 		{
-			//Return the pause button on even frames, and the empty button set on odd frames.
-			//This will cause the pause button to be mashed as fast as possible!
-			if ((m_numberOfFramesExecuted % 2) == 0)
-			{
-				//TODO: Get actual pause value.
-				returnValue = ConsoleSettings::GetSpecs().initialisationButtonSet;
-			}
+			//TODO: Get actual pause value.
+			returnValue = ConsoleSettings::GetSpecs().initialisationButtonSet;
 		}
 	}
 
@@ -83,22 +79,13 @@ RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
 
 RamAi::StateMachine::State::Type RamAi::InitialisationState::GetDesiredStateType(const Ram &ram)
 {
-	assert(m_stateMachine);
+	//Go to the selection state once we've executed enough frames to skip the title screen.
+	const size_t initialisationFrames = GameSettings::GetInstance().GetMaximumInitialisationFrames();
 
-	if (m_stateMachine)
-	{
-		//Go to the selection state once we've executed enough frames to skip the title screen.
-		const size_t initialisationFrames = m_stateMachine->GetGameSettings().GetMaximumInitialisationFrames();
+	//We shouldn't ever go over the target number of frames - that means we must have skipped one!
+	assert(m_numberOfFramesExecuted <= initialisationFrames);
 
-		//We shouldn't ever go over the target number of frames - that means we must have skipped one!
-		assert(m_numberOfFramesExecuted <= initialisationFrames);
-
-		return m_numberOfFramesExecuted >= initialisationFrames ? Type::Expansion : Type::Initialisation;
-	}
-	else
-	{
-		return Type::Initialisation;
-	}
+	return m_numberOfFramesExecuted >= initialisationFrames ? Type::Expansion : Type::Initialisation;
 }
 
 void RamAi::InitialisationState::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)

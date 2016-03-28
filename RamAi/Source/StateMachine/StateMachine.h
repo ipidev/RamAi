@@ -24,7 +24,6 @@
 
 #include "Data/Ram.h"
 #include "MonteCarlo/GameMonteCarloTree.h"
-#include "Settings/GameSettings.h"
 #include "State/Savestate.h"
 
 
@@ -81,12 +80,10 @@ namespace RamAi
 		typedef std::function<void(const Savestate&)> LoadStateHandleSignature;
 
 	public:
-		StateMachine(const GameSettings &gameSettings);
+		StateMachine();
 		~StateMachine();
 
 	public:
-		const GameSettings &GetGameSettings() const	{ return m_gameSettings; }
-
 		const GameMonteCarloTree &GetTree() const	{ return m_tree; }
 		GameMonteCarloTree &GetTree()				{ return m_tree; }
 
@@ -119,7 +116,6 @@ namespace RamAi
 		void ChangeState(const State::Type newStateType);
 
 	protected:
-		GameSettings m_gameSettings;
 		GameMonteCarloTree m_tree;
 
 		std::shared_ptr<State> m_states[State::Type::Max];
