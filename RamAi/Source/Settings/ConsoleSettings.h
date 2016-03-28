@@ -26,6 +26,16 @@
 
 namespace RamAi
 {
+	//An enum storing the directions that are pressable on a d-pad.
+	enum DirectionalPad
+	{
+		Up,
+		Down,
+		Left,
+		Right,
+		Max
+	};
+
 	//Static class that holds information of the game console currently in use.
 	class ConsoleSettings
 	{
@@ -35,11 +45,19 @@ namespace RamAi
 		{
 			Specs() = default;
 
-			size_t frameRate;						//The number of frames executed per second.
+			//The number of frames executed per second.
+			size_t frameRate;
 
-			size_t ramSize;
-			size_t numberOfGamePadButtons;
-			ButtonSet initialisationButtonSet;		//The button(s) needed to press to skip any title screen/menus.
+			//The button(s) needed to press to skip any title screen/menus.
+			ButtonSet initialisationButtonSet;
+
+			//A button set for each direction on the d-pad.
+			//This structure ensures we can't press left/right or up/down at the same time.
+			ButtonSet directionalPadFields[DirectionalPad::Max];
+
+			//A single button set that represents the other pressable inputs on the gamepad.
+			//These may be pressed simultaneously.
+			ButtonSet buttonsField;
 		};
 
 	public:
