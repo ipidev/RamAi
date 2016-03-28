@@ -24,6 +24,7 @@
 
 #include "Data/Ram.h"
 #include "MonteCarlo/GameMonteCarloTree.h"
+#include "Score/ScoreLog.h"
 #include "State/Savestate.h"
 
 
@@ -95,6 +96,8 @@ namespace RamAi
 		const std::weak_ptr<State> GetCurrentState() const					{ return m_states[m_currentStateType]; }
 		std::weak_ptr<State> GetCurrentState()								{ return m_states[m_currentStateType]; }
 
+		const ScoreLog &GetScoreLog() const									{ return m_scoreLog; }
+
 	public:
 		SaveStateHandleSignature &GetSaveStateHandle()						{ return m_saveStateHandle; }
 		LoadStateHandleSignature &GetLoadStateHandle()						{ return m_loadStateHandle; }
@@ -106,6 +109,8 @@ namespace RamAi
 	public:
 		//The main interface with the state machine.
 		ButtonSet CalculateInput(const Ram &ram);
+
+		void UpdateScoreLog();
 
 	protected:
 		void InitialiseStates();
@@ -120,6 +125,8 @@ namespace RamAi
 
 		std::shared_ptr<State> m_states[State::Type::Max];
 		State::Type m_currentStateType;
+
+		ScoreLog m_scoreLog;
 
 	protected:
 		SaveStateHandleSignature m_saveStateHandle;

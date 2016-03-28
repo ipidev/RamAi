@@ -119,6 +119,9 @@ void RamAi::SimulationState::OnStateExited(const std::weak_ptr<State> &newState,
 
 			tree.Backpropagate(*m_simulatedNode, m_currentScore);
 		}
+
+		//Update the log.
+		m_stateMachine->UpdateScoreLog();
 	}
 }
 

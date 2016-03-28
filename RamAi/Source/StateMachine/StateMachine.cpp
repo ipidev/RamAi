@@ -109,6 +109,11 @@ RamAi::ButtonSet RamAi::StateMachine::CalculateInput(const Ram &ram)
 	return returnValue;
 }
 
+void RamAi::StateMachine::UpdateScoreLog()
+{
+	m_scoreLog.UpdateLog(m_tree);
+}
+
 void RamAi::StateMachine::InitialiseStates()
 {
 	m_states[State::Type::Initialisation] = std::make_shared<InitialisationState>(*this);

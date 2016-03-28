@@ -31,6 +31,7 @@
     <ClInclude Include="Source\MonteCarlo\TreeNode.h" />
     <ClInclude Include="Source\MonteCarlo\UctMonteCarloTree.h" />
     <ClInclude Include="Source\Score\Score.h" />
+    <ClInclude Include="Source\Score\ScoreLog.h" />
     <ClInclude Include="Source\Settings\AiSettings.h" />
     <ClInclude Include="Source\Settings\ConsoleSettings.h" />
     <ClInclude Include="Source\Settings\GameSettings.h" />
@@ -53,6 +54,7 @@
     <ClCompile Include="Source\MonteCarlo\TreeNode.cpp" />
     <ClCompile Include="Source\MonteCarlo\UctMonteCarloTree.cpp" />
     <ClCompile Include="Source\Score\Score.cpp" />
+    <ClCompile Include="Source\Score\ScoreLog.cpp" />
     <ClCompile Include="Source\Settings\AiSettings.cpp" />
     <ClCompile Include="Source\Settings\ConsoleSettings.cpp" />
     <ClCompile Include="Source\Settings\GameSettings.cpp" />

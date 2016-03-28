@@ -126,6 +126,9 @@
     <ClInclude Include="Source\Settings\Importers\BasicSettingsImporter.h">
       <Filter>Header Files\Settings\Importers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Score\ScoreLog.h">
+      <Filter>Header Files\Score</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -187,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="Source\Settings\Importers\BasicSettingsImporter.cpp">
       <Filter>Source Files\Settings\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Score\ScoreLog.cpp">
+      <Filter>Source Files\Score</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
