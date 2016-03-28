@@ -22,6 +22,8 @@
 
 #include <cassert>
 
+#include "Settings\AiSettings.h"
+#include "Settings\ConsoleSettings.h"
 #include "ExpansionState.h"
 
 
@@ -93,10 +95,8 @@ RamAi::ButtonSet RamAi::SimulationState::CalculateInput(const Ram &ram)
 
 RamAi::StateMachine::State::Type RamAi::SimulationState::GetDesiredStateType(const Ram &ram)
 {
-	//Go to the selection state once we've executed enough frames to skip the title screen.
-
-	//TODO: Get actual number of frames.
-	const size_t targetNumberOfFrames = 300;
+	const size_t frameRate = ConsoleSettings::GetSpecs().frameRate;
+	const size_t targetNumberOfFrames = AiSettings::GetData().GetMaximumSimulationFrames(frameRate);
 
 	return m_numberOfFramesExecuted >= targetNumberOfFrames ? Type::Expansion : Type::Simulation;
 }
