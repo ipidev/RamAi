@@ -85,16 +85,11 @@ RamAi::ButtonSet RamAi::Api::CalculateInput(const Ram &ram)
 
 	if (m_stateMachine)
 	{
-		//TODO: Still uses a random input when there is no valid current state.
+		assert(m_stateMachine->IsCurrentStateValid());
+
 		if (m_stateMachine->IsCurrentStateValid())
 		{
 			returnValue = m_stateMachine->CalculateInput(ram);
-		}
-		else
-		{
-			//For now just generate random button presses.
-			returnValue = ButtonSet(rand() % 256);
-			returnValue.GetBitfield().UnsetAll(ConsoleSettings::GetSpecs().initialisationButtonSet.GetBitfield().GetValue());
 		}
 	}
 
