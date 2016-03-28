@@ -39,7 +39,7 @@ RamAi::Api::Api(const ConsoleSettings::Specs &consoleSpecs, std::unique_ptr<Debu
 
 	srand(static_cast<unsigned int>(time(NULL)));
 
-	Debug::Out("RamAi instantiated. Waiting for game...");
+	PrintBootMessage();
 }
 
 RamAi::Api::Api(Api &&other)
@@ -99,6 +99,13 @@ RamAi::ButtonSet RamAi::Api::CalculateInput(const Ram &ram)
 	}
 
 	return returnValue;
+}
+
+void RamAi::Api::PrintBootMessage()
+{
+	Debug::OutLine("RamAi instantiated.");
+	Debug::OutLine("Branching factor: " + std::to_string(ConsoleSettings::GetSpecs().GetNumberOfInputCombinations()));
+	Debug::OutLine("Waiting for game...");
 }
 
 void RamAi::Api::Move(Api &&other)

@@ -56,6 +56,9 @@ namespace RamAi
 		ButtonSet CalculateInput(const Ram &ram);
 
 	private:
+		void PrintBootMessage();
+
+	private:
 		void Move(Api &&other);
 
 	private:
