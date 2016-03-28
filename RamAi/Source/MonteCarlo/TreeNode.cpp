@@ -89,6 +89,19 @@ bool RamAi::TreeNode::GetActionLeadingToChild(const TreeNode &child, ButtonSet &
 	return false;
 }
 
+uint32_t RamAi::TreeNode::CalculateDepth() const
+{
+	uint32_t depth = 0;
+	const TreeNode *currentNode = this;
+
+	while (currentNode = currentNode->GetParent())
+	{
+		++depth;
+	}
+
+	return depth;
+}
+
 RamAi::TreeNode *RamAi::TreeNode::AddChild(const ButtonSet &buttonSet)
 {
 	auto result = m_children.insert({buttonSet, std::move(TreeNode(this))});

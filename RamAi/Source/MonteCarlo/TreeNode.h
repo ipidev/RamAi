@@ -72,6 +72,8 @@ namespace RamAi
 
 		size_t GetIdNumber() const									{ return m_idNumber; }
 
+		uint32_t CalculateDepth() const;
+
 	public:
 		TreeNode *AddChild(const ButtonSet &buttonSet);
 		TreeNode *AddChild(ButtonSet &&buttonSet);
