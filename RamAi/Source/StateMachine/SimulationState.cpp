@@ -24,6 +24,7 @@
 
 #include "Settings\AiSettings.h"
 #include "Settings\ConsoleSettings.h"
+#include "Settings\GameSettings.h"
 #include "ExpansionState.h"
 
 
@@ -32,12 +33,15 @@ RamAi::SimulationState::SimulationState(StateMachine &stateMachine)
 {
 	m_simulatedNode = nullptr;
 	m_numberOfFramesExecuted = 0;
+
+	m_currentScore = 0;
 }
 
 RamAi::SimulationState::SimulationState(SimulationState &&other)
 	: State(std::move(other))
 {
 	m_numberOfFramesExecuted = other.m_numberOfFramesExecuted;
+	m_currentScore = other.m_currentScore;
 }
 
 RamAi::SimulationState::~SimulationState()
@@ -49,6 +53,7 @@ RamAi::SimulationState &RamAi::SimulationState::operator= (SimulationState &&oth
 	Move(std::move(other));
 
 	m_numberOfFramesExecuted = other.m_numberOfFramesExecuted;
+	m_currentScore = other.m_currentScore;
 
 	return *this;
 }
@@ -74,6 +79,7 @@ void RamAi::SimulationState::OnStateEntered(const std::weak_ptr<State>& oldState
 	}
 
 	m_numberOfFramesExecuted = 0;
+	m_currentScore = 0;
 }
 
 RamAi::ButtonSet RamAi::SimulationState::CalculateInput(const Ram &ram)
@@ -95,6 +101,9 @@ RamAi::ButtonSet RamAi::SimulationState::CalculateInput(const Ram &ram)
 
 RamAi::StateMachine::State::Type RamAi::SimulationState::GetDesiredStateType(const Ram &ram)
 {
+	UpdateCurrentScore(ram);
+
+	//Calculate hard cut-off time.
 	const size_t frameRate = ConsoleSettings::GetSpecs().frameRate;
 	const size_t targetNumberOfFrames = AiSettings::GetData().GetMaximumSimulationFrames(frameRate);
 
@@ -116,7 +125,17 @@ void RamAi::SimulationState::OnStateExited(const std::weak_ptr<State> &newState,
 		{
 			GameMonteCarloTree &tree = m_stateMachine->GetTree();
 
-			tree.Backpropagate(*m_simulatedNode, 0);
+			tree.Backpropagate(*m_simulatedNode, m_currentScore);
 		}
+	}
+}
+
+void RamAi::SimulationState::UpdateCurrentScore(const Ram &ram)
+{
+	assert(m_stateMachine);
+
+	if (m_stateMachine)
+	{
+		m_currentScore = ram.GetCurrentScore(m_stateMachine->GetGameSettings());
 	}
 }
