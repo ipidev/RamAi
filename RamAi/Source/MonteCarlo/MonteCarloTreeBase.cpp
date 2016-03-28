@@ -21,6 +21,8 @@
 
 #include <cassert>
 
+#include "BestScoreCollection.h"
+
 
 RamAi::MonteCarloTreeException::MonteCarloTreeException()
 	: std::exception()
@@ -161,6 +163,40 @@ void RamAi::MonteCarloTreeBase::Backpropagate(TreeNode &nodeToBackpropagateFrom,
 		currentNode->GetScore().AddScore(score);
 		currentNode = currentNode->GetParent();
 	}
+}
+
+const RamAi::TreeNode &RamAi::MonteCarloTreeBase::GetBestScoringNode() const
+{
+	const TreeNode *currentNode = &m_root;
+
+	while (!currentNode->IsLeaf())
+	{
+		//Find the highest scoring child node(s).
+		BestScoreCollection<const TreeNode*, double> bestNodes(-std::numeric_limits<double>::infinity());
+
+		for (auto it = currentNode->GetIteratorBegin(); it != currentNode->GetIteratorEnd(); ++it)
+		{
+			const double score = it->second.GetScore().GetAverageScore();
+
+			bestNodes.Add(&(it->second), score);
+		}
+
+		const TreeNode **bestChildPtr = bestNodes.GetItem();
+
+		assert(bestChildPtr);
+		if (bestChildPtr)
+		{
+			//Continue down through the tree.
+			currentNode = *bestChildPtr;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	assert(currentNode);
+	return currentNode ? *currentNode : m_root;
 }
 
 void RamAi::MonteCarloTreeBase::Copy(const MonteCarloTreeBase &other)

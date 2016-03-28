@@ -78,6 +78,9 @@ namespace RamAi
 	public:
 		void Backpropagate(TreeNode &nodeToBackpropagateFrom, const ScoreType score);
 
+	public:
+		const TreeNode &GetBestScoringNode() const;
+
 	private:
 		void Copy(const MonteCarloTreeBase &other);
 		void Move(MonteCarloTreeBase &&other);

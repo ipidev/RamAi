@@ -45,9 +45,8 @@ namespace RamAi
 
 	public:
 		void AddScore(const uint32_t score);
-		double GetNormalisedScore(const GameSettings &gameSettings) const;
 
-	protected:
+		double GetNormalisedScore(const GameSettings &gameSettings) const;
 		double GetAverageScore() const;
 
 	private:
