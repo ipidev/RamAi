@@ -65,7 +65,7 @@ RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
 
 	if (m_stateMachine)
 	{
-		if (m_numberOfFramesExecuted < m_stateMachine->GetGameDetails().initialisationStartButtonFrames)
+		if (m_numberOfFramesExecuted < m_stateMachine->GetGameSettings().initialisationStartButtonFrames)
 		{
 			//Return the pause button on even frames, and the empty button set on odd frames.
 			//This will cause the pause button to be mashed as fast as possible!
@@ -88,7 +88,7 @@ RamAi::StateMachine::State::Type RamAi::InitialisationState::GetDesiredStateType
 	if (m_stateMachine)
 	{
 		//Go to the selection state once we've executed enough frames to skip the title screen.
-		const size_t initialisationFrames = m_stateMachine->GetGameDetails().GetMaximumInitialisationFrames();
+		const size_t initialisationFrames = m_stateMachine->GetGameSettings().GetMaximumInitialisationFrames();
 
 		//We shouldn't ever go over the target number of frames - that means we must have skipped one!
 		assert(m_numberOfFramesExecuted <= initialisationFrames);

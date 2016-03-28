@@ -85,7 +85,7 @@ namespace RamAi
 		~StateMachine();
 
 	public:
-		const GameSettings &GetGameDetails() const	{ return m_gameSettings; }
+		const GameSettings &GetGameSettings() const	{ return m_gameSettings; }
 
 		const GameMonteCarloTree &GetTree() const	{ return m_tree; }
 		GameMonteCarloTree &GetTree()				{ return m_tree; }
