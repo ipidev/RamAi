@@ -55,6 +55,5 @@ namespace RamAi
 		ButtonSet m_expansionAction;
 
 		size_t m_actionsPerformed;
-		static const size_t s_maximumNumberOfActions;
 	};
 };

@@ -22,6 +22,8 @@
 
 #include <cassert>
 
+#include "Settings/AiSettings.h"
+
 
 RamAi::ExpansionState::ExpansionState(StateMachine &stateMachine)
 	: State(stateMachine)
@@ -101,7 +103,7 @@ RamAi::StateMachine::State::Type RamAi::ExpansionState::GetDesiredStateType(cons
 	if (m_expandedNode)
 	{
 		//If the maximum number of actions needed has been reached, save the current state.
-		if (m_actionsPerformed >= s_maximumNumberOfActions)
+		if (m_actionsPerformed >= AiSettings::GetData().macroActionLength)
 		{
 			assert(m_stateMachine);
 
@@ -149,5 +151,3 @@ void RamAi::ExpansionState::OnStateExited(const std::weak_ptr<State> &newState, 
 		assert(m_expandedNode->HasSavestate());
 	}
 }
-
-const size_t RamAi::ExpansionState::s_maximumNumberOfActions = 1;
