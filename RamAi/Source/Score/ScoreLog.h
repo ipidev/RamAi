@@ -70,6 +70,7 @@ namespace RamAi
 
 		void AddItem(const TreeNode &bestNode);
 
+		bool ShouldSaveLogToFile() const	{ return ((m_currentIteration - 1) % 10) == 0; /* TODO: Un-hardcode. */ }
 		void SaveLogToFile();
 
 	private:

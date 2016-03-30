@@ -62,8 +62,10 @@ void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree)
 
 	AddItem(bestNode);
 
-	//TODO: Only occasionally save to file.
-	SaveLogToFile();
+	if (ShouldSaveLogToFile())
+	{
+		SaveLogToFile();
+	}
 }
 
 std::string RamAi::ScoreLog::ConstructFileName(const GameSettings &gameSettings) const
