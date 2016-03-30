@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "MonteCarlo\GameMonteCarloTree.h"
+#include "Settings\GameSettings.h"
 
 
 namespace RamAi
@@ -52,21 +53,27 @@ namespace RamAi
 		typedef std::function<void(const ScoreLog&)> SaveLogToFileSignature;
 
 	public:
-		ScoreLog(const SaveLogToFileSignature &saveLogToFileHandle);
+		ScoreLog(const GameSettings &gameSettings, const SaveLogToFileSignature &saveLogToFileHandle);
 		~ScoreLog();
 
 	public:
 		virtual void UpdateLog(const GameMonteCarloTree &tree);
 
 	public:
+		const std::string &GetFileName() const		{ return m_fileName; }
+
 		const std::vector<Item> &GetItems() const	{ return m_items; }
 
 	protected:
+		virtual std::string ConstructFileName(const GameSettings &gameSettings) const;
+
 		void AddItem(const TreeNode &bestNode);
 
 		void SaveLogToFile();
 
 	private:
+		std::string m_fileName;
+
 		std::vector<Item> m_items;
 		uint32_t m_currentIteration;
 

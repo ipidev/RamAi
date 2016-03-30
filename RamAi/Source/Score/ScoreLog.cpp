@@ -20,7 +20,7 @@
 #include "ScoreLog.h"
 
 #include <cassert>
-#include "Debug.h"
+#include <ctime>
 
 
 std::string RamAi::ScoreLog::Item::GetItemHeadings() const
@@ -38,8 +38,10 @@ const std::string RamAi::ScoreLog::Item::s_lineTerminator = "\r\n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
-RamAi::ScoreLog::ScoreLog(const SaveLogToFileSignature &saveLogToFileHandle)
+RamAi::ScoreLog::ScoreLog(const GameSettings &gameSettings, const SaveLogToFileSignature &saveLogToFileHandle)
 {
+	m_fileName = std::move(ConstructFileName(gameSettings));
+
 	m_saveLogToFileHandle = saveLogToFileHandle;
 
 	m_items.reserve(100);
@@ -62,6 +64,18 @@ void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree)
 
 	//TODO: Only occasionally save to file.
 	SaveLogToFile();
+}
+
+std::string RamAi::ScoreLog::ConstructFileName(const GameSettings &gameSettings) const
+{
+	//Convert the timestamp to a string.
+	static const size_t timestampBufferSize = 30;
+	char timestampBuffer[timestampBufferSize];
+	tm timestamp;
+	localtime_s(&timestamp, &gameSettings.initialisationTime);
+	strftime(timestampBuffer, timestampBufferSize, "%Y-%m-%d %H.%M.%S ", &timestamp);
+
+	return timestampBuffer + gameSettings.gameName;
 }
 
 void RamAi::ScoreLog::AddItem(const TreeNode &bestNode)
