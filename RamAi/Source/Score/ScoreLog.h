@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "MonteCarlo\GameMonteCarloTree.h"
+#include "Settings\AiSettings.h"
 #include "Settings\GameSettings.h"
 
 
@@ -70,7 +71,7 @@ namespace RamAi
 
 		void AddItem(const TreeNode &bestNode);
 
-		bool ShouldSaveLogToFile() const	{ return ((m_currentIteration - 1) % 10) == 0; /* TODO: Un-hardcode. */ }
+		bool ShouldSaveLogToFile(const AiSettings::Data &aiSettings) const;
 		void SaveLogToFile();
 
 	private:

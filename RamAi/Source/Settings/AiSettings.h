@@ -17,6 +17,11 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110 - 1301 USA.
 */
 
+#pragma once
+
+#include <cstdint>
+
+
 namespace RamAi
 {
 	//Static class that contains the console-independent settings for the agent.
@@ -38,6 +43,9 @@ namespace RamAi
 
 			//The maximum length of time to simulate for, in seconds.
 			float maximumSimulationTime;
+
+			//How often the score log is saved to disk.
+			uint32_t scoreLogSaveFrequency;
 
 		public:
 			size_t GetMaximumSimulationFrames(const size_t frameRate) const;

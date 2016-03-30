@@ -62,7 +62,7 @@ void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree)
 
 	AddItem(bestNode);
 
-	if (ShouldSaveLogToFile())
+	if (ShouldSaveLogToFile(AiSettings::GetData()))
 	{
 		SaveLogToFile();
 	}
@@ -88,6 +88,18 @@ void RamAi::ScoreLog::AddItem(const TreeNode &bestNode)
 	item.bestNodeDepth = bestNode.CalculateDepth();
 
 	m_items.push_back(std::move(item));
+}
+
+bool RamAi::ScoreLog::ShouldSaveLogToFile(const AiSettings::Data &aiSettings) const
+{
+	if (aiSettings.scoreLogSaveFrequency > 0)
+	{
+		return ((m_currentIteration - 1) % aiSettings.scoreLogSaveFrequency) == 0;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void RamAi::ScoreLog::SaveLogToFile()

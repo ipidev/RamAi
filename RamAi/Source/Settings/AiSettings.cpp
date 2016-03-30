@@ -27,6 +27,7 @@ RamAi::AiSettings::Data::Data()
 	explorationBias = 0.5f;
 	macroActionLength = 1;
 	maximumSimulationTime = 120.0f;
+	scoreLogSaveFrequency = 10;
 }
 
 size_t RamAi::AiSettings::Data::GetMaximumSimulationFrames(const size_t frameRate) const
@@ -52,6 +53,11 @@ RamAi::AiSettings::Data RamAi::AiSettings::Import(char *settingsFile)
 	if (settingsImporter.ContainsKey("MaximumSimulationTime"))
 	{
 		data.maximumSimulationTime = std::stof(settingsImporter["MaximumSimulationTime"]);
+	}
+
+	if (settingsImporter.ContainsKey("ScoreLogSaveFrequency"))
+	{
+		data.scoreLogSaveFrequency = static_cast<uint32_t>(std::stoi(settingsImporter["ScoreLogSaveFrequency"]));
 	}
 
 	return data;
