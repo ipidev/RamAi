@@ -20,6 +20,7 @@
 #pragma once
 
 #include <functional>
+#include <string>
 #include <vector>
 
 #include "MonteCarlo\GameMonteCarloTree.h"
@@ -37,6 +38,14 @@ namespace RamAi
 			uint32_t iterationNumber;
 			double bestNodeScore;
 			uint32_t bestNodeDepth;
+
+		public:
+			virtual std::string GetItemHeadings() const;
+			virtual std::string GetItemValues() const;
+
+		protected:
+			static const std::string s_delimiter;
+			static const std::string s_lineTerminator;
 		};
 
 	public:

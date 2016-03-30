@@ -20,7 +20,23 @@
 #include "ScoreLog.h"
 
 #include <cassert>
+#include "Debug.h"
 
+
+std::string RamAi::ScoreLog::Item::GetItemHeadings() const
+{
+	return "Iteration" + s_delimiter + "Best Score" + s_delimiter + "Depth" + s_lineTerminator;
+}
+
+std::string RamAi::ScoreLog::Item::GetItemValues() const
+{
+	return std::to_string(iterationNumber) + s_delimiter + std::to_string(bestNodeScore) + s_delimiter + std::to_string(bestNodeDepth) + s_lineTerminator;
+}
+
+const std::string RamAi::ScoreLog::Item::s_delimiter = "\t";
+const std::string RamAi::ScoreLog::Item::s_lineTerminator = "\r\n";
+
+////////////////////////////////////////////////////////////////////////////////
 
 RamAi::ScoreLog::ScoreLog(const SaveLogToFileSignature &saveLogToFileHandle)
 {
