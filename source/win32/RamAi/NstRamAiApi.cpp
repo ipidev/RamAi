@@ -181,8 +181,63 @@ Nestopia::Collection::Buffer Nestopia::RamAiApi::SavestateToBuffer(const RamAi::
 
 void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog)
 {
-	//TODO: Make it actually save files!
-	RamAi::Debug::OutLine("save");
+	//Create the directory to store logs first.
+	{
+		String::Generic<wchar_t> scoreLogDirectory(s_scoreLogDirectory.c_str(), s_scoreLogDirectory.length());
+		Path scoreLogDirectoryPath = Application::Instance::GetExePath(scoreLogDirectory);
+
+		BOOL createdDirectory = ::CreateDirectory(scoreLogDirectoryPath.Ptr(), NULL);
+		
+		//It will fail if the directory already exists, but that's okay. Assert on any other error.
+		assert(createdDirectory || ::GetLastError() == ERROR_ALREADY_EXISTS);
+	}
+
+	//More string junk!
+	std::wstring scoreLogFileNameWide = s_scoreLogDirectory;
+	scoreLogFileNameWide += std::wstring(scoreLog.GetFileName().begin(), scoreLog.GetFileName().end()); //STL string to STL wide string.
+	scoreLogFileNameWide += s_scoreLogExtension;
+
+	//STL wide string to Nestopia wide string.
+	String::Generic<wchar_t> scoreLogFileName(scoreLogFileNameWide.c_str(), scoreLogFileNameWide.length());
+
+	//Nestopia file path to Nestopia wide string.
+	Path scoreLogPath = Application::Instance::GetExePath(scoreLogFileName);
+	String::Generic<wchar_t> scoreLogPathString(scoreLogPath.Ptr(), scoreLogPath.Length());
+
+	try
+	{
+		//Open the file. We empty any existing file; this might be dangerous if it stops midway!
+		Io::File file(scoreLogPathString, Io::File::WRITE | Io::File::EMPTY);
+
+		static const size_t rowSize = 256;
+		char rowData[rowSize];
+
+		bool hasWrittenHeader = false;
+
+		for (auto it = scoreLog.GetItems().cbegin(); it != scoreLog.GetItems().cend(); ++it)
+		{
+			//Write the header.
+			if (!hasWrittenHeader)
+			{
+				const std::string itemHeadings = std::move(it->GetItemHeadings());
+				strcpy_s(rowData, rowSize, itemHeadings.c_str());
+
+				file.WriteSome(rowData, itemHeadings.length());
+
+				hasWrittenHeader = true;
+			}
+
+			//Write the item values.
+			const std::string itemValues = std::move(it->GetItemValues());
+			strcpy_s(rowData, rowSize, itemValues.c_str());
+
+			file.WriteSome(rowData, itemValues.length());
+		}
+	}
+	catch (...)
+	{
+		RamAi::Debug::OutLine("Error saving log file for iteration " + std::to_string(scoreLog.GetCurrentIteration()), RamAi::Colour::Red);
+	}
 }
 
 void Nestopia::RamAiApi::EnableTurbo(const bool turboOn)
@@ -222,5 +277,6 @@ Nestopia::RamAiApi::SpecsContainer Nestopia::RamAiApi::s_specsContainer = Nestop
 bool Nestopia::RamAiApi::s_compressSavestates = false;
 
 const std::wstring Nestopia::RamAiApi::s_aiSettingsFileName = L"aiSettings.xml";
-
 const std::wstring Nestopia::RamAiApi::s_settingsExtension = L".xml";
+const std::wstring Nestopia::RamAiApi::s_scoreLogDirectory = L"RamAiLogs\\";
+const std::wstring Nestopia::RamAiApi::s_scoreLogExtension = L".csv";

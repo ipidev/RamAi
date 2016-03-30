@@ -106,6 +106,8 @@ namespace Nestopia
 
 		static const std::wstring s_aiSettingsFileName;
 		static const std::wstring s_settingsExtension;
+		static const std::wstring s_scoreLogDirectory;
+		static const std::wstring s_scoreLogExtension;
 	};
 };
 

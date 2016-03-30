@@ -63,6 +63,7 @@ namespace RamAi
 		const std::string &GetFileName() const		{ return m_fileName; }
 
 		const std::vector<Item> &GetItems() const	{ return m_items; }
+		uint32_t GetCurrentIteration() const		{ return m_currentIteration; }
 
 	protected:
 		virtual std::string ConstructFileName(const GameSettings &gameSettings) const;
