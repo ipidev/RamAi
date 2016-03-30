@@ -20,6 +20,8 @@
 #include "GameSettings.h"
 
 #include <algorithm>
+#include <cassert>
+#include <ctime>
 
 #include "Importers\BasicSettingsImporter.h"
 
@@ -27,8 +29,10 @@
 RamAi::GameSettings::GameSettings()
 {
 	gameName = "None";
+	time(&initialisationTime);
+	assert(initialisationTime != -1);
 
-	initialisationStartButtonFrames = initialisationStartButtonFrames = 60;
+	initialisationStartButtonFrames = 60;
 	initialisationTotalFrames = 180;
 
 	scoreOffset = 0;

@@ -35,6 +35,7 @@ namespace RamAi
 
 	public:
 		std::string gameName;
+		time_t initialisationTime;
 
 	public:
 		//The number of frames during initialisation in which to mash the start button.
