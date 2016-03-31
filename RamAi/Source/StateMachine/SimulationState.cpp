@@ -80,15 +80,23 @@ void RamAi::SimulationState::OnStateEntered(const std::weak_ptr<State>& oldState
 
 	m_numberOfFramesExecuted = 0;
 	m_currentScore = 0;
+
+	m_currentMacroAction.GetBitfield().Clear();
 }
 
 RamAi::ButtonSet RamAi::SimulationState::CalculateInput(const Ram &ram)
 {
+	const uint32_t simulationMacroActionLength = AiSettings::GetData().simulationMacroActionLength;
+
+	//Get a new macro action if the macro action length has been reached.
+	if (simulationMacroActionLength == 0 || (m_numberOfFramesExecuted % simulationMacroActionLength) == 0)
+	{
+		m_currentMacroAction = ConsoleSettings::GetSpecs().GenerateRandomInput();
+	}
+
 	++m_numberOfFramesExecuted;
 
-	ButtonSet returnValue = ConsoleSettings::GetSpecs().GenerateRandomInput();
-
-	return returnValue;
+	return m_currentMacroAction;
 }
 
 RamAi::StateMachine::State::Type RamAi::SimulationState::GetDesiredStateType(const Ram &ram)

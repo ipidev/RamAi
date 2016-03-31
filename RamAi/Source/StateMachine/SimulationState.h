@@ -54,5 +54,7 @@ namespace RamAi
 		size_t m_numberOfFramesExecuted;
 
 		uint32_t m_currentScore;
+
+		ButtonSet m_currentMacroAction;
 	};
 };

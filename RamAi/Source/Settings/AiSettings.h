@@ -39,7 +39,10 @@ namespace RamAi
 			double explorationBias;
 
 			//The number of times to repeat the action taken during expansion. 
-			size_t macroActionLength;
+			uint32_t macroActionLength;
+
+			//The number of times to repeat the actions taken during simulation. 
+			uint32_t simulationMacroActionLength;
 
 			//The maximum length of time to simulate for, in seconds.
 			float maximumSimulationTime;

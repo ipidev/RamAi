@@ -26,6 +26,7 @@ RamAi::AiSettings::Data::Data()
 {
 	explorationBias = 0.5f;
 	macroActionLength = 1;
+	simulationMacroActionLength = 1;
 	maximumSimulationTime = 120.0f;
 	scoreLogSaveFrequency = 10;
 }
@@ -47,7 +48,12 @@ RamAi::AiSettings::Data RamAi::AiSettings::Import(char *settingsFile)
 
 	if (settingsImporter.ContainsKey("MacroActionLength"))
 	{
-		data.macroActionLength = static_cast<size_t>(std::stoi(settingsImporter["MacroActionLength"]));
+		data.macroActionLength = static_cast<uint32_t>(std::stoi(settingsImporter["MacroActionLength"]));
+	}
+
+	if (settingsImporter.ContainsKey("SimulationMacroActionLength"))
+	{
+		data.simulationMacroActionLength = static_cast<uint32_t>(std::stoi(settingsImporter["SimulationMacroActionLength"]));
 	}
 
 	if (settingsImporter.ContainsKey("MaximumSimulationTime"))
