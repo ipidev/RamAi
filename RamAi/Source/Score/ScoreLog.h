@@ -41,6 +41,9 @@ namespace RamAi
 			double bestNodeScore;
 			uint32_t bestNodeDepth;
 
+			double simulatedNodeScore;
+			uint32_t simulatedNodeDepth;
+
 		public:
 			virtual std::string GetItemHeadings() const;
 			virtual std::string GetItemValues() const;
@@ -58,7 +61,7 @@ namespace RamAi
 		~ScoreLog();
 
 	public:
-		virtual void UpdateLog(const GameMonteCarloTree &tree);
+		virtual void UpdateLog(const GameMonteCarloTree &tree, const TreeNode &simulatedNode);
 
 	public:
 		const std::string &GetFileName() const		{ return m_fileName; }
@@ -69,7 +72,7 @@ namespace RamAi
 	protected:
 		virtual std::string ConstructFileName(const GameSettings &gameSettings) const;
 
-		void AddItem(const TreeNode &bestNode);
+		void AddItem(const TreeNode &bestNode, const TreeNode &simulatedNode);
 
 		bool ShouldSaveLogToFile(const AiSettings::Data &aiSettings) const;
 		void SaveLogToFile();

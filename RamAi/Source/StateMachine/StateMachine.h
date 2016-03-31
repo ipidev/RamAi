@@ -110,7 +110,7 @@ namespace RamAi
 		//The main interface with the state machine.
 		ButtonSet CalculateInput(const Ram &ram);
 
-		void UpdateScoreLog();
+		void UpdateScoreLog(const TreeNode &simulatedNode);
 
 	protected:
 		void InitialiseStates();

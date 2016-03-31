@@ -121,7 +121,7 @@ void RamAi::SimulationState::OnStateExited(const std::weak_ptr<State> &newState,
 		}
 
 		//Update the log.
-		m_stateMachine->UpdateScoreLog();
+		m_stateMachine->UpdateScoreLog(*m_simulatedNode);
 	}
 }
 

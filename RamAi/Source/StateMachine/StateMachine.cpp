@@ -110,9 +110,9 @@ RamAi::ButtonSet RamAi::StateMachine::CalculateInput(const Ram &ram)
 	return returnValue;
 }
 
-void RamAi::StateMachine::UpdateScoreLog()
+void RamAi::StateMachine::UpdateScoreLog(const TreeNode &simulatedNode)
 {
-	m_scoreLog.UpdateLog(m_tree);
+	m_scoreLog.UpdateLog(m_tree, simulatedNode);
 }
 
 void RamAi::StateMachine::InitialiseStates()

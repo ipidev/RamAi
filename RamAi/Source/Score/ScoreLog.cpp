@@ -25,12 +25,12 @@
 
 std::string RamAi::ScoreLog::Item::GetItemHeadings() const
 {
-	return "Iteration" + s_delimiter + "Best Score" + s_delimiter + "Depth" + s_lineTerminator;
+	return "Iteration" + s_delimiter + "Best Node Score" + s_delimiter + "Best Node Depth" + s_delimiter + "Simulated Node Score" + s_delimiter + "Simulated Node Score" + s_lineTerminator;
 }
 
 std::string RamAi::ScoreLog::Item::GetItemValues() const
 {
-	return std::to_string(iterationNumber) + s_delimiter + std::to_string(bestNodeScore) + s_delimiter + std::to_string(bestNodeDepth) + s_lineTerminator;
+	return std::to_string(iterationNumber) + s_delimiter + std::to_string(bestNodeScore) + s_delimiter + std::to_string(bestNodeDepth) + s_delimiter + std::to_string(simulatedNodeScore) + s_delimiter + std::to_string(simulatedNodeDepth) +s_lineTerminator;
 }
 
 const std::string RamAi::ScoreLog::Item::s_delimiter = "\t";
@@ -53,14 +53,14 @@ RamAi::ScoreLog::~ScoreLog()
 	SaveLogToFile();
 }
 
-void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree)
+void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree, const TreeNode &simulatedNode)
 {
 	++m_currentIteration;
 
 	//TODO: Selectively add the best scoring node so the log doesn't become too big?
 	const TreeNode &bestNode = tree.GetBestScoringNode();
 
-	AddItem(bestNode);
+	AddItem(bestNode, simulatedNode);
 
 	if (ShouldSaveLogToFile(AiSettings::GetData()))
 	{
@@ -80,12 +80,15 @@ std::string RamAi::ScoreLog::ConstructFileName(const GameSettings &gameSettings)
 	return timestampBuffer + gameSettings.gameName;
 }
 
-void RamAi::ScoreLog::AddItem(const TreeNode &bestNode)
+void RamAi::ScoreLog::AddItem(const TreeNode &bestNode, const TreeNode &simulatedNode)
 {
 	Item item;
 	item.iterationNumber = m_currentIteration;
 	item.bestNodeScore = bestNode.GetScore().GetAverageScore();
 	item.bestNodeDepth = bestNode.CalculateDepth();
+
+	item.simulatedNodeScore = simulatedNode.GetScore().GetAverageScore();
+	item.simulatedNodeDepth = simulatedNode.CalculateDepth();
 
 	m_items.push_back(std::move(item));
 }
