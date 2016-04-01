@@ -74,7 +74,7 @@ RamAi::TreeNode &RamAi::MonteCarloTreeBase::Select()
 {
 	TreeNode *currentNode = &m_root;
 
-	int attemptsRemaining = 100;
+	int attemptsRemaining = 1000;
 	while (attemptsRemaining-- > 0)
 	{
 		assert(currentNode);
