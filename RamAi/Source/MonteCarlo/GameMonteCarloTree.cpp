@@ -37,8 +37,7 @@ RamAi::GameMonteCarloTree::~GameMonteCarloTree()
 
 bool RamAi::GameMonteCarloTree::NodeNeedsExpanding(const TreeNode &node) const
 {
-	//TODO: This needs to be changed to allow the tree to eventually expand into all allowed button combinations.
-	return node.GetNumberOfChildren() < 2;
+	return (node.GetNumberOfChildren() < ConsoleSettings::GetSpecs().GetNumberOfInputCombinations()) && PartialExpansion(node);
 }
 
 void RamAi::GameMonteCarloTree::PerformExpansion(TreeNode &nodeToBeExpanded)
@@ -82,4 +81,38 @@ RamAi::TreeNode *RamAi::GameMonteCarloTree::SelectExpandedChild(const TreeNode &
 	//Didn't find it?
 	assert(false);
 	return nullptr;
+}
+
+bool RamAi::GameMonteCarloTree::PartialExpansion(const TreeNode &parent) const
+{
+	//From http://julian.togelius.com/Jacobsen2014Monte.pdf
+	if (!parent.IsLeaf())
+	{
+		const double numberOfChildren = static_cast<double>(parent.GetNumberOfChildren());
+		const double numberOfVisits = static_cast<double>(parent.GetScore().GetVisits());
+
+		const double expansionWeighting = sqrt((2.0 * log(numberOfVisits)) / (1.0 + numberOfChildren));
+		const double expansionWeightingWithBias = m_bias * expansionWeighting;
+
+		const double unexpandedNodesValue = AiSettings::GetData().partialExpansionBase;
+		const double expansionUrgencyScore = unexpandedNodesValue + expansionWeightingWithBias;
+
+		//Check the expansion urgency score of the parent node with each of its children.
+		//If the expansion urgency is greater than the confidence of any of its children, then the node is expanded (returns true).
+		for (auto it = parent.GetIteratorBegin(); it != parent.GetIteratorEnd(); ++it)
+		{
+			const double uctScore = CalculateUcbScore(parent, it->second);
+
+			if (expansionUrgencyScore > uctScore)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }

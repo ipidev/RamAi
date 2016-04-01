@@ -25,6 +25,7 @@
 RamAi::AiSettings::Data::Data()
 {
 	explorationBias = 0.5f;
+	partialExpansionBase = 0.5f;
 	macroActionLength = 1;
 	simulationMacroActionLength = 1;
 	maximumSimulationTime = 120.0f;
@@ -44,6 +45,11 @@ RamAi::AiSettings::Data RamAi::AiSettings::Import(char *settingsFile)
 	if (settingsImporter.ContainsKey("ExplorationBias"))
 	{
 		data.explorationBias = std::stod(settingsImporter["ExplorationBias"]);
+	}
+
+	if (settingsImporter.ContainsKey("PartialExpansionBase"))
+	{
+		data.partialExpansionBase = std::stod(settingsImporter["PartialExpansionBase"]);
 	}
 
 	if (settingsImporter.ContainsKey("MacroActionLength"))

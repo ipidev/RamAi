@@ -38,6 +38,9 @@ namespace RamAi
 			//The bias towards exploring the search tree versus exploiting known good areas.
 			double explorationBias;
 
+			//The base value for unexpanded, unexplored nodes during partial expansion.
+			double partialExpansionBase;
+
 			//The number of times to repeat the action taken during expansion. 
 			uint32_t macroActionLength;
 
