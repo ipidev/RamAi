@@ -38,6 +38,16 @@ RamAi::ScoreLog::Item::Node::Node(const GameMonteCarloTree &tree, const TreeNode
 	depth = node.CalculateDepth();
 }
 
+std::string RamAi::ScoreLog::Item::Node::GetItemHeadings(const std::string &name, const std::string &delimiter) const
+{
+	return name + " UCT" + delimiter + name + " Average" + delimiter + name + " Depth";
+}
+
+std::string RamAi::ScoreLog::Item::Node::GetItemValues(const std::string &delimiter) const
+{
+	return std::to_string(uctScore) + delimiter + std::to_string(averageScore) + delimiter + std::to_string(depth);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 RamAi::ScoreLog::Item::Item()
@@ -47,12 +57,12 @@ RamAi::ScoreLog::Item::Item()
 
 std::string RamAi::ScoreLog::Item::GetItemHeadings() const
 {
-	return "Iteration" + s_delimiter + "Best Node UCT" + s_delimiter + "Best Node Average" + s_delimiter + "Best Node Depth" + s_delimiter + "Simulated Node UCT" + s_delimiter + "Simulated Node Average" + s_delimiter + "Simulated Node Depth" + s_lineTerminator;
+	return "Iteration" + s_delimiter + bestNode.GetItemHeadings("Best Node", s_delimiter) + s_delimiter + simulatedNode.GetItemHeadings("Simulated Node", s_delimiter) + s_lineTerminator;
 }
 
 std::string RamAi::ScoreLog::Item::GetItemValues() const
 {
-	return std::to_string(iterationNumber) + s_delimiter + std::to_string(bestNode.uctScore) + s_delimiter + std::to_string(bestNode.averageScore) + s_delimiter + std::to_string(bestNode.depth) + s_delimiter + std::to_string(simulatedNode.uctScore) + s_delimiter + std::to_string(simulatedNode.averageScore) + s_delimiter + std::to_string(simulatedNode.depth) +s_lineTerminator;
+	return std::to_string(iterationNumber) + s_delimiter + bestNode.GetItemValues(s_delimiter) + s_delimiter + simulatedNode.GetItemValues(s_delimiter) + s_lineTerminator;
 }
 
 const std::string RamAi::ScoreLog::Item::s_delimiter = "\t";

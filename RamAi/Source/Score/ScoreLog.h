@@ -49,6 +49,10 @@ namespace RamAi
 				double uctScore;
 				double averageScore;
 				uint32_t depth;
+
+			public:
+				virtual std::string GetItemHeadings(const std::string &name, const std::string &delimiter) const;
+				virtual std::string GetItemValues(const std::string &delimiter) const;
 			};
 
 		public:
