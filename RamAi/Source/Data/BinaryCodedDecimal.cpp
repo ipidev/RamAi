@@ -20,7 +20,7 @@
 #include "BinaryCodedDecimal.h"
 
 
-uint32_t RamAi::BinaryCodedDecimal::ToInt(const uint8_t *bytes, const size_t numberOfBytes, const Endianness endianness)
+uint32_t RamAi::BinaryCodedDecimal::ToInt(const uint8_t *bytes, const size_t numberOfBytes, const Endianness endianness, const bool twoDigitsPerByte, const bool highDigitInUpperNibble)
 {
 	if (bytes && numberOfBytes > 0)
 	{
@@ -29,11 +29,18 @@ uint32_t RamAi::BinaryCodedDecimal::ToInt(const uint8_t *bytes, const size_t num
 		const uint8_t *currentLocation = (endianness == Endianness::Big) ? bytes : bytes + (numberOfBytes - 1);
 		const int32_t direction = (endianness == Endianness::Big) ? 1 : -1;
 
+		uint32_t digitExponent = 0;
+
 		for (size_t i = 0; i < numberOfBytes; ++i)
 		{
-			//Increment output value.
-			const uint32_t columnValue = Power(10, i);
-			output += static_cast<uint32_t>(*currentLocation) * columnValue;
+			//Increase the running total for the first half of the current byte.
+			output += ConvertBcdDigit(*currentLocation, digitExponent, !highDigitInUpperNibble);
+
+			//If the byte contains two digits, repeat this for the other nibble.
+			if (twoDigitsPerByte)
+			{
+				output += ConvertBcdDigit(*currentLocation, digitExponent, highDigitInUpperNibble);
+			}
 
 			//Move to the next digit.
 			currentLocation += direction;
@@ -65,4 +72,13 @@ uint32_t RamAi::BinaryCodedDecimal::Power(uint32_t base, uint32_t exponent)
 	}
 
 	return result;
+}
+
+uint32_t RamAi::BinaryCodedDecimal::ConvertBcdDigit(const uint8_t byte, uint32_t &inOutDigitExponent, const bool useHighNibble)
+{
+	const uint32_t columnValue = Power(10, inOutDigitExponent);
+	++inOutDigitExponent;
+
+	const uint8_t byteValue = useHighNibble ? (byte & 0xF0) >> 4 : (byte & 0x0F);
+	return static_cast<uint32_t>(byteValue) * columnValue;
 }

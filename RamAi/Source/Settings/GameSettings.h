@@ -49,6 +49,8 @@ namespace RamAi
 		size_t scoreOffset;
 		size_t scoreSize;
 		BinaryCodedDecimal::Endianness scoreEndianness;
+		bool scoreTwoDigitsPerByte;
+		bool scoreUpperDigitInHighNibble;
 
 	public:
 		void Import(char *settingsFile);

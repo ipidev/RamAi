@@ -42,9 +42,11 @@ namespace RamAi
 		~BinaryCodedDecimal() = delete;
 
 	public:
-		//TODO: Mkae this work for cases where two decimal digits are stored per byte.
-		static uint32_t ToInt(const uint8_t *bytes, const size_t numberOfBytes, const Endianness endianness);
+		static uint32_t ToInt(const uint8_t *bytes, const size_t numberOfBytes, const Endianness endianness, const bool twoDigitsPerByte, const bool highDigitInUpperNibble = true);
 
 		static uint32_t Power(uint32_t base, uint32_t exponent);
+
+	private:
+		static uint32_t ConvertBcdDigit(const uint8_t byte, uint32_t &inOutDigitExponent, const bool useHighNibble);
 	};
 };

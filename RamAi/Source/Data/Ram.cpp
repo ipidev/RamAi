@@ -108,5 +108,5 @@ uint32_t RamAi::Ram::GetCurrentScore(const GameSettings &gameSettings) const
 {
 	const uint8_t *scoreAddress = m_data.get() + gameSettings.scoreOffset;
 
-	return BinaryCodedDecimal::ToInt(scoreAddress, gameSettings.scoreSize, gameSettings.scoreEndianness);
+	return BinaryCodedDecimal::ToInt(scoreAddress, gameSettings.scoreSize, gameSettings.scoreEndianness, gameSettings.scoreTwoDigitsPerByte, gameSettings.scoreUpperDigitInHighNibble);
 }

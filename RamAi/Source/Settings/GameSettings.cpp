@@ -38,6 +38,8 @@ RamAi::GameSettings::GameSettings()
 	scoreOffset = 0;
 	scoreSize = 0;
 	scoreEndianness = BinaryCodedDecimal::Endianness::Big;
+	scoreTwoDigitsPerByte = false;
+	scoreUpperDigitInHighNibble = true;
 }
 
 void RamAi::GameSettings::Import(char *settingsFile)
@@ -69,6 +71,20 @@ void RamAi::GameSettings::Import(char *settingsFile)
 		const std::string endiannessString = settingsImporter["ScoreEndianness"];
 
 		scoreEndianness = (endiannessString == "Big") ? BinaryCodedDecimal::Endianness::Big : BinaryCodedDecimal::Endianness::Little;
+	}
+
+	if (settingsImporter.ContainsKey("ScoreTwoDigitsPerByte"))
+	{
+		const std::string twoDigitsPerByteString = settingsImporter["ScoreTwoDigitsPerByte"];
+
+		scoreTwoDigitsPerByte = (twoDigitsPerByteString == "True");
+	}
+
+	if (settingsImporter.ContainsKey("ScoreUpperDigitInHighNibble"))
+	{
+		const std::string upperDigitInHighNibbleString = settingsImporter["ScoreUpperDigitInHighNibble"];
+
+		scoreUpperDigitInHighNibble = (upperDigitInHighNibbleString == "True");
 	}
 }
 
