@@ -21,6 +21,7 @@
 
 #include <cassert>
 
+#include "Settings\AiSettings.h"
 #include "BestScoreCollection.h"
 
 
@@ -40,8 +41,9 @@ RamAi::MonteCarloTreeException::~MonteCarloTreeException()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-RamAi::MonteCarloTreeBase::MonteCarloTreeBase()
+RamAi::MonteCarloTreeBase::MonteCarloTreeBase(const double bias)
 {
+	m_bias = bias;
 }
 
 RamAi::MonteCarloTreeBase::MonteCarloTreeBase(const MonteCarloTreeBase &other)
@@ -115,6 +117,52 @@ RamAi::TreeNode &RamAi::MonteCarloTreeBase::Select()
 	//Reached maximum number of iterations!
 	assert(false);
 	return *currentNode;
+}
+
+RamAi::TreeNode *RamAi::MonteCarloTreeBase::SelectChild(const TreeNode &parent) const
+{
+	if (parent.IsLeaf())
+	{
+		return nullptr;
+	}
+	else
+	{
+		BestScoreCollection<const TreeNode*, double> bestNodes(-std::numeric_limits<double>::infinity());
+
+		for (auto it = parent.GetIteratorBegin(); it != parent.GetIteratorEnd(); ++it)
+		{
+			const TreeNode &child = it->second;
+
+			//TODO: Check if the state is terminal, and skip add terminal states.
+			const double ucbScore = CalculateUcbScore(parent, child);
+			bestNodes.Add(&child, ucbScore);
+		}
+
+		auto highestValueItem = bestNodes.GetItem();
+		return highestValueItem ? const_cast<TreeNode*>(*highestValueItem) : nullptr; //TODO: FIX!!
+	}
+}
+
+double RamAi::MonteCarloTreeBase::CalculateUcbScore(const TreeNode &parent, const TreeNode &child) const
+{
+	const uint64_t rootVisits = parent.GetScore().GetVisits();
+	const uint64_t childVisits = child.GetScore().GetVisits();
+
+	if (rootVisits > 0 && childVisits > 0)
+	{
+		const double rootVisitsFloat = static_cast<double>(rootVisits);
+		const double childVisitsFloat = static_cast<double>(childVisits);
+
+		const double visitsRadical = sqrt((2.0 * log(rootVisitsFloat)) / childVisitsFloat);
+		const double childScoreMean = child.GetScore().GetNormalisedScore(GameSettings::GetInstance());
+
+		const double ucb = childScoreMean + (m_bias * visitsRadical);
+		return ucb;
+	}
+	else
+	{
+		return std::numeric_limits<double>::infinity();
+	}
 }
 
 RamAi::TreeNode &RamAi::MonteCarloTreeBase::Expand(TreeNode &nodeToBeExpanded)
@@ -202,9 +250,11 @@ const RamAi::TreeNode &RamAi::MonteCarloTreeBase::GetBestScoringNode() const
 void RamAi::MonteCarloTreeBase::Copy(const MonteCarloTreeBase &other)
 {
 	m_root = other.m_root;
+	m_bias = other.m_bias;
 }
 
 void RamAi::MonteCarloTreeBase::Move(MonteCarloTreeBase &&other)
 {
 	m_root = std::move(other.m_root);
+	m_bias = other.m_bias;
 }

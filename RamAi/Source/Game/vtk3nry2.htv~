@@ -21,27 +21,28 @@
 
 #include <string>
 
-#include "MonteCarloTreeBase.h"
+#include "Data/BinaryCodedDecimal.h"
+#include "State/Ram.h"
 
 
 namespace RamAi
 {
-	//The game tree that is ultimately responsible for making decisions in the game.
-	//This class contains all the domain-specific knowledge needed to build the search tree.
-	class GameMonteCarloTree : public MonteCarloTreeBase
+	//A struct that holds information about the currently loaded game.
+	struct GameDetails
 	{
 	public:
-		GameMonteCarloTree();
-		~GameMonteCarloTree();
+		GameDetails();
 
-	protected:
-		virtual bool NodeNeedsExpanding(const TreeNode &node) const;
+	public:
+		std::string gameName;
 
-		virtual void PerformExpansion(TreeNode &nodeToBeExpanded) override;
+	public:
+		//TODO: Should this be in its own struct?
+		size_t scoreOffset;
+		size_t scoreSize;
+		BinaryCodedDecimal::Endianness scoreEndianness;
 
-		virtual TreeNode *SelectExpandedChild(const TreeNode &parent) const override;
-
-	protected:
-		bool PartialExpansion(const TreeNode &parent) const;
+	public:
+		uint64_t GetMaximumScore() const;
 	};
 };

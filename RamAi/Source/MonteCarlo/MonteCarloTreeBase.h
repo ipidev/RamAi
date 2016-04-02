@@ -34,13 +34,14 @@ namespace RamAi
 	};
 
 	//The base class for a Monte Carlo Tree Search (MCTS) implementation.
+	//It uses Upper Confidence Bounds for Trees (UCT) as a tree policy.
 	class MonteCarloTreeBase
 	{
 	public:
 		typedef uint64_t ScoreType;
 
 	public:
-		MonteCarloTreeBase();
+		MonteCarloTreeBase(const double bias);
 		MonteCarloTreeBase(const MonteCarloTreeBase &other);
 		MonteCarloTreeBase(MonteCarloTreeBase &&other);
 		virtual ~MonteCarloTreeBase();
@@ -50,8 +51,11 @@ namespace RamAi
 		MonteCarloTreeBase &operator= (MonteCarloTreeBase &&other);
 
 	public:
-		const TreeNode &GetRoot() const		{ return m_root; }
-		TreeNode &GetRoot()					{ return m_root; }
+		const TreeNode &GetRoot() const				{ return m_root; }
+		TreeNode &GetRoot()							{ return m_root; }
+
+		const double GetBias() const				{ return m_bias; }
+		void SetBias(const double bias)				{ m_bias = bias; }
 
 	public:
 		TreeNode &Select();
@@ -62,7 +66,9 @@ namespace RamAi
 		virtual bool NodeNeedsExpanding(const TreeNode &node) const			{ return node.IsLeaf(); }
 
 		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
-		virtual TreeNode *SelectChild(const TreeNode &parent) const = 0;
+		virtual TreeNode *SelectChild(const TreeNode &parent) const;
+
+		double CalculateUcbScore(const TreeNode &parent, const TreeNode &child) const;
 
 	public:
 		virtual TreeNode &Expand(TreeNode &nodeToBeExpanded);
@@ -87,5 +93,6 @@ namespace RamAi
 
 	private:
 		TreeNode m_root;
+		double m_bias;
 	};
 };

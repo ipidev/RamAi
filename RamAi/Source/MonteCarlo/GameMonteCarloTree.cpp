@@ -27,7 +27,7 @@
 
 
 RamAi::GameMonteCarloTree::GameMonteCarloTree()
-	: UctMonteCarloTree(AiSettings::GetData().explorationBias)
+	: MonteCarloTreeBase(AiSettings::GetData().explorationBias)
 {
 }
 
@@ -92,7 +92,7 @@ bool RamAi::GameMonteCarloTree::PartialExpansion(const TreeNode &parent) const
 		const double numberOfVisits = static_cast<double>(parent.GetScore().GetVisits());
 
 		const double expansionWeighting = sqrt((2.0 * log(numberOfVisits)) / (1.0 + numberOfChildren));
-		const double expansionWeightingWithBias = m_bias * expansionWeighting;
+		const double expansionWeightingWithBias = GetBias() * expansionWeighting;
 
 		const double unexpandedNodesValue = AiSettings::GetData().partialExpansionBase;
 		const double expansionUrgencyScore = unexpandedNodesValue + expansionWeightingWithBias;
