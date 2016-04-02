@@ -30,10 +30,10 @@ RamAi::ScoreLog::Item::Node::Node()
 	depth = 0;
 }
 
-RamAi::ScoreLog::Item::Node::Node(const TreeNode &node)
+RamAi::ScoreLog::Item::Node::Node(const GameMonteCarloTree &tree, const TreeNode &node)
 	: Node()
 {
-	//TODO: UCT score
+	uctScore = tree.CalculateUcbScore(node);
 	averageScore = node.GetScore().GetAverageScore();
 	depth = node.CalculateDepth();
 }
@@ -47,12 +47,12 @@ RamAi::ScoreLog::Item::Item()
 
 std::string RamAi::ScoreLog::Item::GetItemHeadings() const
 {
-	return "Iteration" + s_delimiter + "Best Node Score" + s_delimiter + "Best Node Depth" + s_delimiter + "Simulated Node Score" + s_delimiter + "Simulated Node Score" + s_lineTerminator;
+	return "Iteration" + s_delimiter + "Best Node UCT" + s_delimiter + "Best Node Average" + s_delimiter + "Best Node Depth" + s_delimiter + "Simulated Node UCT" + s_delimiter + "Simulated Node Average" + s_delimiter + "Simulated Node Depth" + s_lineTerminator;
 }
 
 std::string RamAi::ScoreLog::Item::GetItemValues() const
 {
-	return std::to_string(iterationNumber) + s_delimiter + std::to_string(bestNode.averageScore) + s_delimiter + std::to_string(bestNode.depth) + s_delimiter + std::to_string(simulatedNode.averageScore) + s_delimiter + std::to_string(simulatedNode.depth) +s_lineTerminator;
+	return std::to_string(iterationNumber) + s_delimiter + std::to_string(bestNode.uctScore) + s_delimiter + std::to_string(bestNode.averageScore) + s_delimiter + std::to_string(bestNode.depth) + s_delimiter + std::to_string(simulatedNode.uctScore) + s_delimiter + std::to_string(simulatedNode.averageScore) + s_delimiter + std::to_string(simulatedNode.depth) +s_lineTerminator;
 }
 
 const std::string RamAi::ScoreLog::Item::s_delimiter = "\t";
@@ -79,7 +79,7 @@ void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree, const TreeNode &
 {
 	++m_currentIteration;
 
-	AddItem(tree.GetBestScoringNode(), simulatedNode);
+	AddItem(tree, simulatedNode);
 
 	if (ShouldSaveLogToFile(AiSettings::GetData()))
 	{
@@ -99,17 +99,17 @@ std::string RamAi::ScoreLog::ConstructFileName(const GameSettings &gameSettings)
 	return timestampBuffer + gameSettings.gameName;
 }
 
-void RamAi::ScoreLog::AddItem(const TreeNode *bestNode, const TreeNode &simulatedNode)
+void RamAi::ScoreLog::AddItem(const GameMonteCarloTree &tree, const TreeNode &simulatedNode)
 {
 	Item item;
 	item.iterationNumber = m_currentIteration;
 
-	if (bestNode)
+	if (const TreeNode *bestNode = tree.GetBestScoringNode())
 	{
-		item.bestNode = Item::Node(*bestNode);
+		item.bestNode = Item::Node(tree, *bestNode);
 	}
 
-	item.simulatedNode = Item::Node(simulatedNode);
+	item.simulatedNode = Item::Node(tree, simulatedNode);
 
 	m_items.push_back(std::move(item));
 }

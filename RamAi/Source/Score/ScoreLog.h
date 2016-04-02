@@ -42,7 +42,7 @@ namespace RamAi
 			{
 			public:
 				Node();
-				Node(const TreeNode &node);
+				Node(const GameMonteCarloTree &tree, const TreeNode &node);
 				~Node() = default;
 
 			public:
@@ -89,7 +89,7 @@ namespace RamAi
 	protected:
 		virtual std::string ConstructFileName(const GameSettings &gameSettings) const;
 
-		void AddItem(const TreeNode *bestNode, const TreeNode &simulatedNode);
+		void AddItem(const GameMonteCarloTree &tree, const TreeNode &simulatedNode);
 
 		bool ShouldSaveLogToFile(const AiSettings::Data &aiSettings) const;
 		void SaveLogToFile();

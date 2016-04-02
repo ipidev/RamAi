@@ -70,6 +70,7 @@ namespace RamAi
 		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
 		virtual TreeNode *SelectChild(const TreeNode &parent) const;
 
+	public:
 		double CalculateUcbScore(const TreeNode &child) const;
 		double CalculateUcbScore(const TreeNode &parent, const TreeNode &child) const;
 
