@@ -37,6 +37,11 @@ namespace RamAi
 		//A single item in the log.
 		struct Item
 		{
+		public:
+			Item();
+			~Item() = default;
+
+		public:
 			uint32_t iterationNumber;
 			double bestNodeScore;
 			uint32_t bestNodeDepth;
@@ -72,7 +77,7 @@ namespace RamAi
 	protected:
 		virtual std::string ConstructFileName(const GameSettings &gameSettings) const;
 
-		void AddItem(const TreeNode &bestNode, const TreeNode &simulatedNode);
+		void AddItem(const TreeNode *bestNode, const TreeNode &simulatedNode);
 
 		bool ShouldSaveLogToFile(const AiSettings::Data &aiSettings) const;
 		void SaveLogToFile();

@@ -23,6 +23,16 @@
 #include <ctime>
 
 
+RamAi::ScoreLog::Item::Item()
+{
+	iterationNumber = 0;
+	bestNodeScore = 0.0;
+	bestNodeDepth = 0;
+
+	simulatedNodeScore = 0.0;
+	simulatedNodeDepth = 0;
+}
+
 std::string RamAi::ScoreLog::Item::GetItemHeadings() const
 {
 	return "Iteration" + s_delimiter + "Best Node Score" + s_delimiter + "Best Node Depth" + s_delimiter + "Simulated Node Score" + s_delimiter + "Simulated Node Score" + s_lineTerminator;
@@ -57,10 +67,7 @@ void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree, const TreeNode &
 {
 	++m_currentIteration;
 
-	//TODO: Selectively add the best scoring node so the log doesn't become too big?
-	const TreeNode &bestNode = tree.GetBestScoringNode();
-
-	AddItem(bestNode, simulatedNode);
+	AddItem(tree.GetBestScoringNode(), simulatedNode);
 
 	if (ShouldSaveLogToFile(AiSettings::GetData()))
 	{
@@ -80,12 +87,16 @@ std::string RamAi::ScoreLog::ConstructFileName(const GameSettings &gameSettings)
 	return timestampBuffer + gameSettings.gameName;
 }
 
-void RamAi::ScoreLog::AddItem(const TreeNode &bestNode, const TreeNode &simulatedNode)
+void RamAi::ScoreLog::AddItem(const TreeNode *bestNode, const TreeNode &simulatedNode)
 {
 	Item item;
 	item.iterationNumber = m_currentIteration;
-	item.bestNodeScore = bestNode.GetScore().GetAverageScore();
-	item.bestNodeDepth = bestNode.CalculateDepth();
+
+	if (bestNode)
+	{
+		item.bestNodeScore = bestNode->GetScore().GetAverageScore();
+		item.bestNodeDepth = bestNode->CalculateDepth();
+	}
 
 	item.simulatedNodeScore = simulatedNode.GetScore().GetAverageScore();
 	item.simulatedNodeDepth = simulatedNode.CalculateDepth();

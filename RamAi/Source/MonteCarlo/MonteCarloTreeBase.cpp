@@ -44,6 +44,7 @@ RamAi::MonteCarloTreeException::~MonteCarloTreeException()
 RamAi::MonteCarloTreeBase::MonteCarloTreeBase(const double bias)
 {
 	m_bias = bias;
+	m_bestScoringNode = nullptr;
 }
 
 RamAi::MonteCarloTreeBase::MonteCarloTreeBase(const MonteCarloTreeBase &other)
@@ -143,6 +144,18 @@ RamAi::TreeNode *RamAi::MonteCarloTreeBase::SelectChild(const TreeNode &parent) 
 	}
 }
 
+double RamAi::MonteCarloTreeBase::CalculateUcbScore(const TreeNode &child) const
+{
+	if (const TreeNode *parent = child.GetParent())
+	{
+		return CalculateUcbScore(*parent, child);
+	}
+	else
+	{
+		return 0.0;
+	}
+}
+
 double RamAi::MonteCarloTreeBase::CalculateUcbScore(const TreeNode &parent, const TreeNode &child) const
 {
 	const uint64_t rootVisits = parent.GetScore().GetVisits();
@@ -211,40 +224,43 @@ void RamAi::MonteCarloTreeBase::Backpropagate(TreeNode &nodeToBackpropagateFrom,
 		currentNode->GetScore().AddScore(score);
 		currentNode = currentNode->GetParent();
 	}
+
+	BackpropagateUpdatingBestScoringNode(nodeToBackpropagateFrom);
 }
 
-const RamAi::TreeNode &RamAi::MonteCarloTreeBase::GetBestScoringNode() const
+void RamAi::MonteCarloTreeBase::BackpropagateUpdatingBestScoringNode(const TreeNode &nodeToBackpropagateFrom)
 {
-	const TreeNode *currentNode = &m_root;
+	//We probably only need to do the first node (at the bottom of the tree), but this is just for completeness.
+	const TreeNode *currentNode = &nodeToBackpropagateFrom;
 
-	while (!currentNode->IsLeaf())
+	do
 	{
-		//Find the highest scoring child node(s).
-		BestScoreCollection<const TreeNode*, double> bestNodes(-std::numeric_limits<double>::infinity());
+		m_bestScoringNode = UpdateBestScoringNode(*currentNode);
+	}
+	while (currentNode = currentNode->GetParent());
+}
 
-		for (auto it = currentNode->GetIteratorBegin(); it != currentNode->GetIteratorEnd(); ++it)
+const RamAi::TreeNode *RamAi::MonteCarloTreeBase::UpdateBestScoringNode(const TreeNode &newNode) const
+{
+	if (m_bestScoringNode)
+	{
+		//Score them and return the best one.
+		const double bestNodeUct = CalculateUcbScore(*m_bestScoringNode);
+		const double newNodeUct = CalculateUcbScore(newNode);
+
+		if (newNodeUct > bestNodeUct)
 		{
-			const double score = it->second.GetScore().GetAverageScore();
-
-			bestNodes.Add(&(it->second), score);
-		}
-
-		const TreeNode **bestChildPtr = bestNodes.GetItem();
-
-		assert(bestChildPtr);
-		if (bestChildPtr)
-		{
-			//Continue down through the tree.
-			currentNode = *bestChildPtr;
+			return &newNode;
 		}
 		else
 		{
-			break;
+			return m_bestScoringNode;
 		}
 	}
-
-	assert(currentNode);
-	return currentNode ? *currentNode : m_root;
+	else
+	{
+		return &newNode;
+	}
 }
 
 void RamAi::MonteCarloTreeBase::Copy(const MonteCarloTreeBase &other)

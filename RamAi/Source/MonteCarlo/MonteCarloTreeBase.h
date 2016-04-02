@@ -57,6 +57,8 @@ namespace RamAi
 		const double GetBias() const				{ return m_bias; }
 		void SetBias(const double bias)				{ m_bias = bias; }
 
+		const TreeNode *GetBestScoringNode() const	{ return m_bestScoringNode; }
+
 	public:
 		TreeNode &Select();
 
@@ -68,6 +70,7 @@ namespace RamAi
 		//Returns the most urgent child from the parent, or nullptr if the parent is a leaf node.
 		virtual TreeNode *SelectChild(const TreeNode &parent) const;
 
+		double CalculateUcbScore(const TreeNode &child) const;
 		double CalculateUcbScore(const TreeNode &parent, const TreeNode &child) const;
 
 	public:
@@ -84,8 +87,9 @@ namespace RamAi
 	public:
 		void Backpropagate(TreeNode &nodeToBackpropagateFrom, const ScoreType score);
 
-	public:
-		const TreeNode &GetBestScoringNode() const;
+	protected:
+		void BackpropagateUpdatingBestScoringNode(const TreeNode &nodeToBackpropagateFrom);
+		virtual const TreeNode *UpdateBestScoringNode(const TreeNode &newNode) const;
 
 	private:
 		void Copy(const MonteCarloTreeBase &other);
@@ -94,5 +98,7 @@ namespace RamAi
 	private:
 		TreeNode m_root;
 		double m_bias;
+
+		const TreeNode *m_bestScoringNode;
 	};
 };
