@@ -37,17 +37,29 @@ namespace RamAi
 		//A single item in the log.
 		struct Item
 		{
+			//The details of a tree node to be logged.
+			struct Node
+			{
+			public:
+				Node();
+				Node(const TreeNode &node);
+				~Node() = default;
+
+			public:
+				double uctScore;
+				double averageScore;
+				uint32_t depth;
+			};
+
 		public:
 			Item();
 			~Item() = default;
 
 		public:
 			uint32_t iterationNumber;
-			double bestNodeScore;
-			uint32_t bestNodeDepth;
 
-			double simulatedNodeScore;
-			uint32_t simulatedNodeDepth;
+			Node bestNode;
+			Node simulatedNode;
 
 		public:
 			virtual std::string GetItemHeadings() const;

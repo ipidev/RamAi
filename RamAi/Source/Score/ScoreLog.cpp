@@ -23,14 +23,26 @@
 #include <ctime>
 
 
+RamAi::ScoreLog::Item::Node::Node()
+{
+	uctScore = 0.0;
+	averageScore = 0.0;
+	depth = 0;
+}
+
+RamAi::ScoreLog::Item::Node::Node(const TreeNode &node)
+	: Node()
+{
+	//TODO: UCT score
+	averageScore = node.GetScore().GetAverageScore();
+	depth = node.CalculateDepth();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 RamAi::ScoreLog::Item::Item()
 {
 	iterationNumber = 0;
-	bestNodeScore = 0.0;
-	bestNodeDepth = 0;
-
-	simulatedNodeScore = 0.0;
-	simulatedNodeDepth = 0;
 }
 
 std::string RamAi::ScoreLog::Item::GetItemHeadings() const
@@ -40,7 +52,7 @@ std::string RamAi::ScoreLog::Item::GetItemHeadings() const
 
 std::string RamAi::ScoreLog::Item::GetItemValues() const
 {
-	return std::to_string(iterationNumber) + s_delimiter + std::to_string(bestNodeScore) + s_delimiter + std::to_string(bestNodeDepth) + s_delimiter + std::to_string(simulatedNodeScore) + s_delimiter + std::to_string(simulatedNodeDepth) +s_lineTerminator;
+	return std::to_string(iterationNumber) + s_delimiter + std::to_string(bestNode.averageScore) + s_delimiter + std::to_string(bestNode.depth) + s_delimiter + std::to_string(simulatedNode.averageScore) + s_delimiter + std::to_string(simulatedNode.depth) +s_lineTerminator;
 }
 
 const std::string RamAi::ScoreLog::Item::s_delimiter = "\t";
@@ -94,12 +106,10 @@ void RamAi::ScoreLog::AddItem(const TreeNode *bestNode, const TreeNode &simulate
 
 	if (bestNode)
 	{
-		item.bestNodeScore = bestNode->GetScore().GetAverageScore();
-		item.bestNodeDepth = bestNode->CalculateDepth();
+		item.bestNode = Item::Node(*bestNode);
 	}
 
-	item.simulatedNodeScore = simulatedNode.GetScore().GetAverageScore();
-	item.simulatedNodeDepth = simulatedNode.CalculateDepth();
+	item.simulatedNode = Item::Node(simulatedNode);
 
 	m_items.push_back(std::move(item));
 }
