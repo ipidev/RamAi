@@ -77,7 +77,7 @@ RamAi::TreeNode &RamAi::MonteCarloTreeBase::Select()
 {
 	TreeNode *currentNode = &m_root;
 
-	int attemptsRemaining = 1000;
+	int attemptsRemaining = 10000;
 	while (attemptsRemaining-- > 0)
 	{
 		assert(currentNode);
@@ -261,6 +261,11 @@ const RamAi::TreeNode *RamAi::MonteCarloTreeBase::UpdateBestScoringNode(const Tr
 	{
 		return &newNode;
 	}
+}
+
+std::string RamAi::MonteCarloTreeBase::GetLogDetails() const
+{
+	return "Bias: " + std::to_string(m_bias);
 }
 
 void RamAi::MonteCarloTreeBase::Copy(const MonteCarloTreeBase &other)

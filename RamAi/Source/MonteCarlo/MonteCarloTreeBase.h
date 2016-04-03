@@ -92,6 +92,9 @@ namespace RamAi
 		void BackpropagateUpdatingBestScoringNode(const TreeNode &nodeToBackpropagateFrom);
 		virtual const TreeNode *UpdateBestScoringNode(const TreeNode &newNode) const;
 
+	public:
+		virtual std::string GetLogDetails() const;
+
 	private:
 		void Copy(const MonteCarloTreeBase &other);
 		void Move(MonteCarloTreeBase &&other);
