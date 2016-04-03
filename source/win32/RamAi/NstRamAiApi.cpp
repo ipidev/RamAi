@@ -50,7 +50,7 @@ void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameSettings &gameDetails)
 	//std::placeholders are used for extra parameters that are filled in later.
 	RamAi::StateMachine::LoadStateHandleSignature loadStateHandle = std::bind(&RamAiApi::LoadState, this, std::placeholders::_1); 
 
-	RamAi::ScoreLog::SaveLogToFileSignature saveLogToFileHandle = std::bind(&RamAiApi::SaveLogToFile, this, std::placeholders::_1); 
+	RamAi::ScoreLog::SaveLogToFileSignature saveLogToFileHandle = std::bind(&RamAiApi::SaveLogToFile, this, std::placeholders::_1, std::placeholders::_2); 
 
 	//Call the base.
 	RamAi::Api::InitialiseGame(gameDetails, saveStateHandle, loadStateHandle, saveLogToFileHandle);
@@ -179,7 +179,7 @@ Nestopia::Collection::Buffer Nestopia::RamAiApi::SavestateToBuffer(const RamAi::
 	return buffer;
 }
 
-void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog)
+void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog, const RamAi::MonteCarloTreeBase &tree)
 {
 	//Create the directory to store logs first.
 	{
@@ -219,7 +219,7 @@ void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog)
 			//Write the header.
 			if (!hasWrittenHeader)
 			{
-				const std::string itemHeadings = std::move(it->GetItemHeadings());
+				const std::string itemHeadings = std::move(it->GetItemHeadings(tree));
 				strcpy_s(rowData, rowSize, itemHeadings.c_str());
 
 				file.WriteSome(rowData, itemHeadings.length());

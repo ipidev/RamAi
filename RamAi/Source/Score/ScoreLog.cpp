@@ -57,7 +57,12 @@ RamAi::ScoreLog::Item::Item()
 
 std::string RamAi::ScoreLog::Item::GetItemHeadings() const
 {
-	return "Iteration" + s_delimiter + bestNode.GetItemHeadings("Best Node", s_delimiter) + s_delimiter + simulatedNode.GetItemHeadings("Simulated Node", s_delimiter) + s_lineTerminator;
+	return "Iteration" + s_delimiter + bestNode.GetItemHeadings("Best Node", s_delimiter) + s_delimiter + simulatedNode.GetItemHeadings("Simulated Node", s_delimiter);
+}
+
+std::string RamAi::ScoreLog::Item::GetItemHeadings(const MonteCarloTreeBase &tree) const
+{
+	return GetItemHeadings() + s_delimiter + tree.GetLogDetails() + s_lineTerminator;
 }
 
 std::string RamAi::ScoreLog::Item::GetItemValues() const
@@ -82,7 +87,6 @@ RamAi::ScoreLog::ScoreLog(const GameSettings &gameSettings, const SaveLogToFileS
 
 RamAi::ScoreLog::~ScoreLog()
 {
-	SaveLogToFile();
 }
 
 void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree, const TreeNode &simulatedNode)
@@ -93,7 +97,10 @@ void RamAi::ScoreLog::UpdateLog(const GameMonteCarloTree &tree, const TreeNode &
 
 	if (ShouldSaveLogToFile(AiSettings::GetData()))
 	{
-		SaveLogToFile();
+		if (m_saveLogToFileHandle)
+		{
+			m_saveLogToFileHandle(*this, tree);
+		}
 	}
 }
 
@@ -133,13 +140,5 @@ bool RamAi::ScoreLog::ShouldSaveLogToFile(const AiSettings::Data &aiSettings) co
 	else
 	{
 		return false;
-	}
-}
-
-void RamAi::ScoreLog::SaveLogToFile()
-{
-	if (m_saveLogToFileHandle)
-	{
-		m_saveLogToFileHandle(*this);
 	}
 }

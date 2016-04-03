@@ -67,6 +67,8 @@ namespace RamAi
 
 		public:
 			virtual std::string GetItemHeadings() const;
+			std::string GetItemHeadings(const MonteCarloTreeBase &tree) const; //Ugh.
+
 			virtual std::string GetItemValues() const;
 
 		protected:
@@ -75,7 +77,7 @@ namespace RamAi
 		};
 
 	public:
-		typedef std::function<void(const ScoreLog&)> SaveLogToFileSignature;
+		typedef std::function<void(const ScoreLog&, const MonteCarloTreeBase&)> SaveLogToFileSignature;
 
 	public:
 		ScoreLog(const GameSettings &gameSettings, const SaveLogToFileSignature &saveLogToFileHandle);
@@ -96,7 +98,6 @@ namespace RamAi
 		void AddItem(const GameMonteCarloTree &tree, const TreeNode &simulatedNode);
 
 		bool ShouldSaveLogToFile(const AiSettings::Data &aiSettings) const;
-		void SaveLogToFile();
 
 	private:
 		std::string m_fileName;
