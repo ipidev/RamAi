@@ -35,6 +35,11 @@ RamAi::GameMonteCarloTree::~GameMonteCarloTree()
 {
 }
 
+std::string RamAi::GameMonteCarloTree::GetLogDetails() const
+{
+	return MonteCarloTreeBase::GetLogDetails() + " k: " + std::to_string(AiSettings::GetData().partialExpansionBase);
+}
+
 bool RamAi::GameMonteCarloTree::NodeNeedsExpanding(const TreeNode &node) const
 {
 	return (node.GetNumberOfChildren() < ConsoleSettings::GetSpecs().GetNumberOfInputCombinations()) && PartialExpansion(node);

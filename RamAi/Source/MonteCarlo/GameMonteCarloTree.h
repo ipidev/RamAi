@@ -34,6 +34,9 @@ namespace RamAi
 		GameMonteCarloTree();
 		~GameMonteCarloTree();
 
+	public:
+		virtual std::string GetLogDetails() const override;
+
 	protected:
 		virtual bool NodeNeedsExpanding(const TreeNode &node) const;
 
