@@ -95,7 +95,8 @@ size_t RamAi::GameSettings::GetMaximumInitialisationFrames() const
 
 uint32_t RamAi::GameSettings::GetMaximumScore() const
 {
-	return BinaryCodedDecimal::Power(10, static_cast<uint32_t>(scoreSize)) - 1;
+	size_t exponent = scoreTwoDigitsPerByte ? scoreSize * 2 : scoreSize;
+	return BinaryCodedDecimal::Power(10, static_cast<uint32_t>(exponent)) - 1;
 }
 
 RamAi::GameSettings RamAi::GameSettings::s_instance = GameSettings();
