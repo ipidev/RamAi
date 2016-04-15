@@ -37,7 +37,7 @@ RamAi::GameMonteCarloTree::~GameMonteCarloTree()
 
 std::string RamAi::GameMonteCarloTree::GetLogDetails() const
 {
-	return MonteCarloTreeBase::GetLogDetails() + " k: " + std::to_string(AiSettings::GetData().partialExpansionBase);
+	return MonteCarloTreeBase::GetLogDetails() + " k: " + DoubleToString(AiSettings::GetData().partialExpansionBase, 9);
 }
 
 bool RamAi::GameMonteCarloTree::NodeNeedsExpanding(const TreeNode &node) const

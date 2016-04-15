@@ -20,6 +20,8 @@
 #include "MonteCarloTreeBase.h"
 
 #include <cassert>
+#include <iomanip>
+#include <sstream>
 
 #include "Settings\AiSettings.h"
 #include "BestScoreCollection.h"
@@ -265,7 +267,14 @@ const RamAi::TreeNode *RamAi::MonteCarloTreeBase::UpdateBestScoringNode(const Tr
 
 std::string RamAi::MonteCarloTreeBase::GetLogDetails() const
 {
-	return "Bias: " + std::to_string(m_bias);
+	return "Bias: " + DoubleToString(m_bias, 9);
+}
+
+std::string RamAi::MonteCarloTreeBase::DoubleToString(const double value, const int precision)
+{
+	std::ostringstream oss;
+	oss << std::setprecision(precision) << value;
+	return oss.str();
 }
 
 void RamAi::MonteCarloTreeBase::Copy(const MonteCarloTreeBase &other)

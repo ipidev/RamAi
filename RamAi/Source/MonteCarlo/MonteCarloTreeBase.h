@@ -95,6 +95,9 @@ namespace RamAi
 	public:
 		virtual std::string GetLogDetails() const;
 
+	protected:
+		static std::string DoubleToString(const double value, const int precision);
+
 	private:
 		void Copy(const MonteCarloTreeBase &other);
 		void Move(MonteCarloTreeBase &&other);
