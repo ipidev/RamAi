@@ -44,6 +44,7 @@ namespace RamAi
 				Initialisation,
 				Expansion,
 				Simulation,
+				Playback,
 				Max
 			};
 

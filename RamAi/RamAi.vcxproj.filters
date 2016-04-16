@@ -126,6 +126,9 @@
     <ClInclude Include="Source\Score\ScoreLog.h">
       <Filter>Header Files\Score</Filter>
     </ClInclude>
+    <ClInclude Include="Source\StateMachine\PlaybackState.h">
+      <Filter>Header Files\StateMachine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -187,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="Source\Score\ScoreLog.cpp">
       <Filter>Source Files\Score</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StateMachine\PlaybackState.cpp">
+      <Filter>Source Files\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

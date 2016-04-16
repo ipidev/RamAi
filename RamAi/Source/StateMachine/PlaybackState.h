@@ -21,21 +21,23 @@
 
 #include "StateMachine.h"
 
+#include <deque>
+
 
 namespace RamAi
 {
-	//A state responsible for pressing the start button repeatedly until the game has definitely begun.
-	class InitialisationState : public StateMachine::State
+	//A state responsible for repeating the sequence of actions that leads to the best-scoring node in the tree.
+	class PlaybackState : public StateMachine::State
 	{
 	public:
-		InitialisationState(StateMachine &stateMachine);
-		InitialisationState(const InitialisationState &other) = delete;
-		InitialisationState(InitialisationState &&other);
-		~InitialisationState();
+		PlaybackState(StateMachine &stateMachine);
+		PlaybackState(const PlaybackState &other) = delete;
+		PlaybackState(PlaybackState &&other);
+		~PlaybackState();
 
 	public:
-		InitialisationState &operator= (const InitialisationState &other) = delete;
-		InitialisationState &operator= (InitialisationState &&other);
+		PlaybackState &operator= (const PlaybackState &other) = delete;
+		PlaybackState &operator= (PlaybackState &&other);
 
 	public:
 		virtual void OnStateEntered(const std::weak_ptr<State> &oldState, const Type oldStateType) override;
@@ -46,10 +48,11 @@ namespace RamAi
 
 		virtual void OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType) override;
 
+	protected:
+		size_t GetCurrentActionSequenceIndex() const;
+
 	private:
-		size_t m_numberOfFramesExecuted;
-		
-		//Set whenever the emulator is recording however the AI played.
-		bool m_isInPlaybackMode;
+		uint32_t m_numberOfFramesExecuted;
+		std::deque<ButtonSet> m_actionSequence;
 	};
 };

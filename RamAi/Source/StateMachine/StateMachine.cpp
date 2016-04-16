@@ -23,6 +23,7 @@
 
 #include "InitialisationState.h"
 #include "ExpansionState.h"
+#include "PlaybackState.h"
 #include "SimulationState.h"
 
 
@@ -120,6 +121,7 @@ void RamAi::StateMachine::InitialiseStates()
 	m_states[State::Type::Initialisation] = std::make_shared<InitialisationState>(*this);
 	m_states[State::Type::Expansion] = std::make_shared<ExpansionState>(*this);
 	m_states[State::Type::Simulation] = std::make_shared<SimulationState>(*this);
+	m_states[State::Type::Playback] = std::make_shared<PlaybackState>(*this);
 }
 
 void RamAi::StateMachine::ChangeState(const State::Type newStateType)

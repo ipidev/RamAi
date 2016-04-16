@@ -30,6 +30,7 @@ RamAi::InitialisationState::InitialisationState(StateMachine &stateMachine)
 	: State(stateMachine)
 {
 	m_numberOfFramesExecuted = 0;
+	m_isInPlaybackMode = false;
 }
 
 RamAi::InitialisationState::InitialisationState(InitialisationState &&other)
@@ -56,6 +57,7 @@ void RamAi::InitialisationState::OnStateEntered(const std::weak_ptr<State>& oldS
 	State::OnStateEntered(oldState, oldStateType);
 
 	m_numberOfFramesExecuted = 0;
+	m_isInPlaybackMode = (oldStateType == Type::Simulation);
 }
 
 RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
@@ -85,7 +87,8 @@ RamAi::StateMachine::State::Type RamAi::InitialisationState::GetDesiredStateType
 	//We shouldn't ever go over the target number of frames - that means we must have skipped one!
 	assert(m_numberOfFramesExecuted <= initialisationFrames);
 
-	return m_numberOfFramesExecuted >= initialisationFrames ? Type::Expansion : Type::Initialisation;
+	const Type nextStateType = m_isInPlaybackMode ? Type::Playback : Type::Expansion;
+	return m_numberOfFramesExecuted >= initialisationFrames ? nextStateType : Type::Initialisation;
 }
 
 void RamAi::InitialisationState::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)
