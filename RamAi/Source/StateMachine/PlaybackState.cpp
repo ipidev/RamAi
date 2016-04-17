@@ -69,7 +69,7 @@ void RamAi::PlaybackState::OnStateEntered(const std::weak_ptr<State>& oldState, 
 			const TreeNode *parentNode = bestNode->GetParent();
 
 			//Iterate up the tree and build the sequence of actions.
-			while (parentNode && childNode);
+			while (parentNode && childNode)
 			{
 				assert(childNode);
 
@@ -115,6 +115,19 @@ RamAi::StateMachine::State::Type RamAi::PlaybackState::GetDesiredStateType(const
 void RamAi::PlaybackState::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)
 {
 	State::OnStateExited(newState, newStateType);
+
+	assert(m_stateMachine);
+
+	if (m_stateMachine)
+	{
+		//Finish recording.
+		assert(m_stateMachine->GetFinishRecordingHandle());
+
+		if (m_stateMachine->GetFinishRecordingHandle())
+		{
+			m_stateMachine->GetFinishRecordingHandle()();
+		}
+	}
 }
 
 size_t RamAi::PlaybackState::GetCurrentActionSequenceIndex() const

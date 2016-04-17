@@ -107,7 +107,17 @@ RamAi::StateMachine::State::Type RamAi::SimulationState::GetDesiredStateType(con
 	const size_t frameRate = ConsoleSettings::GetSpecs().frameRate;
 	const size_t targetNumberOfFrames = AiSettings::GetData().GetMaximumSimulationFrames(frameRate);
 
-	return m_numberOfFramesExecuted >= targetNumberOfFrames ? Type::Expansion : Type::Simulation;
+	//Check if we need to record a playback movie.
+	bool needsToRecordPlaybackMovie = false;
+
+	if (m_stateMachine)
+	{
+		const uint32_t currentIteration = m_stateMachine->GetScoreLog().GetCurrentIteration();
+		needsToRecordPlaybackMovie = currentIteration > 0 && (currentIteration % 10) == 0;
+	}
+
+	const Type nextStateType = needsToRecordPlaybackMovie ? Type::Initialisation : Type::Expansion;
+	return m_numberOfFramesExecuted >= targetNumberOfFrames ? nextStateType : Type::Simulation;
 }
 
 void RamAi::SimulationState::OnStateExited(const std::weak_ptr<State> &newState, const Type newStateType)

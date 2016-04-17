@@ -58,6 +58,23 @@ void RamAi::InitialisationState::OnStateEntered(const std::weak_ptr<State>& oldS
 
 	m_numberOfFramesExecuted = 0;
 	m_isInPlaybackMode = (oldStateType == Type::Simulation);
+
+
+	//Start recording the playback movie.
+	if (m_isInPlaybackMode)
+	{
+		assert(m_stateMachine);
+
+		if (m_stateMachine)
+		{
+			assert(m_stateMachine->GetStartRecordingHandle());
+
+			if (m_stateMachine->GetStartRecordingHandle())
+			{
+				m_stateMachine->GetStartRecordingHandle()();
+			}
+		}
+	}
 }
 
 RamAi::ButtonSet RamAi::InitialisationState::CalculateInput(const Ram &ram)
