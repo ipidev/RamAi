@@ -80,7 +80,7 @@ namespace RamAi
 	public:
 		typedef std::function<Savestate()> SaveStateHandleSignature;
 		typedef std::function<void(const Savestate&)> LoadStateHandleSignature;
-		typedef std::function<void()> StartRecordingHandleSignature;
+		typedef std::function<void(const RamAi::ScoreLog &scoreLog)> StartRecordingHandleSignature;
 		typedef std::function<void()> FinishRecordingHandleSignature;
 
 	public:
@@ -106,6 +106,8 @@ namespace RamAi
 		LoadStateHandleSignature &GetLoadStateHandle()						{ return m_loadStateHandle; }
 		StartRecordingHandleSignature &GetStartRecordingHandle()			{ return m_startRecordingHandle; }
 		FinishRecordingHandleSignature &GetFinishRecordingHandle()			{ return m_finishRecordingHandle; }
+
+		void StartRecording()												{ m_startRecordingHandle(m_scoreLog); }
 
 	public:
 		bool IsCurrentStateValid() const									{ return IsStateValid(m_currentStateType); }

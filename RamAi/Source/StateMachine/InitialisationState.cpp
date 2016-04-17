@@ -71,7 +71,7 @@ void RamAi::InitialisationState::OnStateEntered(const std::weak_ptr<State>& oldS
 
 			if (m_stateMachine->GetStartRecordingHandle())
 			{
-				m_stateMachine->GetStartRecordingHandle()();
+				m_stateMachine->StartRecording();
 			}
 		}
 	}

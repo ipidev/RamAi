@@ -51,7 +51,7 @@ void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameSettings &gameDetails)
 
 	RamAi::ScoreLog::SaveLogToFileSignature saveLogToFileHandle = std::bind(&RamAiApi::SaveLogToFile, this, std::placeholders::_1, std::placeholders::_2); 
 
-	RamAi::StateMachine::StartRecordingHandleSignature startRecordingHandle = std::bind(&RamAiApi::StartRecording, this);
+	RamAi::StateMachine::StartRecordingHandleSignature startRecordingHandle = std::bind(&RamAiApi::StartRecording, this, std::placeholders::_1);
 	RamAi::StateMachine::FinishRecordingHandleSignature finishRecordingHandle = std::bind(&RamAiApi::FinishRecording, this);
 
 	//Call the base.
@@ -242,7 +242,7 @@ void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog, const Ra
 	}
 }
 
-void Nestopia::RamAiApi::StartRecording()
+void Nestopia::RamAiApi::StartRecording(const RamAi::ScoreLog &scoreLog)
 {
 	RamAi::Debug::Out("Start recording!");
 
@@ -262,8 +262,10 @@ void Nestopia::RamAiApi::StartRecording()
 	}
 
 	//Get the path to save the file to.
+	std::string movieFileNameShort = scoreLog.GetFileName() + " it" + std::to_string(scoreLog.GetCurrentIteration());
+
 	std::wstring movieFileNameWide = s_movieFileDirectory;
-	movieFileNameWide += L"Test"; //TODO: Replace.
+	movieFileNameWide += std::wstring(movieFileNameShort.begin(), movieFileNameShort.end()); //STL string to STL wide string.
 	movieFileNameWide += s_movieFileExtension;
 
 	//STL wide string to Nestopia wide string.
