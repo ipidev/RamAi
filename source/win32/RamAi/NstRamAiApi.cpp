@@ -52,8 +52,11 @@ void Nestopia::RamAiApi::InitialiseGame(const RamAi::GameSettings &gameDetails)
 
 	RamAi::ScoreLog::SaveLogToFileSignature saveLogToFileHandle = std::bind(&RamAiApi::SaveLogToFile, this, std::placeholders::_1, std::placeholders::_2); 
 
+	RamAi::StateMachine::StartRecordingHandleSignature startRecordingHandle = std::bind(&RamAiApi::StartRecording, this);
+	RamAi::StateMachine::FinishRecordingHandleSignature finishRecordingHandle = std::bind(&RamAiApi::FinishRecording, this);
+
 	//Call the base.
-	RamAi::Api::InitialiseGame(gameDetails, saveStateHandle, loadStateHandle, saveLogToFileHandle);
+	RamAi::Api::InitialiseGame(gameDetails, saveStateHandle, loadStateHandle, saveLogToFileHandle, startRecordingHandle, finishRecordingHandle);
 
 	EnableTurbo(true);
 }
@@ -238,6 +241,16 @@ void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog, const Ra
 	{
 		RamAi::Debug::OutLine("Error saving log file for iteration " + std::to_string(scoreLog.GetCurrentIteration()), RamAi::Colour::Red);
 	}
+}
+
+void Nestopia::RamAiApi::StartRecording()
+{
+	RamAi::Debug::Out("Start recording!");
+}
+
+void Nestopia::RamAiApi::FinishRecording()
+{
+	RamAi::Debug::Out("Finished recording!");
 }
 
 void Nestopia::RamAiApi::EnableTurbo(const bool turboOn)

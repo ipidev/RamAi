@@ -59,7 +59,9 @@ RamAi::Api &RamAi::Api::operator= (Api &&other)
 void RamAi::Api::InitialiseGame(const GameSettings &gameSettings,
 	const StateMachine::SaveStateHandleSignature &saveStateHandle,
 	const StateMachine::LoadStateHandleSignature &loadStateHandle,
-	const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle)
+	const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle,
+	const StateMachine::StartRecordingHandleSignature &startRecordingHandle,
+	const StateMachine::FinishRecordingHandleSignature &finishRecordingHandle)
 {
 	Debug::ClearScreen();
 
@@ -69,6 +71,8 @@ void RamAi::Api::InitialiseGame(const GameSettings &gameSettings,
 	m_stateMachine = std::make_unique<StateMachine>(saveLogToFileHandle);
 	m_stateMachine->GetSaveStateHandle() = saveStateHandle;
 	m_stateMachine->GetLoadStateHandle() = loadStateHandle;
+	m_stateMachine->GetStartRecordingHandle() = startRecordingHandle;
+	m_stateMachine->GetFinishRecordingHandle() = finishRecordingHandle;
 
 	//Log any errors.
 	if (!gameSettings.IsValid())

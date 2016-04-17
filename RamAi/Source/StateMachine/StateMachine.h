@@ -80,6 +80,8 @@ namespace RamAi
 	public:
 		typedef std::function<Savestate()> SaveStateHandleSignature;
 		typedef std::function<void(const Savestate&)> LoadStateHandleSignature;
+		typedef std::function<void()> StartRecordingHandleSignature;
+		typedef std::function<void()> FinishRecordingHandleSignature;
 
 	public:
 		StateMachine(const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle);
@@ -102,6 +104,8 @@ namespace RamAi
 	public:
 		SaveStateHandleSignature &GetSaveStateHandle()						{ return m_saveStateHandle; }
 		LoadStateHandleSignature &GetLoadStateHandle()						{ return m_loadStateHandle; }
+		StartRecordingHandleSignature &GetStartRecordingHandle()			{ return m_startRecordingHandle; }
+		FinishRecordingHandleSignature &GetFinishRecordingHandle()			{ return m_finishRecordingHandle; }
 
 	public:
 		bool IsCurrentStateValid() const									{ return IsStateValid(m_currentStateType); }
@@ -132,5 +136,7 @@ namespace RamAi
 	protected:
 		SaveStateHandleSignature m_saveStateHandle;
 		LoadStateHandleSignature m_loadStateHandle;
+		StartRecordingHandleSignature m_startRecordingHandle;
+		FinishRecordingHandleSignature m_finishRecordingHandle;
 	};
 };

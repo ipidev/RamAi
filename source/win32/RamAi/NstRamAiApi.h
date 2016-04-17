@@ -77,6 +77,9 @@ namespace Nestopia
 
 		void SaveLogToFile(const RamAi::ScoreLog &scoreLog, const RamAi::MonteCarloTreeBase &tree);
 
+		void StartRecording();
+		void FinishRecording();
+
 	private:
 		void EnableTurbo(const bool turboOn);
 

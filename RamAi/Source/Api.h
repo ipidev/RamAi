@@ -51,7 +51,9 @@ namespace RamAi
 		void InitialiseGame(const GameSettings &gameSettings,
 			const StateMachine::SaveStateHandleSignature &saveStateHandle,
 			const StateMachine::LoadStateHandleSignature &loadStateHandle,
-			const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle);
+			const ScoreLog::SaveLogToFileSignature &saveLogToFileHandle,
+			const StateMachine::StartRecordingHandleSignature &startRecordingHandle,
+			const StateMachine::FinishRecordingHandleSignature &finishRecordingHandle);
 
 		void ImportAiSettings(char *settingsFile);
 
