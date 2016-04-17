@@ -244,8 +244,6 @@ void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog, const Ra
 
 void Nestopia::RamAiApi::StartRecording(const RamAi::ScoreLog &scoreLog)
 {
-	RamAi::Debug::Out("Start recording!");
-
 	//Reset the emulator.
 	Nes::Result result = Nes::Machine(m_emulator).Reset(false);
 	assert(NES_SUCCEEDED(result));
@@ -293,8 +291,6 @@ void Nestopia::RamAiApi::StartRecording(const RamAi::ScoreLog &scoreLog)
 
 void Nestopia::RamAiApi::FinishRecording()
 {
-	RamAi::Debug::Out("Finished recording!");
-
 	//Finish recording.
 	if (m_movieFile)
 	{
