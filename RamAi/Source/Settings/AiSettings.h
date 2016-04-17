@@ -53,6 +53,9 @@ namespace RamAi
 			//How often the score log is saved to disk.
 			uint32_t scoreLogSaveFrequency;
 
+			//How often the movie file is saved to disk.
+			uint32_t movieFileSaveFrequency;
+
 		public:
 			size_t GetMaximumSimulationFrames(const size_t frameRate) const;
 		};

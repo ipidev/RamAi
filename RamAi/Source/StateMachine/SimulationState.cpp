@@ -113,7 +113,8 @@ RamAi::StateMachine::State::Type RamAi::SimulationState::GetDesiredStateType(con
 	if (m_stateMachine)
 	{
 		const uint32_t currentIteration = m_stateMachine->GetScoreLog().GetCurrentIteration();
-		needsToRecordPlaybackMovie = currentIteration > 0 && (currentIteration % 10) == 0;
+		const uint32_t movieFileSaveFrequency = AiSettings::GetData().movieFileSaveFrequency;
+		needsToRecordPlaybackMovie = currentIteration > 0 && (currentIteration % movieFileSaveFrequency) == 0;
 	}
 
 	const Type nextStateType = needsToRecordPlaybackMovie ? Type::Initialisation : Type::Expansion;

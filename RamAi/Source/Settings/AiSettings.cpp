@@ -30,6 +30,7 @@ RamAi::AiSettings::Data::Data()
 	simulationMacroActionLength = 1;
 	maximumSimulationTime = 120.0f;
 	scoreLogSaveFrequency = 10;
+	movieFileSaveFrequency = 1000;
 }
 
 size_t RamAi::AiSettings::Data::GetMaximumSimulationFrames(const size_t frameRate) const
@@ -70,6 +71,11 @@ RamAi::AiSettings::Data RamAi::AiSettings::Import(char *settingsFile)
 	if (settingsImporter.ContainsKey("ScoreLogSaveFrequency"))
 	{
 		data.scoreLogSaveFrequency = static_cast<uint32_t>(std::stoi(settingsImporter["ScoreLogSaveFrequency"]));
+	}
+
+	if (settingsImporter.ContainsKey("MovieFileSaveFrequency"))
+	{
+		data.movieFileSaveFrequency = static_cast<uint32_t>(std::stoi(settingsImporter["MovieFileSaveFrequency"]));
 	}
 
 	return data;
