@@ -28,6 +28,8 @@
 #pragma once
 
 #include "../../../RamAi/Source/Api.h"
+#include "../NstIoFile.hpp"
+#include "../NstIoStream.hpp"
 #include "../NstManagerEmulator.hpp"
 #include "../../core/NstCpu.hpp"
 
@@ -89,6 +91,9 @@ namespace Nestopia
 		Managers::Emulator &m_emulator;
 
 		bool m_allowHumanOverride;
+		
+		std::unique_ptr<Io::File> m_movieFile;
+		std::unique_ptr<Io::Stream::InOut> m_movieFileStream;
 
 	private:
 		//Container used to initialise the specs with the right values.
@@ -111,6 +116,8 @@ namespace Nestopia
 		static const std::wstring s_settingsExtension;
 		static const std::wstring s_scoreLogDirectory;
 		static const std::wstring s_scoreLogExtension;
+		static const std::wstring s_movieFileDirectory;
+		static const std::wstring s_movieFileExtension;
 	};
 };
 

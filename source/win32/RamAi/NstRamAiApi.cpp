@@ -25,8 +25,7 @@
 #include "NstRamAiApi.h"
 
 #include "../../core/api/NstApiInput.hpp"
-#include "../NstIoStream.hpp"
-#include "../NstIoFile.hpp"
+#include "../../core/api/NstApiMovie.hpp"
 #include "../NstApplicationInstance.hpp"
 #include "NstRamAiDebug.h"
 
@@ -246,11 +245,64 @@ void Nestopia::RamAiApi::SaveLogToFile(const RamAi::ScoreLog &scoreLog, const Ra
 void Nestopia::RamAiApi::StartRecording()
 {
 	RamAi::Debug::Out("Start recording!");
+
+	//Reset the emulator.
+	Nes::Result result = Nes::Machine(m_emulator).Reset(false);
+	assert(NES_SUCCEEDED(result));
+
+	//Create the directory to store movie files first.
+	{
+		String::Generic<wchar_t> movieFileDirectory(s_movieFileDirectory.c_str(), s_movieFileDirectory.length());
+		Path movieFileDirectoryPath = Application::Instance::GetExePath(movieFileDirectory);
+
+		BOOL createdDirectory = ::CreateDirectory(movieFileDirectoryPath.Ptr(), NULL);
+
+		//It will fail if the directory already exists, but that's okay. Assert on any other error.
+		assert(createdDirectory || ::GetLastError() == ERROR_ALREADY_EXISTS);
+	}
+
+	//Get the path to save the file to.
+	std::wstring movieFileNameWide = s_movieFileDirectory;
+	movieFileNameWide += L"Test"; //TODO: Replace.
+	movieFileNameWide += s_movieFileExtension;
+
+	//STL wide string to Nestopia wide string.
+	String::Generic<wchar_t> movieFileName(movieFileNameWide.c_str(), movieFileNameWide.length());
+
+	//Nestopia file path to Nestopia wide string.
+	Path movieFilePath = Application::Instance::GetExePath(movieFileName);
+	String::Generic<wchar_t> movieFilePathString(movieFilePath.Ptr(), movieFilePath.Length());
+
+	try
+	{
+		m_movieFile = std::make_unique<Io::File>(movieFilePathString, Io::File::WRITE | Io::File::EMPTY);
+		m_movieFileStream = std::make_unique<Io::Stream::InOut>(*m_movieFile);
+
+		//Start recording.
+		Nes::Movie(m_emulator).Record(*m_movieFileStream, Nes::Movie::CLEAN);
+	}
+	catch (...)
+	{
+		RamAi::Debug::OutLine("Error in starting to record movie.", RamAi::Colour::Red);
+		m_movieFile.reset();
+		m_movieFileStream.reset();
+	}
 }
 
 void Nestopia::RamAiApi::FinishRecording()
 {
 	RamAi::Debug::Out("Finished recording!");
+
+	//Finish recording.
+	if (m_movieFile)
+	{
+		Nes::Movie(m_emulator).Stop();
+
+		m_movieFileStream.reset();
+
+		m_movieFile->Close();
+		m_movieFile.reset();
+	}
 }
 
 void Nestopia::RamAiApi::EnableTurbo(const bool turboOn)
@@ -293,3 +345,5 @@ const std::wstring Nestopia::RamAiApi::s_aiSettingsFileName = L"aiSettings.xml";
 const std::wstring Nestopia::RamAiApi::s_settingsExtension = L".xml";
 const std::wstring Nestopia::RamAiApi::s_scoreLogDirectory = L"RamAiLogs\\";
 const std::wstring Nestopia::RamAiApi::s_scoreLogExtension = L".csv";
+const std::wstring Nestopia::RamAiApi::s_movieFileDirectory = L"RamAiMovies\\";
+const std::wstring Nestopia::RamAiApi::s_movieFileExtension = L".nsv";
